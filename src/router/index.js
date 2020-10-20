@@ -8,9 +8,20 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ "../views/login")
   },
   {
+    path: "/recovery-password",
+    name: "RecoveryPassword",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/recovery-password")
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: () => import(/* webpackChunkName: "about" */ "../views/register")
+  },
+  {
     path: "/",
     component: Template,
-    redirect: { name: "Dashboard" },
+    redirect: { name: "Login" },
     children: [
       {
         path: "/dashboard",

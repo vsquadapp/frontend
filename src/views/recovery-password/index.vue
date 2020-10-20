@@ -1,15 +1,16 @@
 <template>
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-xl-8 col-lg-12 col-md-9">
+      <div class="col-xl-10 col-lg-12 col-md-9">
         <div class="card o-hidden border-0 shadow-lg my-5">
           <div class="card-body p-0">
             <div class="row d-flex justify-content-center">
               <div class="col-lg-6">
-                <div class="py-5">
+                <div class="py-5 px-sm-0">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4"></h1>
+                    <h1 class="h4 text-gray-900 mb-4">Recuperação de senha</h1>
                   </div>
+
                   <form class="user" @submit.prevent="submit">
                     <div class="form-group">
                       <input
@@ -17,28 +18,18 @@
                         required
                         class="form-control form-control-user"
                         aria-describedby="emailHelp"
-                        placeholder="Digite o seu e-mail"
+                        placeholder="Digite o seu e-mail para recuperar sua senha"
                       />
                     </div>
-                    <div class="form-group">
-                      <input
-                        type="password"
-                        required
-                        autocomplete
-                        class="form-control form-control-user"
-                        placeholder="Senha"
-                      />
-                    </div>
-
                     <button
                       type="submit"
                       class="btn btn-primary btn-user btn-block"
                     >
                       <span class="pr-2">
-                        Entrar
+                        Enviar email de recuperação
                       </span>
                       <div
-                        v-if="login.status === 'loading'"
+                        v-if="recovery.status === 'loading'"
                         class="spinner-border spinner-border-sm"
                         role="status"
                       >
@@ -47,14 +38,29 @@
                     </button>
                   </form>
                   <br />
-                  <div class="text-center">
-                    <router-link :to="{ name: 'RecoveryPassword' }">
-                      Esqueceu a senha?
-                    </router-link>
+                  <div>
+                    <div
+                      v-if="recovery.status === 'success'"
+                      class="alert alert-success alert-dismissible fade show"
+                      role="alert"
+                    >
+                      <strong>Quase lá!</strong> Em breve você receberá um email
+                      com as instruções para recuperar sua senha.
+                      <button
+                        type="button"
+                        class="close"
+                        data-dismiss="alert"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
                   </div>
-                  <div class="text-center mt-2">
-                    <router-link :to="{ name: 'Register' }">
-                      Ainda não tem uma conta? <b>Registre-se</b>
+                  <br />
+
+                  <div class="text-center">
+                    <router-link :to="{ name: 'Login' }">
+                      Voltar ao login
                     </router-link>
                   </div>
                 </div>
@@ -68,12 +74,12 @@
 </template>
 
 <script>
-import { signin } from "@/services/auth";
+import { recovery } from "@/services/auth";
 
 export default {
   data() {
     return {
-      login: {
+      recovery: {
         status: ""
       }
     };
@@ -81,14 +87,12 @@ export default {
 
   methods: {
     async submit() {
+      this.recovery.status = "loading";
       try {
-        this.login.status = "loading";
-        await signin();
-        this.$router.push({ name: "Dashboard" });
-        this.login.status = "success";
+        await recovery();
+        this.recovery.status = "success";
       } catch (err) {
-        this.login.status = "error";
-        console.log(err);
+        this.recovery.status = "error";
       }
     }
   }
