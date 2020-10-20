@@ -8,6 +8,6 @@
 import Page from "../../components/Page";
 
 export default {
-  components: { Page },
+  components: { Page }
 };
 </script>

@@ -13,7 +13,7 @@
 export default {
   name: "Page",
   props: {
-    title: String,
-  },
+    title: String
+  }
 };
 </script>
