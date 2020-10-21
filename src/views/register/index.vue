@@ -1,18 +1,22 @@
 <template>
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-xl-8 col-lg-12 col-md-9">
+      <div class="col-md-9 col-lg-12 col-xl-8">
         <div class="card o-hidden border-0 shadow-lg my-5">
           <div class="card-body p-0">
             <div class="row d-flex justify-content-center">
               <div class="col-lg-6">
-                <div class="py-5">
+                <div class="px-4 px-lg-0 py-5">
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">
-                      Preencha os seus dados
+                      Cadastro de vendedor
                     </h1>
                   </div>
                   <form class="user" @submit.prevent="submit">
+                    <label class="label-control mb-0 mt-3">
+                      Preencha os seus dados
+                    </label>
+                    <hr />
                     <div class="form-group">
                       <input
                         type="text"
@@ -157,7 +161,7 @@
                     </button>
                   </form>
                   <br />
-                  <div class="text-center mt-2 small">
+                  <div class="text-center mt-2">
                     <router-link :to="{ name: 'Login' }">
                       Já tem uma conta? <b>Entre agora mesmo</b>
                     </router-link>

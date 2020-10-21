@@ -6,9 +6,9 @@
           <div class="card-body p-0">
             <div class="row d-flex justify-content-center">
               <div class="col-lg-6">
-                <div class="py-5">
+                <div class="px-3 px-lg-0 py-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4"></h1>
+                    <h1 class="h4 text-gray-900 mb-4">Login</h1>
                   </div>
                   <form class="user" @submit.prevent="submit">
                     <div class="form-group">
