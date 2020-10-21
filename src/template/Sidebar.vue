@@ -10,10 +10,10 @@
     <hr class="sidebar-divider my-0" />
 
     <li class="nav-item active">
-      <a class="nav-link">
+      <router-link class="nav-link" :to="{ name: 'Dashboard' }">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span class="pl-1">Dashboard</span>
-      </a>
+      </router-link>
     </li>
 
     <hr class="sidebar-divider" />
