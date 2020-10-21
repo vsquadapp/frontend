@@ -18,3 +18,7 @@
 @import "login.scss";
 @import "error.scss";
 @import "footer.scss";
+
+html {
+  scroll-behavior: smooth;
+}

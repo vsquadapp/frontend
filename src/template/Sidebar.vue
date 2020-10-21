@@ -3,17 +3,14 @@
     class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
     id="accordionSidebar"
   >
-    <a
-      class="sidebar-brand d-flex align-items-center justify-content-center"
-      href="index.html"
-    >
+    <a class="sidebar-brand d-flex align-items-center justify-content-center">
       <div class="sidebar-brand-text mx-3">VSquad</div>
     </a>
 
     <hr class="sidebar-divider my-0" />
 
     <li class="nav-item active">
-      <a class="nav-link" href="index.html">
+      <a class="nav-link">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span class="pl-1">Dashboard</span>
       </a>
@@ -26,21 +23,21 @@
     </div>
 
     <li class="nav-item">
-      <a class="nav-link" href="charts.html">
+      <a class="nav-link">
         <i class="fas fa-boxes"></i>
         <span class="pl-1">Meus produtos</span>
       </a>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link">
+      <router-link class="nav-link" :to="{ name: 'CreateProduct' }">
         <i class="fas fa-plus"></i>
         <span class="pl-1">Cadastrar produto</span>
-      </a>
+      </router-link>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link" href="charts.html">
+      <a class="nav-link">
         <i class="fas fa-cogs"></i>
         <span class="pl-1">Configurações</span>
       </a>
@@ -60,14 +57,14 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link" href="charts.html">
+      <a class="nav-link">
         <i class="far fa-handshake"></i>
         <span class="pl-1">Realizadas</span>
       </a>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link" href="tables.html">
+      <a class="nav-link">
         <i class="fas fa-ban"></i>
         <span class="pl-1">Canceladas</span>
       </a>

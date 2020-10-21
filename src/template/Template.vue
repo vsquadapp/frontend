@@ -17,7 +17,7 @@
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
+    <a class="scroll-to-top rounded" @click="scrollToTop">
       <i class="fas fa-angle-up"></i>
     </a>
   </div>
@@ -33,6 +33,13 @@ export default {
     Sidebar,
     TopBar,
     BottomBar
+  },
+
+  methods: {
+    scrollToTop() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
   }
 };
 </script>
