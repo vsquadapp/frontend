@@ -11,7 +11,16 @@
             {{ title }}
           </div>
           <div class="h5 mb-0 font-weight-bold text-gray-800">
-            {{ value }}
+            <div
+              v-if="loading"
+              :class="`spinner-border text-${color}`"
+              role="status"
+            >
+              <span class="sr-only">Loading...</span>
+            </div>
+            <span v-else>
+              {{ value }}
+            </span>
           </div>
         </div>
         <div class="col-auto">
@@ -30,7 +39,7 @@ export default {
       required: true
     },
     value: {
-      type: String,
+      type: [String, Number],
       required: true
     },
     icon: {
@@ -40,6 +49,10 @@ export default {
     color: {
       type: String,
       required: true
+    },
+    loading: {
+      type: Boolean,
+      required: false
     }
   }
 };
