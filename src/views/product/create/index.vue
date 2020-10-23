@@ -135,7 +135,7 @@
     </div>
 
     <div class="row">
-      <div class="col-12 col-sm-8">
+      <div class="col-12 col-sm-4 d-flex align-items-stretch">
         <div class="card mb-4 w-100">
           <div class="card-body">
             <div class="form-group">
@@ -155,6 +155,31 @@
                 Informe a quantidade de itens disponíveis para garantir a
                 entrega do produto.
               </small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-4 d-flex align-items-stretch">
+        <div class="card mb-4 w-100">
+          <div class="card-body">
+            <div class="form-group">
+              <label class="title ">
+                Você quer oferecer retirada pessoalmente?
+              </label>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <select id="deliveryType" type="text" class="form-control">
+                    <option value="1">
+                      Sim, oferecer retirada pessoalmente.
+                    </option>
+                    <option value="1">
+                      Não, só faço envios.
+                    </option>
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
         </div>
