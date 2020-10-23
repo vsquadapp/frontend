@@ -176,6 +176,9 @@
                 produto.
               </small>
             </div>
+            <div>
+              <image-picker />
+            </div>
           </div>
         </div>
       </div>
@@ -227,9 +230,10 @@
 
 <script>
 import Page from "@/components/Page";
+import ImagePicker from "@/components/ImagePicker";
 
 export default {
-  components: { Page },
+  components: { Page, ImagePicker },
 
   data() {
     return {
