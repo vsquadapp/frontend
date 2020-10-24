@@ -1,242 +1,385 @@
 <template>
   <page title="Cadastrar produto">
     <div class="row">
-      <div class="col-12 col-sm-8">
-        <div class="card mb-4 w-100">
-          <div class="card-body">
-            <div class="form-group">
-              <label class="title" for="productName">
-                Indique seu produto, marca e modelo
-              </label>
-              <input
-                type="text"
-                class="form-control"
-                id="productName"
-                placeholder="Ex.: Celular Samsung Galaxy S9 64 GB preto"
-                v-model="product.name"
-              />
-              <small class="form-text text-muted">
-                Este será o título do item. É através desse nome que os
-                vendedores irão localizar o seu produto.
-              </small>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-12 col-sm-8">
-        <div class="card mb-4 w-100">
-          <div class="card-body">
-            <div class="form-group">
-              <label class="title" for="productCategory">
-                Descrição
-              </label>
-
-              <textarea
-                class="form-control"
-                id="productCategory"
-                rows="4"
-                placeholder="Ex.: Com seu processador potente e sua memória RAM de 6 GB você poderá maximizar seu desempenho, com excelente velocidade de transmissão de conteúdo. Execute vários aplicativos ao mesmo tempo sem atrasos!"
-                v-model="product.description"
-              />
-
-              <small class="form-text text-muted">
-                Descreva brevemente seu produto para ajudar os clientes finais
-                decidirem sobre a compra.
-              </small>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-12 col-sm-8">
-        <div class="card mb-4 w-100">
-          <div class="card-body">
-            <div class="form-group">
-              <label class="title" for="productCategory">
-                Categoria
-              </label>
-
-              <input
-                type="text"
-                class="form-control"
-                id="productCategory"
-                placeholder="Ex.: Smartphones"
-                v-model="product.category"
-              />
-
-              <small class="form-text text-muted">
-                Os vendedores encontrarão seu produto mais facilmente se você
-                categoriza-lo corretamente.
-              </small>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-12 col-sm-8">
-        <div class="card mb-4 w-100">
-          <div class="card-body">
-            <div class="form-group">
-              <div>
-                <label class="title mb-0">
-                  Características Gerais
-                </label>
-              </div>
-              <small class="mt-0">
-                Informações mais específicas sobre o produto, como por exemplo,
-                tamanho, voltagem, garantia, etc.
-              </small>
-            </div>
-
-            <div class="row">
-              <div class="col-sm-3" v-for="(info, index) of infos" :key="index">
-                <h5 class="mb-0 text-gray-900">{{ info.key }}</h5>
-                <p class="">{{ info.value }}</p>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-12">
-                <form class="form-inline" @submit.prevent="addInfo">
-                  <div class="form-group mb-2">
-                    <input
-                      type="text"
-                      required
-                      class="form-control"
-                      placeholder="Característica"
-                      v-model="info.key"
-                    />
-                  </div>
-                  <div class="form-group mx-sm-3 mb-2 mr-2">
-                    <input
-                      type="text"
-                      required
-                      class="form-control"
-                      placeholder="Descrição"
-                      v-model="info.value"
-                    />
-                  </div>
-                  <button type="submit" class="btn btn-primary mb-2">
-                    <i class="fas fa-plus"></i>
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-12 col-sm-4 d-flex align-items-stretch">
-        <div class="card mb-4 w-100">
-          <div class="card-body">
-            <div class="form-group">
-              <label class="title" for="productQuantity">
-                Quantidade no estoque
-              </label>
-
-              <input
-                type="number"
-                min="1"
-                class="form-control"
-                id="productQuantity"
-                v-model="product.quantity"
-              />
-
-              <small class="form-text text-muted">
-                Informe a quantidade de itens disponíveis para garantir a
-                entrega do produto.
-              </small>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-sm-4 d-flex align-items-stretch">
-        <div class="card mb-4 w-100">
-          <div class="card-body">
-            <div class="form-group">
-              <label class="title ">
-                Você quer oferecer retirada pessoalmente?
-              </label>
-
-              <div class="row">
-                <div class="col-sm-12">
-                  <select id="deliveryType" type="text" class="form-control">
-                    <option value="1">
-                      Sim, oferecer retirada pessoalmente.
-                    </option>
-                    <option value="1">
-                      Não, só faço envios.
-                    </option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-12 col-sm-8">
-        <div class="card mb-4 w-100">
-          <div class="card-body">
-            <div class="form-group">
-              <div>
-                <label class="title mb-0">
-                  Imagens e videos
-                </label>
-              </div>
-              <small>
-                Adicione fotos ou videos para facilidar a identificação do seu
-                produto.
-              </small>
-            </div>
-            <div>
-              <image-picker />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-12 col-sm-8">
-        <div class="card mb-4 w-100">
-          <div class="card-body">
-            <div class="form-group">
-              <label class="title mb-3">
-                Informações de venda
-              </label>
-
-              <div class="row">
-                <div class="col-sm-6">
-                  <label for="productPrice">Preço de venda</label>
-                  <input id="productPrice" type="text" class="form-control" />
-                  <small>
-                    Preço de venda do produto.
-                  </small>
-                </div>
-
-                <div class="col-sm-6 mt-3 mt-sm-0">
-                  <label for="productComission">Valor da comissão</label>
+      <div class="col-sm-8">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-4 w-100">
+              <div class="card-body">
+                <div class="form-group">
+                  <label class="title" for="productName">
+                    Indique seu produto, marca e modelo
+                  </label>
                   <input
-                    id="productComission"
                     type="text"
                     class="form-control"
+                    id="productName"
+                    placeholder="Ex.: Celular Samsung Galaxy S9 64 GB preto"
+                    v-model="product.name"
                   />
-                  <small>
-                    Valor da comissão passada para o vendedor.
+                  <small class="form-text text-muted">
+                    Este será o título do item. É através desse nome que os
+                    vendedores irão localizar o seu produto.
                   </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-4 w-100">
+              <div class="card-body">
+                <div class="form-group">
+                  <label class="title" for="productCategory">
+                    Descrição
+                  </label>
+
+                  <textarea
+                    class="form-control"
+                    id="productCategory"
+                    rows="4"
+                    placeholder="Ex.: Com seu processador potente e sua memória RAM de 6 GB você poderá maximizar seu desempenho, com excelente velocidade de transmissão de conteúdo. Execute vários aplicativos ao mesmo tempo sem atrasos!"
+                    v-model="product.description"
+                  />
+
+                  <small class="form-text text-muted">
+                    Descreva brevemente seu produto para ajudar os clientes
+                    finais decidirem sobre a compra.
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-4 w-100">
+              <div class="card-body">
+                <div class="form-group">
+                  <label class="title" for="productCategory">
+                    Categoria
+                  </label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="productCategory"
+                    placeholder="Ex.: Smartphones"
+                    v-model="product.category"
+                  />
+
+                  <small class="form-text text-muted">
+                    Os vendedores encontrarão seu produto mais facilmente se
+                    você categoriza-lo corretamente.
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-4 w-100">
+              <div class="card-body">
+                <div class="form-group">
+                  <div>
+                    <label class="title mb-0">
+                      Características Gerais
+                    </label>
+                  </div>
+                  <small class="mt-0">
+                    Informações mais específicas sobre o produto, como por
+                    exemplo, tamanho, voltagem, garantia, etc.
+                  </small>
+                </div>
+
+                <div class="row">
+                  <div
+                    class="col-sm-3"
+                    v-for="(info, index) of infos"
+                    :key="index"
+                  >
+                    <h5 class="mb-0 text-gray-900">{{ info.key }}</h5>
+                    <p class="">{{ info.value }}</p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12">
+                    <form class="form-inline" @submit.prevent="addInfo">
+                      <div class="form-group mb-2">
+                        <input
+                          type="text"
+                          required
+                          class="form-control"
+                          placeholder="Característica"
+                          v-model="info.key"
+                        />
+                      </div>
+                      <div class="form-group mx-sm-3 mb-2 mr-2">
+                        <input
+                          type="text"
+                          required
+                          class="form-control"
+                          placeholder="Descrição"
+                          v-model="info.value"
+                        />
+                      </div>
+                      <button type="submit" class="btn btn-primary mb-2">
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-sm-6 d-flex align-items-stretch">
+            <div class="card mb-4 w-100">
+              <div class="card-body">
+                <div class="form-group">
+                  <label class="title" for="productQuantity">
+                    Quantidade no estoque
+                  </label>
+
+                  <input
+                    type="number"
+                    min="1"
+                    class="form-control"
+                    id="productQuantity"
+                    v-model="product.quantity"
+                  />
+
+                  <small class="form-text text-muted">
+                    Informe a quantidade de itens disponíveis para garantir a
+                    entrega do produto.
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 d-flex align-items-stretch">
+            <div class="card mb-4 w-100">
+              <div class="card-body">
+                <div class="form-group">
+                  <label class="title ">
+                    Você quer oferecer retirada pessoalmente?
+                  </label>
+
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <select
+                        id="deliveryType"
+                        class="form-control"
+                        v-model="product.deliveryType"
+                      >
+                        <option value="1">
+                          Sim, oferecer retirada pessoalmente.
+                        </option>
+                        <option value="2">
+                          Não, só faço envios.
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-4 w-100">
+              <div class="card-body">
+                <div class="form-group">
+                  <div>
+                    <label class="title mb-0">
+                      Imagens e videos
+                    </label>
+                  </div>
+                  <small>
+                    Adicione fotos ou videos para facilidar a identificação do
+                    seu produto.
+                  </small>
+                </div>
+                <div>
+                  <image-picker @change="onChangeImages" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-4 w-100">
+              <div class="card-body">
+                <div class="form-group">
+                  <label class="title mb-3">
+                    Informações de venda
+                  </label>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <label for="productPrice">Preço de venda</label>
+
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">
+                            R$
+                          </span>
+                        </div>
+
+                        <input
+                          id="productPrice"
+                          type="text"
+                          class="form-control"
+                          v-money="vmoney"
+                          v-model="product.price"
+                        />
+                      </div>
+                      <small>
+                        Preço de venda do produto.
+                      </small>
+                    </div>
+
+                    <div class="col-6">
+                      <label for="productComission">Comissão</label>
+                      <div class="input-group">
+                        <select
+                          class="custom-select"
+                          id="productComission"
+                          v-model="product.comission_type"
+                          @change="onChangeComissionType"
+                        >
+                          <option disabled>Tipo de comissão</option>
+                          <option value="percentage">Percentual</option>
+                          <option value="fixed">Valor fixo</option>
+                        </select>
+                        <div
+                          v-if="product.comission_type === 'fixed'"
+                          class="input-group-prepend"
+                        >
+                          <span class="input-group-text">R$</span>
+                        </div>
+                        <input
+                          v-if="product.comission_type === 'fixed'"
+                          id="ProductComissionPrice"
+                          type="text"
+                          class="form-control"
+                          placeholder="Valor"
+                          v-money="vmoney"
+                          v-model="product.comission_value"
+                        />
+                        <input
+                          v-if="product.comission_type === 'percentage'"
+                          id="ProductComissionPercentage"
+                          type="text"
+                          class="form-control text-right"
+                          placeholder="Valor"
+                          v-mask="'##'"
+                          v-model="product.comission_value"
+                        />
+                        <div
+                          v-if="product.comission_type === 'percentage'"
+                          class="input-group-append"
+                        >
+                          <span class="input-group-text">%</span>
+                        </div>
+                      </div>
+                      <small>
+                        Valor passado para o vendedor no momento da venda.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-4 w-100">
+              <div class="card-body">
+                <div class="form-group">
+                  <label class="title mb-3">
+                    Selecione o tipo de anúncio
+                  </label>
+
+                  <div class="row">
+                    <div
+                      v-for="(plan, index) of plans"
+                      :key="index"
+                      class="col-sm-6"
+                    >
+                      <plan-type-item
+                        class="plan-item"
+                        :selected="product.selectedPlan == plan"
+                        :title="plan.title"
+                        :items="plan.items"
+                        :price="plan.price"
+                        @click="onSelectPlan(plan)"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-4 w-100 bg-gray-100">
+              <div class="card-body">
+                <div class="form-group">
+                  <h5 class="text-gray-900 mb-4">Resumo de custos</h5>
+
+                  <div>
+                    <span>Preço do seu produto</span>
+                    <span style="float: right"
+                      >R$ {{ product.price || 0 }}</span
+                    >
+                  </div>
+                  <hr />
+
+                  <div>
+                    <span>Valor da comissão</span>
+                    <span style="float: right">
+                      {{ formatMoney(comissionValue) }}
+                    </span>
+                  </div>
+                  <hr />
+
+                  <div>
+                    <span>Tarifa</span>
+                    <span style="float: right">
+                      {{ formatMoney(product.selectedPlan.price) }}
+                    </span>
+                  </div>
+                  <hr />
+                  <br />
+
+                  <div>
+                    <span class="text-gray-900 text-bold"
+                      >Você receberá por cada venda</span
+                    >
+                    <span class="text-gray-900" style="float: right">
+                      {{ formatMoney(receiveValue) }}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -256,9 +399,36 @@
 <script>
 import Page from "@/components/Page";
 import ImagePicker from "@/components/ImagePicker";
+import PlanTypeItem from "./PlanTypeItem";
+import { mask } from "vue-the-mask";
+import { VMoney } from "v-money";
+import unmask from "@/utils/unmask";
+import formatMoney from "@/utils/formatMoney";
+
+const vmoney = {
+  decimal: ",",
+  thousands: ".",
+  prefix: "",
+  precision: 2
+};
+
+const plans = [
+  {
+    title: "Clássico",
+    items: [{ icon: "fas fa-low-vision", text: "Exposição baixa" }],
+    price: 1.9
+  },
+  {
+    title: "Premium",
+    items: [{ icon: "far fa-eye text-success", text: "Exposição máxima" }],
+    price: 3.8
+  }
+];
 
 export default {
-  components: { Page, ImagePicker },
+  directives: { mask, money: VMoney },
+
+  components: { Page, ImagePicker, PlanTypeItem },
 
   data() {
     return {
@@ -266,14 +436,43 @@ export default {
         name: "",
         category: "",
         quantity: "",
-        description: ""
+        deliveryType: "1",
+        description: "",
+        images: [],
+        price: "",
+        comission_type: "percentage",
+        comission_value: "",
+        selectedPlan: plans[0]
       },
       infos: [],
       info: {
         key: "",
         value: ""
-      }
+      },
+      plans,
+      vmoney
     };
+  },
+
+  computed: {
+    price() {
+      return unmask(this.product.price);
+    },
+
+    comissionValue() {
+      if (!this.price) return 0;
+      if (!this.product.comission_value) return 0;
+      if (this.product.comission_type === "percentage") {
+        return (this.price * this.product.comission_value) / 10000;
+      }
+      return unmask(this.product.comission_value) / 100;
+    },
+
+    receiveValue() {
+      return (
+        this.price / 100 - this.product.selectedPlan.price - this.comissionValue
+      );
+    }
   },
 
   methods: {
@@ -281,6 +480,22 @@ export default {
       if (!this.info.key || !this.info.value) return false;
       this.infos.push({ ...this.info });
       this.info = { key: "", value: "" };
+    },
+
+    onSelectPlan(plan) {
+      this.product.selectedPlan = plan;
+    },
+
+    onChangeImages(images) {
+      this.product.images = images;
+    },
+
+    onChangeComissionType() {
+      this.product.comission_value = "";
+    },
+
+    formatMoney(value) {
+      return formatMoney(value);
     }
   }
 };
@@ -292,7 +507,12 @@ label.title {
   font-size: 20px;
 }
 
+textarea::placeholder,
 input::placeholder {
   opacity: 0.5;
+}
+
+.plan-item {
+  cursor: pointer;
 }
 </style>
