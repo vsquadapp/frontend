@@ -390,7 +390,9 @@
 
     <div class="row mb-5">
       <div class="col-8 text-right">
-        <button class="btn btn-primary ">Cadastrar produto</button>
+        <button class="btn btn-primary" @click="submit">
+          Cadastrar produto
+        </button>
       </div>
     </div>
   </page>
@@ -476,6 +478,15 @@ export default {
   },
 
   methods: {
+    async submit() {
+      await this.$swal({
+        title: "Produto cadastrado!",
+        text: "O produto já está na sua loja disponível para venda!",
+        icon: "success"
+      });
+      this.$router.push({ name: "Dashboard" });
+    },
+
     addInfo() {
       if (!this.info.key || !this.info.value) return false;
       this.infos.push({ ...this.info });
