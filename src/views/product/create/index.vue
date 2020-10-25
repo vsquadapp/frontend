@@ -324,10 +324,9 @@
                     >
                       <plan-type-item
                         class="plan-item"
-                        :selected="product.selectedPlan == plan"
-                        :title="plan.title"
-                        :items="plan.items"
-                        :price="plan.price"
+                        :selected="product.plan == plan"
+                        :plan="plan"
+                        :price="price"
                         @click="onSelectPlan(plan)"
                       />
                     </div>
@@ -366,7 +365,7 @@
                   <div>
                     <span>Tarifa</span>
                     <span style="float: right">
-                      {{ formatMoney(product.selectedPlan.price) }}
+                      {{ formatMoney(taxValue) }}
                     </span>
                   </div>
                   <hr />
@@ -416,14 +415,16 @@ const vmoney = {
 
 const plans = [
   {
+    id: 0,
     title: "Clássico",
     items: [{ icon: "fas fa-low-vision", text: "Exposição baixa" }],
-    price: 1.9
+    tax: 0.02
   },
   {
+    id: 1,
     title: "Premium",
     items: [{ icon: "far fa-eye text-success", text: "Exposição máxima" }],
-    price: 3.8
+    tax: 0.05
   }
 ];
 
@@ -444,7 +445,7 @@ export default {
         price: "",
         comission_type: "percentage",
         comission_value: "",
-        selectedPlan: plans[0]
+        plan: plans[0]
       },
       infos: [],
       info: {
@@ -470,10 +471,13 @@ export default {
       return unmask(this.product.comission_value) / 100;
     },
 
+    taxValue() {
+      if (!this.price) return 0;
+      return (this.price * this.product.plan.tax) / 100;
+    },
+
     receiveValue() {
-      return (
-        this.price / 100 - this.product.selectedPlan.price - this.comissionValue
-      );
+      return this.price / 100 - this.taxValue - this.comissionValue;
     }
   },
 
@@ -494,7 +498,7 @@ export default {
     },
 
     onSelectPlan(plan) {
-      this.product.selectedPlan = plan;
+      this.product.plan = plan;
     },
 
     onChangeImages(images) {
