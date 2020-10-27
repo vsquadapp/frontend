@@ -252,7 +252,7 @@
                       </small>
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-sm-6 mt-3 mt-sm-0">
                       <label for="productComission">Comissão</label>
                       <div class="input-group">
                         <select
@@ -372,12 +372,12 @@
                   <br />
 
                   <div>
-                    <span class="text-gray-900 text-bold"
-                      >Você receberá por cada venda</span
-                    >
-                    <span class="text-gray-900" style="float: right">
+                    <strong class="text-gray-900 text-bold">
+                      Você receberá por cada venda
+                    </strong>
+                    <strong class="text-gray-900" style="float: right">
                       {{ formatMoney(receiveValue) }}
-                    </span>
+                    </strong>
                   </div>
                 </div>
               </div>
@@ -388,7 +388,7 @@
     </div>
 
     <div class="row mb-5">
-      <div class="col-8 text-right">
+      <div class="col-12 col-sm-8 text-right">
         <button class="btn btn-primary" @click="submit">
           Cadastrar produto
         </button>

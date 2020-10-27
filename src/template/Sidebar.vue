@@ -23,10 +23,10 @@
     </div>
 
     <li class="nav-item">
-      <a class="nav-link">
+      <router-link class="nav-link" :to="{ name: 'ListProduct' }">
         <i class="fas fa-boxes"></i>
         <span class="pl-1">Meus produtos</span>
-      </a>
+      </router-link>
     </li>
 
     <li class="nav-item">
