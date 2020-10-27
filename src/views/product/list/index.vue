@@ -1,10 +1,10 @@
 <template>
   <page title="Meus produtos">
     <div class="row">
-      <div class="col-sm-3">
+      <div class="col-12 col-lg-3">
         <categories-list />
       </div>
-      <div class="col-sm-9">
+      <div class="col-12 col-lg-9">
         <products-list :products="products" />
       </div>
     </div>

@@ -3,7 +3,7 @@
     <div
       v-for="(product, index) of products"
       :key="index"
-      class="col-sm-3 d-flex align-content-stretch flex-wrap"
+      class="col-12 col-md-6 col-xl-4 d-flex align-content-stretch flex-wrap"
     >
       <product-item :product="product" />
     </div>
