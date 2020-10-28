@@ -32,7 +32,7 @@
       </button>
       <div class="options-block">
         <ul class="options list-group">
-          <li class="list-group-item">Editar produto</li>
+          <li class="list-group-item" @click="editProduct">Editar produto</li>
           <li class="list-group-item">Remover</li>
         </ul>
       </div>
@@ -73,6 +73,17 @@ export default {
 
     outStock() {
       return this.product.stock === 0;
+    }
+  },
+
+  methods: {
+    editProduct() {
+      this.$router.push({
+        name: "EditProduct",
+        params: {
+          id: this.product.id
+        }
+      });
     }
   }
 };

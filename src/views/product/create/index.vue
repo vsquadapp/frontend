@@ -400,7 +400,7 @@
 <script>
 import Page from "@/components/Page";
 import ImagePicker from "@/components/ImagePicker";
-import PlanTypeItem from "./PlanTypeItem";
+import PlanTypeItem from "@/components/PlanTypeItem";
 import { mask } from "vue-the-mask";
 import { VMoney } from "v-money";
 import unmask from "@/utils/unmask";
@@ -488,7 +488,7 @@ export default {
         text: "O produto já está na sua loja disponível para venda!",
         icon: "success"
       });
-      this.$router.push({ name: "Dashboard" });
+      this.$router.push({ name: "ListProduct" });
     },
 
     addInfo() {

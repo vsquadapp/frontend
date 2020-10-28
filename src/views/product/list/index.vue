@@ -1,11 +1,18 @@
 <template>
   <page title="Meus produtos">
-    <div class="row">
+    <div v-if="products.length" class="row">
       <div class="col-12 col-lg-3">
         <categories-list />
       </div>
       <div class="col-12 col-lg-9">
         <products-list :products="products" />
+      </div>
+    </div>
+    <div v-else class="row">
+      <div class="col-12 d-flex justify-content-center mt-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
       </div>
     </div>
   </page>
@@ -16,43 +23,25 @@ import Page from "@/components/Page";
 import CategoriesList from "./CategoriesList";
 import ProductsList from "./ProductsList";
 
-const products = [
-  {
-    img: "medias/celular.webp",
-    price: 200,
-    comission_type: "percentage",
-    comission_value: 0.1,
-    name: "Samsung Galaxy A01 Dual SIM 32 GB Preto 2 GB RAM",
-    ordered: 2,
-    stock: 4
-  },
-  {
-    img: "medias/livro.webp",
-    price: 369.9,
-    comission_type: "percentage",
-    comission_value: 0.05,
-    name: "Caixa Coleção Harry Potter - 7 Volumes - Box",
-    ordered: 0,
-    stock: 1
-  },
-  {
-    img: "medias/nitendo.webp",
-    price: 1299.9,
-    comission_type: "fixed",
-    comission_value: 50.0,
-    name: "Nintendo Super NES Classic Edition 512MB cinza/violeta",
-    ordered: 5,
-    stock: 0
-  }
-];
+import ProductsService from "@/services/products";
 
 export default {
   components: { Page, CategoriesList, ProductsList },
 
   data() {
     return {
-      products
+      products: []
     };
+  },
+
+  mounted() {
+    this.loadProducts();
+  },
+
+  methods: {
+    async loadProducts() {
+      this.products = await ProductsService.index();
+    }
   }
 };
 </script>

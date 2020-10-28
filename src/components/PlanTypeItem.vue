@@ -22,6 +22,7 @@
 
 <script>
 import formatMoney from "@/utils/formatMoney";
+
 export default {
   props: {
     selected: Boolean,
