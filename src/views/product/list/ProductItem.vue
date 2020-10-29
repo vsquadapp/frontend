@@ -149,6 +149,6 @@ export default {
   position: absolute;
   text-align: center;
   top: 40%;
-  left: 30%;
+  width: 100%;
 }
 </style>
