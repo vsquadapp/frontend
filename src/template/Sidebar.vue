@@ -57,10 +57,10 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link">
+      <router-link class="nav-link" :to="{ name: 'ListSales' }">
         <i class="far fa-handshake"></i>
         <span class="pl-1">Realizadas</span>
-      </a>
+      </router-link>
     </li>
 
     <li class="nav-item">

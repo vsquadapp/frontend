@@ -1,5 +1,5 @@
 <template>
-  <page title="Pedidos pendentes">
+  <page title="Vendas realizadas">
     <div class="card p-2">
       <table class="table table-borderless mb-0">
         <thead>
@@ -7,15 +7,11 @@
             <th scope="col" colspan="2">Produto</th>
             <th class="text-right" scope="col">Preço</th>
             <th class="text-right" scope="col">Quantidade</th>
-            <th class="text-right" scope="col">Data do pedido</th>
+            <th class="text-right" scope="col">Data da venda</th>
           </tr>
         </thead>
         <tbody>
-          <order-item
-            v-for="(order, index) of orders"
-            :key="index"
-            :order="order"
-          />
+          <sale-item v-for="(sale, index) of sales" :key="index" :sale="sale" />
         </tbody>
       </table>
     </div>
@@ -24,16 +20,16 @@
 
 <script>
 import Page from "@/components/Page";
-import OrderItem from "./OrderItem";
+import SaleItem from "./SaleItem";
 
-import OrdersService from "@/services/orders";
+import SalesService from "@/services/sales";
 
 export default {
-  components: { Page, OrderItem },
+  components: { Page, SaleItem },
 
   data() {
     return {
-      orders: []
+      sales: []
     };
   },
 
@@ -43,8 +39,8 @@ export default {
 
   methods: {
     async loadProducts() {
-      this.orders = await OrdersService.index();
-      console.log(this.orders);
+      this.sales = await SalesService.index();
+      console.log(this.sales);
     }
   }
 };

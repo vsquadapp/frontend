@@ -5,7 +5,9 @@
     </td>
     <td>{{ order.product.name }}</td>
     <td class="text-right">{{ orderPrice }}</td>
-    <td class="text-right">{{ order.quantity }} unidade</td>
+    <td class="text-right">
+      {{ order.quantity }} {{ order.quantity == 1 ? "unidade" : "unidades" }}
+    </td>
     <td class="text-right">{{ orderDate }}</td>
   </tr>
 </template>
