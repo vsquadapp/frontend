@@ -16,6 +16,7 @@ const sales = [
     },
     quantity: 2,
     created_at: "2020-10-20",
+    received: 2200,
     price: 2400
   },
   {
@@ -38,6 +39,7 @@ const sales = [
     },
     quantity: 1,
     created_at: "2020-10-17",
+    received: 150,
     price: 200
   },
   {
@@ -57,6 +59,7 @@ const sales = [
     },
     quantity: 4,
     created_at: "2020-10-02",
+    received: 4700,
     price: 4800
   },
   {
@@ -76,6 +79,7 @@ const sales = [
     },
     quantity: 1,
     created_at: "2020-09-01",
+    received: 300,
     price: 400
   },
   {
@@ -95,6 +99,7 @@ const sales = [
     },
     quantity: 1,
     created_at: "2020-08-30",
+    received: 1200,
     price: 1200
   }
 ];

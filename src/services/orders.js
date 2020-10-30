@@ -22,6 +22,7 @@ const orders = [
     },
     quantity: 1,
     created_at: "2020-10-05",
+    received: 180,
     price: 200
   },
   {
@@ -41,6 +42,7 @@ const orders = [
     },
     quantity: 1,
     created_at: "2020-10-02",
+    received: 1100,
     price: 1200
   },
   {
@@ -60,6 +62,7 @@ const orders = [
     },
     quantity: 1,
     created_at: "2020-10-01",
+    received: 350,
     price: 400
   }
 ];

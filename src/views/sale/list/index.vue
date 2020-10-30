@@ -5,7 +5,7 @@
         <board
           title="Quantidade de vendas"
           :value="sales.length"
-          :loading="false"
+          :loading="loading"
           color="primary"
           icon="fas fa-handshake"
         />
@@ -15,7 +15,7 @@
         <board
           title="Unidades vendidas"
           :value="totalUnits"
-          :loading="false"
+          :loading="loading"
           color="secondary"
           icon="fas fa-shopping-cart"
         />
@@ -25,7 +25,7 @@
         <board
           title="Faturamento bruto"
           :value="totalPrice"
-          :loading="false"
+          :loading="loading"
           color="success"
           icon="fas fa-dollar-sign"
         />
@@ -69,7 +69,8 @@ export default {
 
   data() {
     return {
-      sales: []
+      sales: [],
+      loading: true
     };
   },
 
@@ -95,6 +96,7 @@ export default {
   methods: {
     async loadProducts() {
       this.sales = await SalesService.index();
+      this.loading = false;
     }
   }
 };
