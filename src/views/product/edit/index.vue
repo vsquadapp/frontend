@@ -1,5 +1,5 @@
 <template>
-  <page title="Cadastrar produto">
+  <page title="Editar produto">
     <div v-if="product">
       <div class="row">
         <div class="col-sm-12">
