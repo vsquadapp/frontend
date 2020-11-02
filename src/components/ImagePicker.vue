@@ -45,9 +45,17 @@
             <span class="text-light remove-image">
               <i class="fas fa-times"></i>
             </span>
-            <img id="imageResult" :src="image" alt="" height="120" />
+            <img class="image" :src="image" alt="" />
+            <span v-if="index < 2" class="block-image-badge">
+              <span class="badge badge-success">Imagem principal*</span>
+            </span>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="row mt-sm-2">
+      <div class="col-12">
+        <small>* apenas as imagens pricipais aparecem nas propagandas</small>
       </div>
     </div>
   </div>
@@ -79,7 +87,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 #upload {
   position: absolute;
   opacity: 0;
@@ -94,5 +102,23 @@ export default {
   right: 2px;
   top: -3px;
   cursor: pointer;
+}
+
+.block-image-badge {
+  position: absolute;
+  bottom: 0;
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  .badge {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.image {
+  height: 120px;
+  width: 120px;
+  object-fit: contain;
 }
 </style>

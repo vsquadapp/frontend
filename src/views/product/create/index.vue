@@ -171,7 +171,7 @@
               <div class="card-body">
                 <div class="form-group">
                   <label class="title ">
-                    Você quer oferecer retirada pessoalmente?
+                    Opções de entrega
                   </label>
 
                   <div class="row">
@@ -182,13 +182,29 @@
                         v-model="product.deliveryType"
                       >
                         <option value="1">
-                          Sim, oferecer retirada pessoalmente.
+                          Apenas retirada pessoalmente
                         </option>
                         <option value="2">
-                          Não, só faço envios.
+                          Apenas entrega
+                        </option>
+                        <option value="2">
+                          Entrega e retirada pessoalmente
                         </option>
                       </select>
                     </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="">Valor da entrega</label>
+                  <div v-if="product.deliveryType !== '1'" class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">
+                        R$
+                      </span>
+                    </div>
+
+                    <input class="form-control" v-money="vmoney" type="text" />
                   </div>
                 </div>
               </div>
