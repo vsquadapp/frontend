@@ -452,7 +452,7 @@ export default {
         text: "O produto foi atualizado com sucesso!",
         icon: "success"
       });
-      this.$router.push({ name: "ListProduct" });
+      this.$router.push({ name: "Supplier.ListProduct" });
     },
 
     addInfo() {

@@ -53,7 +53,7 @@
                     </router-link>
                   </div>
                   <div class="text-center mt-2">
-                    <router-link :to="{ name: 'Register' }">
+                    <router-link :to="registerLink">
                       Ainda não tem uma conta? <b>Registre-se</b>
                     </router-link>
                   </div>
@@ -71,6 +71,10 @@
 import { signin } from "@/services/auth";
 
 export default {
+  props: {
+    userType: String
+  },
+
   data() {
     return {
       login: {
@@ -79,12 +83,30 @@ export default {
     };
   },
 
+  computed: {
+    registerLink() {
+      return this.isSupplier
+        ? { name: "Supplier.Register" }
+        : { name: "Seller.Register" };
+    },
+
+    dashboardLink() {
+      return this.isSupplier
+        ? { name: "Supplier.Dashboard" }
+        : { name: "Seller.Dashboard" };
+    },
+
+    isSupplier() {
+      return this.userType === "supplier";
+    }
+  },
+
   methods: {
     async submit() {
       try {
         this.login.status = "loading";
         await signin();
-        this.$router.push({ name: "Dashboard" });
+        this.$router.push(this.dashboardLink);
         this.login.status = "success";
       } catch (err) {
         this.login.status = "error";

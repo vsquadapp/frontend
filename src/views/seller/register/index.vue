@@ -162,7 +162,9 @@
                   </form>
                   <br />
                   <div class="text-center mt-2">
-                    <router-link :to="{ name: 'Login' }">
+                    <router-link
+                      :to="{ name: 'Login', params: { userType: 'seller' } }"
+                    >
                       Já tem uma conta? <b>Entre agora mesmo</b>
                     </router-link>
                   </div>
@@ -204,7 +206,7 @@ export default {
       try {
         this.register.status = "loading";
         await register();
-        this.$router.push({ name: "Dashboard" });
+        this.$router.push({ name: "Supplier.Dashboard" });
         this.register.status = "success";
       } catch (err) {
         this.register.status = "error";

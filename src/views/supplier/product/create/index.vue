@@ -504,7 +504,7 @@ export default {
         text: "O produto já está na sua loja disponível para venda!",
         icon: "success"
       });
-      this.$router.push({ name: "ListProduct" });
+      this.$router.push({ name: "Supplier.ListProduct" });
     },
 
     addInfo() {

@@ -10,7 +10,7 @@
     <hr class="sidebar-divider my-0" />
 
     <li class="nav-item active">
-      <router-link class="nav-link" :to="{ name: 'Dashboard' }">
+      <router-link class="nav-link" :to="{ name: 'Supplier.Dashboard' }">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span class="pl-1">Dashboard</span>
       </router-link>
@@ -23,14 +23,14 @@
     </div>
 
     <li class="nav-item">
-      <router-link class="nav-link" :to="{ name: 'ListProduct' }">
+      <router-link class="nav-link" :to="{ name: 'Supplier.ListProduct' }">
         <i class="fas fa-boxes"></i>
         <span class="pl-1">Meus produtos</span>
       </router-link>
     </li>
 
     <li class="nav-item">
-      <router-link class="nav-link" :to="{ name: 'CreateProduct' }">
+      <router-link class="nav-link" :to="{ name: 'Supplier.CreateProduct' }">
         <i class="fas fa-plus"></i>
         <span class="pl-1">Cadastrar produto</span>
       </router-link>
@@ -50,14 +50,14 @@
     </div>
 
     <li class="nav-item">
-      <router-link class="nav-link" :to="{ name: 'ListOrders' }">
+      <router-link class="nav-link" :to="{ name: 'Supplier.ListOrders' }">
         <i class="far fa-clock"></i>
         <span class="pl-1">Pendentes</span>
       </router-link>
     </li>
 
     <li class="nav-item">
-      <router-link class="nav-link" :to="{ name: 'ListSales' }">
+      <router-link class="nav-link" :to="{ name: 'Supplier.ListSales' }">
         <i class="far fa-handshake"></i>
         <span class="pl-1">Realizadas</span>
       </router-link>

@@ -79,7 +79,7 @@ export default {
   methods: {
     editProduct() {
       this.$router.push({
-        name: "EditProduct",
+        name: "Supplier.EditProduct",
         params: {
           id: this.product.id
         }
