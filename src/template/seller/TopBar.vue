@@ -18,7 +18,7 @@
         <input
           type="text"
           class="form-control bg-light border-0 small"
-          placeholder="Buscar produto"
+          placeholder="Buscar produtos, marcas e muito mais..."
           aria-label="Search"
           aria-describedby="basic-addon2"
         />
@@ -55,7 +55,7 @@
               <input
                 type="text"
                 class="form-control bg-light border-0 small"
-                placeholder="Buscar produto"
+                placeholder="Buscar produtos, marcas e muito mais..."
                 aria-label="Search"
                 aria-describedby="basic-addon2"
               />

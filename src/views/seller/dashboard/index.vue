@@ -1,9 +1,9 @@
 <template>
   <page title="Dashboard">
-    <div class="row">
+    <div class="row mb-3 mb-sm-4">
       <div class="col-xl-3 col-md-6 mb-4">
         <board
-          title="Produtos cadastrados"
+          title="Produtos à venda"
           :value="productsInfo.value"
           :loading="productsInfo.status === 'loading'"
           color="primary"
@@ -31,12 +31,20 @@
         />
       </div>
     </div>
+    <div class="mb-3 mb-sm-4">
+      <catalog-section-recents />
+    </div>
+    <div class="mb-3 mb-sm-4">
+      <catalog-section-history />
+    </div>
   </page>
 </template>
 
 <script>
 import Page from "@/components/Page";
 import Board from "@/components/Board";
+import CatalogSectionHistory from "./CatalogSectionHistory";
+import CatalogSectionRecents from "./CatalogSectionRecents";
 
 import {
   loadProductsInfo,
@@ -46,7 +54,7 @@ import {
 } from "@/services/dashboard";
 
 export default {
-  components: { Page, Board },
+  components: { Page, Board, CatalogSectionHistory, CatalogSectionRecents },
   data() {
     return {
       productsInfo: {
