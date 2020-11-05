@@ -81,69 +81,6 @@
                       />
                     </div>
 
-                    <label class="label-control mb-0 mt-3">
-                      Endereço
-                    </label>
-                    <hr />
-
-                    <div class="form-group">
-                      <input
-                        @blur="getCEP"
-                        v-model="form.cep"
-                        type="text"
-                        required
-                        autocomplete
-                        class="form-control form-control-user"
-                        placeholder="CEP"
-                      />
-                    </div>
-
-                    <fieldset :disabled="cepRequest.status === 'loading'">
-                      <div class="form-group">
-                        <input
-                          v-model="form.city"
-                          type="text"
-                          required
-                          autocomplete
-                          class="form-control form-control-user"
-                          placeholder="Cidade"
-                        />
-                      </div>
-
-                      <div class="form-group">
-                        <input
-                          v-model="form.neighborhood"
-                          type="text"
-                          required
-                          autocomplete
-                          class="form-control form-control-user"
-                          placeholder="Bairro"
-                        />
-                      </div>
-
-                      <div class="form-group">
-                        <input
-                          v-model="form.street"
-                          type="text"
-                          required
-                          autocomplete
-                          class="form-control form-control-user"
-                          placeholder="Rua"
-                        />
-                      </div>
-                    </fieldset>
-
-                    <div class="form-group">
-                      <input
-                        v-model="form.number"
-                        type="text"
-                        required
-                        autocomplete
-                        class="form-control form-control-user"
-                        placeholder="Número"
-                      />
-                    </div>
-
                     <button
                       type="submit"
                       class="btn btn-primary btn-user btn-block"
