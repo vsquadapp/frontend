@@ -4,7 +4,12 @@
       <div class="col-12">
         <div class="d-flex align-items-end">
           <h4 class="mb-0 mr-2">{{ title }}</h4>
-          <span class="btn btn-link pb-0">ver todos</span>
+          <router-link
+            :to="{ name: 'Seller.ListProduct' }"
+            class="btn btn-link pb-0"
+          >
+            ver todos
+          </router-link>
         </div>
       </div>
     </div>
