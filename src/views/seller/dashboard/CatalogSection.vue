@@ -2,11 +2,11 @@
   <div>
     <div class="row mb-3">
       <div class="col-12">
-        <div class="d-flex align-items-end">
+        <div class="d-flex flex-column flex-sm-row align-items-sm-end">
           <h4 class="mb-0 mr-2">{{ title }}</h4>
           <router-link
             :to="{ name: 'Seller.ListProduct' }"
-            class="btn btn-link pb-0"
+            class="btn btn-link p-0 pb-0 text-left"
           >
             ver todos
           </router-link>

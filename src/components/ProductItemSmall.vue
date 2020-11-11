@@ -1,6 +1,6 @@
 <template>
   <div class="px-2">
-    <div class="card mb-4 w-100 pt-3">
+    <div class="card mb-4 w-100 pt-3 product-item" @click="openProduct">
       <div class="text-center">
         <img class="product-image" :src="product.img" />
       </div>
@@ -69,6 +69,14 @@ export default {
     editProduct() {
       this.$router.push({
         name: "Supplier.EditProduct",
+        params: {
+          id: this.product.id
+        }
+      });
+    },
+    openProduct() {
+      this.$router.push({
+        name: "Seller.ViewProduct",
         params: {
           id: this.product.id
         }
@@ -151,6 +159,16 @@ export default {
   line-height: 14px;
   small {
     font-size: 12px;
+  }
+}
+
+.product-item {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out 0s;
+
+  &:hover {
+    box-shadow: 0 7px 16px 0 rgba(0, 0, 0, 0.2), 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    border-color: white;
   }
 }
 </style>

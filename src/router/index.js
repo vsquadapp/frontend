@@ -101,6 +101,13 @@ const routes = [
         name: "Seller.ListProduct",
         component: () =>
           import(/* webpackChunkName: "about" */ "../views/seller/product/list")
+      },
+      {
+        path: "product/:id",
+        name: "Seller.ViewProduct",
+        props: true,
+        component: () =>
+          import(/* webpackChunkName: "about" */ "../views/seller/product/view")
       }
     ]
   }

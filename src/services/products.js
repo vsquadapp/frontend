@@ -26,10 +26,15 @@ const products = [
     deliveryType: "1",
     comission_value: 0.05,
     name: "Caixa Coleção Harry Potter - 7 Volumes - Box",
-    description: "Todos os livros da série",
+    description: `Maior fenômeno editorial de todos os tempos, com mais de 450 milhões de exemplares vendidos em 70 idiomas, a série Harry Potter chega às prateleiras em mais essa edição de colecionador. Os sete livros da saga criada por J. K. Rowling - que acompanha a jornada do adorado aprendiz de bruxo contra o maléfico Voldemort, - ganham novas capas e novas ilustrações e vêm num box exclusivo. Uma novidade capaz de conquistar os mais exigentes fãs, ávidos por novidades ligadas ao universo da saga, e também os novos leitores.`,
     ordered: 0,
     category: "Livros",
-    stock: 1
+    stock: 1,
+    infos: [
+      { key: "Título do livro", value: "Caixa Harry Potter - Edição Premium" },
+      { key: "Autor", value: "J. K. Rowling" },
+      { key: "Idioma", value: "Protuguês" }
+    ]
   },
   {
     id: 3,
