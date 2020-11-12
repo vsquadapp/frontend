@@ -12,7 +12,8 @@
 
     <!-- Topbar Search -->
     <form
-      class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+      @submit.prevent="search"
+      class="d-none d-sm-inline-block form-inline mr-3 ml-md-3 my-2 my-md-0 mw-100 navbar-search"
     >
       <div class="input-group">
         <input
@@ -23,12 +24,57 @@
           aria-describedby="basic-addon2"
         />
         <div class="input-group-append">
-          <button class="btn btn-primary" type="button">
+          <button class="btn btn-primary" type="submit">
             <i class="fas fa-search fa-sm"></i>
           </button>
         </div>
       </div>
     </form>
+
+    <ul class="navbar-nav d-none d-sm-flex">
+      <!-- <li class="nav-item dropdown mx-1">
+        <a
+          class="nav-link dropdown-toggle text-gray-700 pl-0"
+          href="#"
+          id="categoriesDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Categorias
+        </a>
+        <div
+          class="dropdown-list dropdown-menu dropdown-menu-left shadow animated--grow-in"
+          aria-labelledby="categoriesDropdown"
+        >
+          <a class="dropdown-item d-flex align-items-center border-0" href="#">
+            <div>
+              Esporte e lazer
+            </div>
+          </a>
+          <a class="dropdown-item d-flex align-items-center border-0" href="#">
+            <div>
+              Tecnologia
+            </div>
+          </a>
+          <a class="dropdown-item d-flex align-items-center border-0" href="#">
+            <div>
+              Moda
+            </div>
+          </a>
+        </div>
+      </li> 
+      -->
+      <li class="nav-item mx-1">
+        <router-link
+          class="nav-link text-gray-700 pl-0"
+          :to="{ name: 'Seller.Stores' }"
+        >
+          <span>Lojas oficiais</span>
+        </router-link>
+      </li>
+    </ul>
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
@@ -50,7 +96,10 @@
           class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
           aria-labelledby="searchDropdown"
         >
-          <form class="form-inline mr-auto w-100 navbar-search">
+          <form
+            @submit.prevent="search"
+            class="form-inline mr-auto w-100 navbar-search"
+          >
             <div class="input-group">
               <input
                 type="text"
@@ -60,7 +109,7 @@
                 aria-describedby="basic-addon2"
               />
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-primary" type="submit">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
@@ -227,5 +276,12 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    search() {
+      console.log("here");
+      this.$router.push({ name: "Seller.ListProduct" });
+    }
+  }
+};
 </script>

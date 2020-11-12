@@ -443,7 +443,6 @@ export default {
       const product = await ProductsService.getById(this.id);
       product.textprice = formatMoney(product.price);
       this.product = product;
-      console.log(this.product.name);
     },
 
     async submit() {

@@ -44,7 +44,6 @@ export default {
   methods: {
     async loadProducts() {
       this.orders = await OrdersService.index();
-      console.log(this.orders);
     }
   }
 };

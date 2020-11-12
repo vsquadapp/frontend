@@ -163,9 +163,7 @@ export default {
 
   methods: {
     async loadProduct() {
-      console.log(this.id);
       this.product = await ProductsService.getById(this.id);
-      console.log(this.product);
     },
 
     async addToCatalog() {

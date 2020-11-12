@@ -110,7 +110,6 @@ export default {
         this.login.status = "success";
       } catch (err) {
         this.login.status = "error";
-        console.log(err);
       }
     }
   }
