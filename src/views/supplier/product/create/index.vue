@@ -187,7 +187,7 @@
                         <option value="2">
                           Apenas entrega
                         </option>
-                        <option value="2">
+                        <option value="3">
                           Entrega e retirada pessoalmente
                         </option>
                       </select>
@@ -204,7 +204,12 @@
                       </span>
                     </div>
 
-                    <input class="form-control" v-money="vmoney" type="text" />
+                    <input
+                      v-model="product.deliveryValue"
+                      class="form-control"
+                      v-money="vmoney"
+                      type="text"
+                    />
                   </div>
                 </div>
               </div>
@@ -456,6 +461,7 @@ export default {
         category: "",
         quantity: "",
         deliveryType: "1",
+        deliveryValue: 0,
         description: "",
         images: [],
         price: "",

@@ -61,6 +61,62 @@
             <small class="product-price-label">valor do produto</small>
           </div>
 
+          <div class="block-delivery my-3">
+            <h6>Opções de entrega</h6>
+            <table class="table table-borderless table-striped">
+              <tbody v-if="product.deliveryType === '1'">
+                <tr>
+                  <td>Retirada pessoalmente</td>
+                  <td class="text-right font-weight-bold">
+                    <span
+                      v-if="product.deliveryValue === 0"
+                      class="text-success"
+                    >
+                      Grátis
+                    </span>
+                    <span v-else>{{ product.deliveryValue }}</span>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody v-if="product.deliveryType === '2'">
+                <tr>
+                  <td>Entrega</td>
+                  <td class="text-right font-weight-bold">
+                    <span
+                      v-if="product.deliveryValue === 0"
+                      class="text-success"
+                    >
+                      Grátis
+                    </span>
+                    <span v-else>{{ product.deliveryValue }}</span>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody v-if="product.deliveryType === '3'">
+                <tr>
+                  <td>Retirada pessoalmente</td>
+                  <td class="text-right font-weight-bold">
+                    <span class="text-success">
+                      Grátis
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Entrega</td>
+                  <td class="text-right font-weight-bold">
+                    <span
+                      v-if="product.deliveryValue === 0"
+                      class="text-success"
+                    >
+                      Grátis
+                    </span>
+                    <span v-else>{{ product.deliveryValue }}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
           <div class="pt-3">
             <p>1 disponíveis</p>
           </div>
@@ -157,8 +213,15 @@ export default {
   }
 }
 
+.block-main-image {
+  width: 100%;
+  height: 300px;
+}
+
 .main-image {
   width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 @media only screen and (max-width: 575px) {
