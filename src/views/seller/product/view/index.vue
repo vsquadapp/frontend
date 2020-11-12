@@ -122,7 +122,10 @@
           </div>
 
           <div>
-            <button class="btn btn-lg btn-block btn-primary">
+            <button
+              class="btn btn-lg btn-block btn-primary"
+              @click="addToCatalog"
+            >
               Adicionar ao catálogo
             </button>
           </div>
@@ -163,6 +166,16 @@ export default {
       console.log(this.id);
       this.product = await ProductsService.getById(this.id);
       console.log(this.product);
+    },
+
+    async addToCatalog() {
+      await this.$swal({
+        title: "Produto adicionado ao catalogo!",
+        text:
+          "O produto foi adicionado ao seu catálogo e já está disponível para venda!",
+        icon: "success"
+      });
+      this.$router.push({ name: "Seller.Dashboard" });
     }
   }
 };
