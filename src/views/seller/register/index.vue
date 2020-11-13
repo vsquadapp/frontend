@@ -29,6 +29,18 @@
                         placeholder="Nome Completo"
                       />
                     </div>
+
+                    <div class="form-group">
+                      <select class="form-control" name="gender" id="gender">
+                        <option value="" disabled selected>
+                          Selecione o sexo
+                        </option>
+                        <option value="M">Masculino</option>
+                        <option value="F">Feminino</option>
+                        <option value="O">Outro</option>
+                      </select>
+                    </div>
+
                     <div class="form-group">
                       <input
                         id="document"
@@ -39,6 +51,20 @@
                         placeholder="CPF / CNPJ"
                       />
                     </div>
+
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text form-control-user py-2">
+                          Data de nascimento
+                        </span>
+                      </div>
+                      <input
+                        id="birthdate"
+                        type="date"
+                        class="form-control form-control-user"
+                      />
+                    </div>
+
                     <div class="form-group">
                       <input
                         id="email"
@@ -165,3 +191,11 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+#gender {
+  border-radius: 10rem;
+  height: 50px;
+  font-size: 0.8rem;
+}
+</style>
