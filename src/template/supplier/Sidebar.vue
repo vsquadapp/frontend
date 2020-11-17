@@ -63,13 +63,6 @@
       </router-link>
     </li>
 
-    <li class="nav-item">
-      <a class="nav-link">
-        <i class="fas fa-ban"></i>
-        <span class="pl-1">Canceladas</span>
-      </a>
-    </li>
-
     <hr class="sidebar-divider d-none d-md-block" />
 
     <div class="text-center d-none d-md-inline">

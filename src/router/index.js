@@ -124,6 +124,20 @@ const routes = [
           import(
             /* webpackChunkName: "about" */ "../views/seller/stores/products"
           )
+      },
+      {
+        path: "orders",
+        name: "Seller.ListOrders",
+        props: true,
+        component: () =>
+          import(/* webpackChunkName: "about" */ "../views/seller/order/list")
+      },
+      {
+        path: "sales",
+        name: "Seller.ListSales",
+        props: true,
+        component: () =>
+          import(/* webpackChunkName: "about" */ "../views/seller/sale/list")
       }
     ]
   }

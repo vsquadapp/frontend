@@ -17,6 +17,7 @@ const sales = [
     quantity: 2,
     created_at: "2020-10-20",
     received: 2200,
+    comission: 200,
     price: 2400
   },
   {
@@ -40,6 +41,7 @@ const sales = [
     quantity: 1,
     created_at: "2020-10-17",
     received: 150,
+    comission: 50,
     price: 200
   },
   {
@@ -60,6 +62,7 @@ const sales = [
     quantity: 4,
     created_at: "2020-10-02",
     received: 4700,
+    comission: 100,
     price: 4800
   },
   {
@@ -80,6 +83,7 @@ const sales = [
     quantity: 1,
     created_at: "2020-09-01",
     received: 300,
+    comission: 100,
     price: 400
   },
   {
@@ -99,7 +103,8 @@ const sales = [
     },
     quantity: 1,
     created_at: "2020-08-30",
-    received: 1200,
+    received: 1100,
+    comission: 100,
     price: 1200
   }
 ];

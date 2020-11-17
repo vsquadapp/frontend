@@ -36,23 +36,16 @@
     </div>
 
     <li class="nav-item">
-      <router-link class="nav-link" :to="{ name: 'Seller.Dashboard' }">
+      <router-link class="nav-link" :to="{ name: 'Seller.ListOrders' }">
         <i class="far fa-clock"></i>
         <span class="pl-1">Pendentes</span>
       </router-link>
     </li>
 
     <li class="nav-item">
-      <router-link class="nav-link" :to="{ name: 'Seller.Dashboard' }">
+      <router-link class="nav-link" :to="{ name: 'Seller.ListSales' }">
         <i class="far fa-handshake"></i>
         <span class="pl-1">Realizadas</span>
-      </router-link>
-    </li>
-
-    <li class="nav-item">
-      <router-link class="nav-link" :to="{ name: 'Seller.Dashboard' }">
-        <i class="fas fa-ban"></i>
-        <span class="pl-1">Canceladas</span>
       </router-link>
     </li>
 
