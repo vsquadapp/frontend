@@ -23,7 +23,7 @@
     </div>
 
     <li class="nav-item">
-      <router-link class="nav-link" :to="{ name: 'Seller.Dashboard' }">
+      <router-link class="nav-link" :to="{ name: 'Seller.Catalog' }">
         <i class="fas fa-book-open"></i>
         <span class="pl-1">Meu catálogo</span>
       </router-link>
