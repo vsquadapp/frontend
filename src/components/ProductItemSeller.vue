@@ -199,6 +199,8 @@ export default {
     display: none;
   }
 
+  &:hover .options-block .options,
+  &:focus .options-block .options,
   &:focus-within .options-block .options,
   &:active .options-block .options {
     display: block;
