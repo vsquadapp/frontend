@@ -32,7 +32,13 @@
       </button>
       <div class="options-block">
         <ul class="options list-group">
-          <li class="list-group-item" @click="generateImage">Gerar Imagem</li>
+          <li
+            class="list-group-item"
+            data-toggle="modal"
+            :data-target="`#image-modal-${product.id}`"
+          >
+            Gerar Imagem
+          </li>
           <li class="list-group-item" @click="remove">Remover do catálogo</li>
         </ul>
       </div>
@@ -43,15 +49,49 @@
         <span class="badge badge-secondary">Esgotado</span>
       </h2>
     </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      :id="`image-modal-${product.id}`"
+      tabindex="-1"
+      role="dialog"
+      :aria-labelledby="`image-modal-${product.id}`"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <product-template
+            :id="`image-content-${product.id}`"
+            :product="product"
+          />
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="generateImage"
+            >
+              Gerar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import ProductTemplate from "./ProductTemplate";
 import formatMoney from "@/utils/formatMoney";
+import * as htmlToImage from "html-to-image";
 
 export default {
   props: {
     product: Object
+  },
+
+  components: {
+    ProductTemplate
   },
 
   computed: {
@@ -77,7 +117,16 @@ export default {
   },
 
   methods: {
-    generateImage() {},
+    async generateImage() {
+      const node = `#image-content-${this.product.id}`;
+      htmlToImage.toPng(document.querySelector(node)).then(function(dataUrl) {
+        var link = document.createElement("a");
+        link.download = "my-image-name.png";
+        link.href = dataUrl;
+        link.click();
+      });
+    },
+
     remove() {
       this.$swal({
         title: "Deseja realmente remover o produto do seu catálogo?",
