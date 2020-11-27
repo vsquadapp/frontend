@@ -18,6 +18,7 @@
                         class="form-control form-control-user"
                         aria-describedby="emailHelp"
                         placeholder="Digite o seu e-mail"
+                        v-model="credentials.email"
                       />
                     </div>
                     <div class="form-group">
@@ -27,6 +28,7 @@
                         autocomplete
                         class="form-control form-control-user"
                         placeholder="Senha"
+                        v-model="credentials.password"
                       />
                     </div>
 
@@ -47,6 +49,22 @@
                     </button>
                   </form>
                   <br />
+                  <div v-if="login.message">
+                    <div
+                      class="alert alert-danger alert-dismissible fade show"
+                      role="alert"
+                    >
+                      <strong>Oops!</strong> {{ login.message }}.
+                      <button
+                        type="button"
+                        class="close"
+                        data-dismiss="alert"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                  </div>
                   <div class="text-center">
                     <router-link :to="{ name: 'RecoveryPassword' }">
                       Esqueceu a senha?
@@ -78,7 +96,12 @@ export default {
   data() {
     return {
       login: {
-        status: ""
+        status: "",
+        message: ""
+      },
+      credentials: {
+        email: "",
+        password: ""
       }
     };
   },
@@ -104,11 +127,15 @@ export default {
   methods: {
     async submit() {
       try {
+        this.login.message = "";
         this.login.status = "loading";
-        await signin();
+        await signin(this.credentials);
         this.$router.push(this.dashboardLink);
         this.login.status = "success";
       } catch (err) {
+        if (err?.response?.data?.error == "Unauthorized") {
+          this.login.message = "Usuário ou senha inválidos";
+        }
         this.login.status = "error";
       }
     }
