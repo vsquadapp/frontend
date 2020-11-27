@@ -119,12 +119,18 @@ export default {
   methods: {
     async generateImage() {
       const node = `#image-content-${this.product.id}`;
-      htmlToImage.toPng(document.querySelector(node)).then(function(dataUrl) {
-        var link = document.createElement("a");
-        link.download = "my-image-name.png";
-        link.href = dataUrl;
-        link.click();
-      });
+
+      htmlToImage
+        .toPng(document.querySelector(node), {
+          backgroundColor: "#FFF",
+          style: { position: "absolute", width: "100%", height: "100%" }
+        })
+        .then(function(dataUrl) {
+          var link = document.createElement("a");
+          link.download = "catalog.png";
+          link.href = dataUrl;
+          link.click();
+        });
     },
 
     remove() {
