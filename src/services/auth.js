@@ -2,7 +2,7 @@ const axios = require("axios");
 
 export function signin(credentials) {
   return axios.post(
-    "http://vsquad-api.herokuapp.com/api/auth/login",
+    "https://vsquad-api.herokuapp.com/api/auth/login",
     credentials
   );
 }
