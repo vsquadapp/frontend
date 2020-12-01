@@ -27,6 +27,7 @@
                         class="form-control form-control-user"
                         aria-describedby="emailHelp"
                         placeholder="Nome Completo"
+                        v-model="user.name"
                       />
                     </div>
                     <div class="form-group">
@@ -37,6 +38,7 @@
                         required
                         class="form-control form-control-user"
                         placeholder="CPF / CNPJ"
+                        v-model="user.supplier.document"
                       />
                     </div>
                     <div class="form-group">
@@ -48,6 +50,7 @@
                         class="form-control form-control-user"
                         aria-describedby="emailHelp"
                         placeholder="Email"
+                        v-model="user.email"
                       />
                     </div>
                     <div class="form-group">
@@ -57,6 +60,7 @@
                         type="text"
                         class="form-control form-control-user"
                         placeholder="Telefone / Whatsapp"
+                        v-model="user.supplier.phone"
                       />
                     </div>
                     <div class="form-group">
@@ -68,6 +72,7 @@
                         class="form-control form-control-user"
                         aria-describedby="emailHelp"
                         placeholder="Senha"
+                        v-model="user.password"
                       />
                     </div>
                     <div class="form-group">
@@ -78,6 +83,7 @@
                         required
                         class="form-control form-control-user"
                         placeholder="Confirmação de senha"
+                        v-model="user.password_confirmation"
                       />
                     </div>
 
@@ -89,58 +95,58 @@
                     <div class="form-group">
                       <input
                         @blur="getCEP"
-                        v-model="form.cep"
                         type="text"
                         required
                         autocomplete
                         class="form-control form-control-user"
                         placeholder="CEP"
+                        v-model="user.address.zipcode"
                       />
                     </div>
 
                     <fieldset :disabled="cepRequest.status === 'loading'">
                       <div class="form-group">
                         <input
-                          v-model="form.city"
                           type="text"
                           required
                           autocomplete
                           class="form-control form-control-user"
                           placeholder="Cidade"
+                          v-model="user.address.city"
                         />
                       </div>
 
                       <div class="form-group">
                         <input
-                          v-model="form.neighborhood"
                           type="text"
                           required
                           autocomplete
                           class="form-control form-control-user"
                           placeholder="Bairro"
+                          v-model="user.address.district"
                         />
                       </div>
 
                       <div class="form-group">
                         <input
-                          v-model="form.street"
                           type="text"
                           required
                           autocomplete
                           class="form-control form-control-user"
                           placeholder="Rua"
+                          v-model="user.address.street"
                         />
                       </div>
                     </fieldset>
 
                     <div class="form-group">
                       <input
-                        v-model="form.number"
                         type="text"
                         required
                         autocomplete
                         class="form-control form-control-user"
                         placeholder="Número"
+                        v-model="user.address.number"
                       />
                     </div>
 
@@ -191,12 +197,25 @@ export default {
       cepRequest: {
         status: ""
       },
-      form: {
-        cep: "",
-        city: "",
-        street: "",
-        neighborhood: "",
-        number: ""
+      user: {
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+        supplier: {
+          phone: "",
+          document: ""
+        },
+        address: {
+          zipcode: "",
+          city: "",
+          street: "",
+          district: "",
+          number: "",
+          state: "BA",
+          country: "Brasil"
+        },
+        user_type: "supplier"
       }
     };
   },
@@ -205,7 +224,7 @@ export default {
     async submit() {
       try {
         this.register.status = "loading";
-        await register();
+        await register(this.user);
         this.$router.push({ name: "Supplier.Dashboard" });
         this.register.status = "success";
       } catch (err) {
@@ -216,10 +235,10 @@ export default {
     async getCEP() {
       this.cepRequest.status = "loading";
       try {
-        const response = await cep(this.form.cep);
-        this.form.city = response.city;
-        this.form.street = response.street;
-        this.form.neighborhood = response.neighborhood;
+        const response = await cep(this.user.address.zipcode);
+        this.user.address.city = response.city;
+        this.user.address.street = response.street;
+        this.user.address.district = response.neighborhood;
         this.cepRequest.status = "success";
       } catch (err) {
         this.cepRequest.status = "error";

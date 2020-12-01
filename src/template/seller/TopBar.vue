@@ -267,7 +267,14 @@
             >
               Cancel
             </button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-dismiss="modal"
+              @click="logout"
+            >
+              Logout
+            </button>
           </div>
         </div>
       </div>
@@ -279,8 +286,11 @@
 export default {
   methods: {
     search() {
-      console.log("here");
       this.$router.push({ name: "Seller.ListProduct" });
+    },
+
+    logout() {
+      this.$router.push({ name: "Login", params: { userType: "seller" } });
     }
   }
 };

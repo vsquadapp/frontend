@@ -27,11 +27,17 @@
                         class="form-control form-control-user"
                         aria-describedby="emailHelp"
                         placeholder="Nome Completo"
+                        v-model="user.name"
                       />
                     </div>
 
                     <div class="form-group">
-                      <select class="form-control" name="gender" id="gender">
+                      <select
+                        class="form-control"
+                        name="gender"
+                        id="gender"
+                        v-model="user.seller.gender"
+                      >
                         <option value="" disabled selected>
                           Selecione o sexo
                         </option>
@@ -49,6 +55,7 @@
                         required
                         class="form-control form-control-user"
                         placeholder="CPF / CNPJ"
+                        v-model="user.seller.document"
                       />
                     </div>
 
@@ -62,6 +69,7 @@
                         id="birthdate"
                         type="date"
                         class="form-control form-control-user"
+                        v-model="user.seller.birthdate"
                       />
                     </div>
 
@@ -74,6 +82,7 @@
                         class="form-control form-control-user"
                         aria-describedby="emailHelp"
                         placeholder="Email"
+                        v-model="user.email"
                       />
                     </div>
                     <div class="form-group">
@@ -83,6 +92,7 @@
                         type="text"
                         class="form-control form-control-user"
                         placeholder="Telefone / Whatsapp"
+                        v-model="user.seller.phone"
                       />
                     </div>
                     <div class="form-group">
@@ -94,6 +104,7 @@
                         class="form-control form-control-user"
                         aria-describedby="emailHelp"
                         placeholder="Senha"
+                        v-model="user.password"
                       />
                     </div>
                     <div class="form-group">
@@ -104,6 +115,7 @@
                         required
                         class="form-control form-control-user"
                         placeholder="Confirmação de senha"
+                        v-model="user.password_confirmation"
                       />
                     </div>
 
@@ -143,7 +155,6 @@
 
 <script>
 import { register } from "@/services/auth";
-import * as cep from "cep-promise";
 
 export default {
   data() {
@@ -151,15 +162,18 @@ export default {
       register: {
         status: ""
       },
-      cepRequest: {
-        status: ""
-      },
-      form: {
-        cep: "",
-        city: "",
-        street: "",
-        neighborhood: "",
-        number: ""
+      user: {
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+        seller: {
+          gender: "",
+          document: "",
+          phone: "",
+          birthdate: ""
+        },
+        user_type: "seller"
       }
     };
   },
@@ -168,24 +182,11 @@ export default {
     async submit() {
       try {
         this.register.status = "loading";
-        await register();
+        await register(this.user);
         this.$router.push({ name: "Supplier.Dashboard" });
         this.register.status = "success";
       } catch (err) {
         this.register.status = "error";
-      }
-    },
-
-    async getCEP() {
-      this.cepRequest.status = "loading";
-      try {
-        const response = await cep(this.form.cep);
-        this.form.city = response.city;
-        this.form.street = response.street;
-        this.form.neighborhood = response.neighborhood;
-        this.cepRequest.status = "success";
-      } catch (err) {
-        this.cepRequest.status = "error";
       }
     }
   }

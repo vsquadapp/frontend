@@ -1,18 +1,13 @@
 const axios = require("axios");
 
+const baseUrl = "http://vsquad-api.herokuapp.com";
+
 export function signin(credentials) {
-  return axios.post(
-    "https://vsquad-api.herokuapp.com/api/auth/login",
-    credentials
-  );
+  return axios.post(`${baseUrl}/api/auth/login`, credentials);
 }
 
-export function register() {
-  return new Promise(resolve => {
-    return setTimeout(() => {
-      resolve(true);
-    }, 2000);
-  });
+export function register(user) {
+  return axios.post(`${baseUrl}/api/auth/register`, user);
 }
 
 export function recoveryPassword() {

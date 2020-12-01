@@ -218,7 +218,14 @@
             >
               Cancel
             </button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-dismiss="modal"
+              @click="logout"
+            >
+              Logout
+            </button>
           </div>
         </div>
       </div>
@@ -227,5 +234,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    logout() {
+      this.$router.push({ name: "Login", params: { userType: "seller" } });
+    }
+  }
+};
 </script>
