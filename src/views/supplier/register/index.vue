@@ -47,6 +47,7 @@
                         name="email"
                         type="email"
                         required
+                        autocomplete
                         class="form-control form-control-user"
                         aria-describedby="emailHelp"
                         placeholder="Email"
@@ -58,6 +59,7 @@
                         id="phone"
                         name="phone"
                         type="text"
+                        required
                         class="form-control form-control-user"
                         placeholder="Telefone / Whatsapp"
                         v-model="user.supplier.phone"
@@ -69,21 +71,26 @@
                         name="password"
                         type="password"
                         required
+                        autocomplete
                         class="form-control form-control-user"
                         aria-describedby="emailHelp"
                         placeholder="Senha"
                         v-model="user.password"
+                        @input="validatePassword"
                       />
                     </div>
                     <div class="form-group">
                       <input
+                        ref="passwordConfirm"
                         id="password-confirm"
                         name="password-confirm"
                         type="password"
                         required
+                        autocomplete="false"
                         class="form-control form-control-user"
                         placeholder="Confirmação de senha"
                         v-model="user.password_confirmation"
+                        @input="validatePassword"
                       />
                     </div>
 
@@ -158,7 +165,7 @@
                         Registrar
                       </span>
                       <div
-                        v-if="register.status === 'loading'"
+                        v-if="form.status === 'loading'"
                         class="spinner-border spinner-border-sm"
                         role="status"
                       >
@@ -185,13 +192,13 @@
 </template>
 
 <script>
-import { register } from "@/services/auth";
+import { mapActions } from "vuex";
 import * as cep from "cep-promise";
 
 export default {
   data() {
     return {
-      register: {
+      form: {
         status: ""
       },
       cepRequest: {
@@ -221,14 +228,26 @@ export default {
   },
 
   methods: {
+    ...mapActions(["register"]),
+
     async submit() {
       try {
-        this.register.status = "loading";
-        await register(this.user);
+        this.form.status = "loading";
+        await this.register(this.user);
         this.$router.push({ name: "Supplier.Dashboard" });
-        this.register.status = "success";
+        this.form.status = "success";
       } catch (err) {
-        this.register.status = "error";
+        this.form.status = "error";
+      }
+    },
+
+    validatePassword() {
+      const confirmElement = this.$refs.passwordConfirm;
+
+      if (this.user.password != this.user.password_confirmation) {
+        confirmElement.setCustomValidity("As senhas não coicidem");
+      } else {
+        confirmElement.setCustomValidity("");
       }
     },
 

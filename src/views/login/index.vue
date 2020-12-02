@@ -86,7 +86,6 @@
 </template>
 
 <script>
-// import { signin } from "@/services/auth";
 import { mapActions } from "vuex";
 
 export default {

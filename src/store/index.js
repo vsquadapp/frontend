@@ -35,7 +35,11 @@ const store = createStore({
       context.commit("setUser", response.data.user);
     },
 
-    // register(context) {},
+    async register(context, user) {
+      const response = await Auth.register(user);
+      context.commit("setAccessToken", response.data.access_token);
+      context.commit("setUser", response.data.user);
+    },
 
     logout(context) {
       context.commit("setAccessToken", null);
