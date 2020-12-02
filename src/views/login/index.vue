@@ -86,7 +86,8 @@
 </template>
 
 <script>
-import { signin } from "@/services/auth";
+// import { signin } from "@/services/auth";
+import { mapActions } from "vuex";
 
 export default {
   props: {
@@ -125,11 +126,13 @@ export default {
   },
 
   methods: {
+    ...mapActions(["signin"]),
+
     async submit() {
       try {
         this.login.message = "";
         this.login.status = "loading";
-        await signin(this.credentials);
+        await this.signin(this.credentials);
         this.$router.push(this.dashboardLink);
         this.login.status = "success";
       } catch (err) {
