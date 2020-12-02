@@ -147,13 +147,12 @@
           aria-haspopup="true"
           aria-expanded="false"
         >
-          <span class="mr-2 d-none d-lg-inline text-gray-600 small"
-            >Valerie Luna</span
-          >
-          <img
-            class="img-profile rounded-circle"
-            src="https://source.unsplash.com/QAB-WJcbgJk/60x60"
-          />
+          <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+            {{ userName }}
+          </span>
+          <div class="user-icon">
+            <i class="fas fa-user"></i>
+          </div>
         </a>
         <!-- Dropdown - User Information -->
         <div
@@ -185,59 +184,27 @@
         </div>
       </li>
     </ul>
+
     <!-- Logout Modal-->
-    <div
-      class="modal fade"
-      id="logoutModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button
-              class="close"
-              type="button"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            Select "Logout" below if you are ready to end your current session.
-          </div>
-          <div class="modal-footer">
-            <button
-              class="btn btn-secondary"
-              type="button"
-              data-dismiss="modal"
-            >
-              Cancel
-            </button>
-            <button
-              class="btn btn-primary"
-              type="button"
-              data-dismiss="modal"
-              @click="logout"
-            >
-              Logout
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <logout-modal />
   </nav>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
+import LogoutModal from "@/components/template/LogoutModal";
+
 export default {
-  methods: {
-    logout() {
-      this.$router.push({ name: "Login", params: { userType: "seller" } });
+  components: {
+    LogoutModal
+  },
+
+  computed: {
+    ...mapState(["user"]),
+
+    userName() {
+      return this.user?.name || "";
     }
   }
 };

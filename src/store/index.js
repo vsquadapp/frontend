@@ -1,8 +1,10 @@
 import { createStore } from "vuex";
-
+import createPersistedState from "vuex-persistedstate";
 import Auth from "../services/auth";
 
 const store = createStore({
+  plugins: [createPersistedState()],
+
   state() {
     return {
       access_token: null,
