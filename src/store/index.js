@@ -30,13 +30,9 @@ const store = createStore({
 
   actions: {
     async signin(context, credentials) {
-      try {
-        const response = await Auth.signin(credentials);
-        context.commit("setAccessToken", response.data.access_token);
-        context.commit("setUser", response.data.user);
-      } catch (err) {
-        return null;
-      }
+      const response = await Auth.signin(credentials);
+      context.commit("setAccessToken", response.data.access_token);
+      context.commit("setUser", response.data.user);
     },
 
     // register(context) {},

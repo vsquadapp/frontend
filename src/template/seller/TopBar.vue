@@ -199,10 +199,9 @@
           <span class="mr-2 d-none d-lg-inline text-gray-600 small">
             {{ userName }}
           </span>
-          <img
-            class="img-profile rounded-circle"
-            src="https://source.unsplash.com/QAB-WJcbgJk/60x60"
-          />
+          <div class="user-icon">
+            <i class="fas fa-user"></i>
+          </div>
         </a>
         <!-- Dropdown - User Information -->
         <div
