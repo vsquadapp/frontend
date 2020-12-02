@@ -1,5 +1,21 @@
 <template>
   <div class="container">
+    <div v-if="unauthorized" class="row justify-content-center mt-5">
+      <div class="col-sm-7">
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+          É necessário fazer <b>login</b> para utilizar o sistema.
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div class="row justify-content-center option-item">
       <div class="col-sm-7">
         <div
@@ -63,13 +79,24 @@ export default {
     return {
       login: {
         status: ""
-      }
+      },
+      unauthorized: false
     };
+  },
+
+  mounted() {
+    this.checkUnauthorized();
   },
 
   methods: {
     async onClick(userType) {
       this.$router.push({ name: `Login`, params: { userType } });
+    },
+
+    checkUnauthorized() {
+      if (this.$route.params.unauthorized) {
+        this.unauthorized = true;
+      }
     }
   }
 };

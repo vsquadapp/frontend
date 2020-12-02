@@ -11,6 +11,13 @@ const store = createStore({
       user: null
     };
   },
+
+  getters: {
+    isAuthenticated(state) {
+      return !!state.access_token;
+    }
+  },
+
   mutations: {
     setAccessToken(state, value) {
       state.access_token = value;
