@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-const baseUrl = "http://vsquad-api.herokuapp.com";
+const baseUrl = "https://vsquad-api.herokuapp.com";
 
 export function signin(credentials) {
   return axios.post(`${baseUrl}/api/auth/login`, credentials);
