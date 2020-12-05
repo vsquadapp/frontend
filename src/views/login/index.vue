@@ -106,6 +106,10 @@ export default {
     };
   },
 
+  beforeMount() {
+    this.credentials.user_type = this.userType;
+  },
+
   computed: {
     registerLink() {
       return this.isSupplier
