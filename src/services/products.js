@@ -76,11 +76,10 @@ export function getById(id) {
 }
 
 const axios = require("axios");
-
-const baseUrl = "http://localhost:8000/api";
+const baseUrl = process.env.VUE_APP_BASE_URL;
 
 export function create(data) {
-  return axios.post(`${baseUrl}/products`, data);
+  return axios.post(`${baseUrl}/api/products`, data);
 }
 
 export default {

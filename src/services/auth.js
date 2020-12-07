@@ -1,13 +1,13 @@
 const axios = require("axios");
 
-const baseUrl = "http://localhost:8000/api";
+const baseUrl = process.env.VUE_APP_BASE_URL;
 
 export function signin(credentials) {
-  return axios.post(`${baseUrl}/auth/login`, credentials);
+  return axios.post(`${baseUrl}/api/auth/login`, credentials);
 }
 
 export function register(user) {
-  return axios.post(`${baseUrl}/auth/register`, user);
+  return axios.post(`${baseUrl}/api/auth/register`, user);
 }
 
 export function recoveryPassword() {
