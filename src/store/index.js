@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import Auth from "../services/auth";
+import axios from "axios";
 
 const store = createStore({
   plugins: [createPersistedState()],
@@ -21,6 +22,7 @@ const store = createStore({
   mutations: {
     setAccessToken(state, value) {
       state.access_token = value;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${value}`;
     },
 
     setUser(state, value) {

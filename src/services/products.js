@@ -75,7 +75,16 @@ export function getById(id) {
   });
 }
 
+const axios = require("axios");
+
+const baseUrl = "http://localhost:8000/api";
+
+export function create(data) {
+  return axios.post(`${baseUrl}/products`, data);
+}
+
 export default {
   index,
-  getById
+  getById,
+  create
 };

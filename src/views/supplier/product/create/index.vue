@@ -15,6 +15,7 @@
                     class="form-control"
                     id="productName"
                     placeholder="Ex.: Celular Samsung Galaxy S9 64 GB preto"
+                    required
                     v-model="product.name"
                   />
                   <small class="form-text text-muted">
@@ -40,6 +41,7 @@
                     class="form-control"
                     id="productCategory"
                     rows="4"
+                    required
                     placeholder="Ex.: Com seu processador potente e sua memória RAM de 6 GB você poderá maximizar seu desempenho, com excelente velocidade de transmissão de conteúdo. Execute vários aplicativos ao mesmo tempo sem atrasos!"
                     v-model="product.description"
                   />
@@ -68,6 +70,7 @@
                     class="form-control"
                     id="productCategory"
                     placeholder="Ex.: Smartphones"
+                    required
                     v-model="product.category"
                   />
 
@@ -155,6 +158,7 @@
                     class="form-control"
                     id="productQuantity"
                     v-model="product.quantity"
+                    required
                   />
 
                   <small class="form-text text-muted">
@@ -180,6 +184,7 @@
                         id="deliveryType"
                         class="form-control"
                         v-model="product.deliveryType"
+                        required
                       >
                         <option value="1">
                           Apenas retirada pessoalmente
@@ -195,9 +200,9 @@
                   </div>
                 </div>
 
-                <div class="form-group">
+                <div v-if="product.deliveryType !== '1'" class="form-group">
                   <label for="">Valor da entrega</label>
-                  <div v-if="product.deliveryType !== '1'" class="input-group">
+                  <div class="input-group">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">
                         R$
@@ -209,6 +214,7 @@
                       class="form-control"
                       v-money="vmoney"
                       type="text"
+                      required
                     />
                   </div>
                 </div>
@@ -266,6 +272,7 @@
                           class="form-control"
                           v-money="vmoney"
                           v-model="product.price"
+                          required
                         />
                       </div>
                       <small>
@@ -280,6 +287,7 @@
                           class="custom-select"
                           id="productComission"
                           v-model="product.comission_type"
+                          required
                           @change="onChangeComissionType"
                         >
                           <option disabled>Tipo de comissão</option>
@@ -426,6 +434,7 @@ import { mask } from "vue-the-mask";
 import { VMoney } from "v-money";
 import unmask from "@/utils/unmask";
 import formatMoney from "@/utils/formatMoney";
+import ProductService from "@/services/products";
 
 const vmoney = {
   decimal: ",",
@@ -458,15 +467,15 @@ export default {
     return {
       product: {
         name: "",
-        category: "",
         quantity: "",
-        deliveryType: "1",
-        deliveryValue: 0,
         description: "",
-        images: [],
         price: "",
         comission_type: "percentage",
-        comission_value: "",
+        comission_value: 0,
+        category: "",
+        deliveryType: "1",
+        deliveryValue: 0,
+        images: [],
         plan: plans[0]
       },
       infos: [],
@@ -500,17 +509,34 @@ export default {
 
     receiveValue() {
       return this.price / 100 - this.taxValue - this.comissionValue;
+    },
+
+    productPayload() {
+      return {
+        ...this.product,
+        price: this.price,
+        comission_value: this.comissionValue
+      };
     }
   },
 
   methods: {
     async submit() {
-      await this.$swal({
-        title: "Produto cadastrado!",
-        text: "O produto já está na sua loja disponível para venda!",
-        icon: "success"
-      });
-      this.$router.push({ name: "Supplier.ListProduct" });
+      try {
+        await ProductService.create(this.productPayload);
+        await this.$swal({
+          title: "Produto cadastrado!",
+          text: "O produto já está na sua loja disponível para venda!",
+          icon: "success"
+        });
+        this.$router.push({ name: "Supplier.ListProduct" });
+      } catch (err) {
+        await this.$swal({
+          title: "Ocorreu um erro ao cadastrar o produto!",
+          text: err.response.data.error,
+          icon: "error"
+        });
+      }
     },
 
     addInfo() {
@@ -528,7 +554,7 @@ export default {
     },
 
     onChangeComissionType() {
-      this.product.comission_value = "";
+      this.product.comission_value = 0;
     },
 
     formatMoney(value) {
