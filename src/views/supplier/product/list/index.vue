@@ -6,6 +6,19 @@
       </div>
       <div class="col-12 col-lg-9">
         <products-list :products="products" />
+
+        <div v-if="showPagination" class="text-center mb-5">
+          <button class="btn btn-primary" @click="loadProducts">
+            ver mais
+            <div
+              v-if="pagination.loading"
+              class="spinner-border spinner-border-sm text-light"
+              role="status"
+            >
+              <span class="sr-only">Loading...</span>
+            </div>
+          </button>
+        </div>
       </div>
     </div>
     <div v-else class="row">
@@ -32,7 +45,12 @@ export default {
 
   data() {
     return {
-      products: []
+      products: [],
+      pagination: {
+        next_page: 1,
+        last_page: 1,
+        loading: false
+      }
     };
   },
 
@@ -41,13 +59,23 @@ export default {
   },
 
   computed: {
-    ...mapGetters({ supplier: "supplier" })
+    ...mapGetters({ supplier: "supplier" }),
+
+    showPagination() {
+      return this.pagination.next_page <= this.pagination.last_page;
+    }
   },
 
   methods: {
     async loadProducts() {
-      const response = await ProductsService.products(this.supplier.id);
-      this.products = response.data.data;
+      this.pagination.loading = true;
+      const response = await ProductsService.products(
+        this.supplier.id,
+        this.pagination.next_page++
+      );
+      this.products = [...this.products, ...response.data.data];
+      this.pagination.last_page = response.data.last_page;
+      this.pagination.loading = false;
     }
   }
 };

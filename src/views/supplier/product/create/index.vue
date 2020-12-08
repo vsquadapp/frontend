@@ -497,7 +497,7 @@ export default {
       if (!this.price) return 0;
       if (!this.product.comission_value) return 0;
       if (this.product.comission_type === "percentage") {
-        return (this.price * this.product.comission_value) / 10000;
+        return this.price * this.product.comission_value;
       }
       return unmask(this.product.comission_value) / 100;
     },

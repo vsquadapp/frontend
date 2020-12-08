@@ -56,10 +56,6 @@ export default {
     product: Object
   },
 
-  mounted() {
-    console.log(this.product);
-  },
-
   computed: {
     productPrice() {
       return formatMoney(this.product.price / 100);
