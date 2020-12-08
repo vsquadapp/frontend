@@ -16,6 +16,14 @@ const store = createStore({
   getters: {
     isAuthenticated(state) {
       return !!state.access_token;
+    },
+
+    seller(state) {
+      return state.user?.seller || null;
+    },
+
+    supplier(state) {
+      return state.user?.supplier || null;
     }
   },
 

@@ -55,7 +55,7 @@ module.exports = {
         .stop()
         .animate(
           {
-            scrollTop: $($anchor.attr("href")).offset().top
+            scrollTop: $($anchor.attr("href")).offset()
           },
           1000,
           "easeInOutExpo"

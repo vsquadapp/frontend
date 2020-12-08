@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import ProductItem from "@/components/ProductItem";
+import ProductItem from "@/components/ProductItemSV";
 
 export default {
   components: { ProductItem },

@@ -19,11 +19,13 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import Page from "@/components/Page";
 import CategoriesList from "./CategoriesList";
 import ProductsList from "./ProductsList";
 
-import ProductsService from "@/services/products";
+import ProductsService from "@/services/suppliers";
 
 export default {
   components: { Page, CategoriesList, ProductsList },
@@ -38,9 +40,14 @@ export default {
     this.loadProducts();
   },
 
+  computed: {
+    ...mapGetters({ supplier: "supplier" })
+  },
+
   methods: {
     async loadProducts() {
-      this.products = await ProductsService.index();
+      const response = await ProductsService.products(this.supplier.id);
+      this.products = response.data.data;
     }
   }
 };
