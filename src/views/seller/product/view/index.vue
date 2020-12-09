@@ -8,14 +8,14 @@
               <div class="row">
                 <div class="col-sm-2 product-images">
                   <div class="thumb">
-                    <img :src="product.img" />
+                    <img :src="product.images[1].image" />
                   </div>
                   <div class="thumb">
-                    <img :src="product.img" />
+                    <img :src="product.images[2].image" />
                   </div>
                 </div>
                 <div class="col-sm-9 text-center block-main-image">
-                  <img class="main-image" :src="product.img" />
+                  <img class="main-image" :src="product.images[0].image" />
                 </div>
               </div>
             </div>
@@ -245,6 +245,7 @@ export default {
   height: 60px;
   width: 60px;
   margin: 1rem 0rem;
+  padding: 0.1rem;
   cursor: pointer;
   img {
     height: 100%;

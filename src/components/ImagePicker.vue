@@ -78,6 +78,7 @@ export default {
           const reader = new FileReader();
           reader.onload = e => {
             this.images.push(e.target.result);
+            this.$emit("change", this.images);
           };
           reader.readAsDataURL(file);
         }

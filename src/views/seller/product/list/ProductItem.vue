@@ -1,7 +1,12 @@
 <template>
   <div class="card product-item mb-4 w-100 pt-3" @click="openProduct">
     <div class="text-center">
-      <img class="product-image" :src="product.img" />
+      <img
+        v-if="product.images.length"
+        class="product-image"
+        :src="product.images[0].image"
+      />
+      <img v-else class="product-image" src="medias/alt-photo.png" alt="" />
     </div>
     <hr class="mb-0" />
     <div class="d-flex flex-column card-body p-2 pb-3 p-lg-3">
