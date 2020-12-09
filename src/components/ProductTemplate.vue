@@ -94,7 +94,7 @@
           </p>
         </div>
 
-        <div v-if="product.infos.length" class="block-details mb-3">
+        <!-- <div v-if="product.infos.length" class="block-details mb-3">
           <h4 class="text-gray-900">Características principais</h4>
           <table class="table table-borderless table-striped">
             <tbody>
@@ -108,7 +108,7 @@
               </tr>
             </tbody>
           </table>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

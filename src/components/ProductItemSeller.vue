@@ -23,7 +23,9 @@
         <strong>{{ product.ordered }} vendidos</strong>
       </div>
       <div>
-        <span class="font-weight-light">{{ product.stock }} disponíveis</span>
+        <span class="font-weight-light"
+          >{{ product.quantity }} disponíveis</span
+        >
       </div>
     </div>
     <div class="settings-block p-2">
@@ -112,7 +114,7 @@ export default {
     },
 
     outStock() {
-      return this.product.stock === 0;
+      return this.product.quantity === 0;
     }
   },
 

@@ -6,6 +6,14 @@ export function addProduct(seller, productId) {
     `${baseUrl}/api/sellers/${seller}/products/${productId}/add`
   );
 }
+
+export function products(seller, page = 1, items = 15) {
+  return axios.get(
+    `${baseUrl}/api/sellers/${seller}/products?page=${page}&items=${items}`
+  );
+}
+
 export default {
-  addProduct
+  addProduct,
+  products
 };
