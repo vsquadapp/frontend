@@ -155,7 +155,7 @@
                       min="1"
                       class="form-control"
                       id="productQuantity"
-                      v-model="product.stock"
+                      v-model="product.quantity"
                     />
 
                     <small class="form-text text-muted">
@@ -180,7 +180,7 @@
                         <select
                           id="deliveryType"
                           class="form-control"
-                          v-model="product.deliveryType"
+                          v-model="product.delivery_type"
                         >
                           <option value="1">
                             Sim, oferecer retirada pessoalmente.
@@ -245,7 +245,7 @@
                             type="text"
                             class="form-control"
                             v-money="vmoney"
-                            v-model="product.textprice"
+                            v-model="product.price"
                           />
                         </div>
                         <small>
@@ -308,7 +308,7 @@
             </div>
           </div>
 
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-12">
               <div class="card mb-4 w-100">
                 <div class="card-body">
@@ -336,7 +336,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -360,13 +360,14 @@
 
 <script>
 import Page from "@/components/Page";
+import { mapGetters } from "vuex";
 import ImagePicker from "@/components/ImagePicker";
 import PlanTypeItem from "@/components/PlanTypeItem";
 import { mask } from "vue-the-mask";
 import { VMoney } from "v-money";
 import unmask from "@/utils/unmask";
 import formatMoney from "@/utils/formatMoney";
-import ProductsService from "@/services/products";
+import SupplierService from "@/services/suppliers";
 
 const vmoney = {
   decimal: ",",
@@ -395,6 +396,7 @@ export default {
 
   directives: { mask, money: VMoney },
 
+  // eslint-disable-next-line vue/no-unused-components
   components: { Page, ImagePicker, PlanTypeItem },
 
   data() {
@@ -415,6 +417,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters({ supplier: "supplier" }),
+
     price() {
       return unmask(this.product.textprice);
     },
@@ -440,9 +444,11 @@ export default {
 
   methods: {
     async loadProduct() {
-      const product = await ProductsService.getById(this.id);
-      product.textprice = formatMoney(product.price);
-      this.product = product;
+      const response = await SupplierService.getProductById(
+        this.id,
+        this.supplier.id
+      );
+      this.product = response.data;
     },
 
     async submit() {

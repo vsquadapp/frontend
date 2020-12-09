@@ -30,7 +30,7 @@
             </p>
           </div>
 
-          <div v-if="product.infos.length" class="block-details mb-3">
+          <div v-if="product?.infos?.length" class="block-details mb-3">
             <h4 class="text-gray-900">Características principais</h4>
             <table class="table table-borderless table-striped">
               <tbody>
@@ -126,7 +126,15 @@
               class="btn btn-lg btn-block btn-primary"
               @click="addToCatalog"
             >
-              Adicionar ao catálogo
+              <span
+                v-if="addToCatalogLoading"
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              />
+              <span v-else>
+                Adicionar ao catálogo
+              </span>
             </button>
           </div>
         </div>
@@ -143,8 +151,12 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import Page from "@/components/Page";
+
 import ProductsService from "@/services/products";
+import SellerService from "@/services/sellers";
 
 export default {
   components: { Page },
@@ -153,7 +165,8 @@ export default {
 
   data() {
     return {
-      product: null
+      product: null,
+      addToCatalogLoading: false
     };
   },
 
@@ -161,19 +174,38 @@ export default {
     this.loadProduct();
   },
 
+  computed: {
+    ...mapGetters(["seller"])
+  },
+
   methods: {
     async loadProduct() {
-      this.product = await ProductsService.getById(this.id);
+      const response = await ProductsService.getById(this.id);
+      this.product = response.data;
     },
 
     async addToCatalog() {
-      await this.$swal({
-        title: "Produto adicionado ao catalogo!",
-        text:
-          "O produto foi adicionado ao seu catálogo e já está disponível para venda!",
-        icon: "success"
-      });
-      this.$router.push({ name: "Seller.Dashboard" });
+      this.addToCatalogLoading = true;
+
+      try {
+        await SellerService.addProduct(this.seller.id, this.id);
+        await this.$swal({
+          title: "Produto adicionado ao catalogo!",
+          text:
+            "O produto foi adicionado ao seu catálogo e já está disponível para venda!",
+          icon: "success"
+        });
+        this.$router.push({ name: "Seller.Dashboard" });
+      } catch (err) {
+        await this.$swal({
+          title: "Ocorreu um erro!",
+          text:
+            "Não foi possível adicionar o produto ao catálogo, tente novamente mais tarde!",
+          icon: "error"
+        });
+      }
+
+      this.addToCatalogLoading = false;
     }
   }
 };

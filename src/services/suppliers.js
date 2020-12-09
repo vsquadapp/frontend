@@ -7,6 +7,11 @@ export function products(supplier, page) {
   );
 }
 
+export function getProductById(supplier, product) {
+  return axios.get(`${baseUrl}/api/suppliers/${supplier}/products/${product}`);
+}
+
 export default {
-  products
+  products,
+  getProductById
 };

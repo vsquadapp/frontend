@@ -23,9 +23,8 @@ export default {
 
   methods: {
     async loadProducts() {
-      const products = await ProductsService.index();
-      this.products = [...products];
-      this.products.pop();
+      const response = await ProductsService.index(4);
+      this.products = response.data.data;
     }
   }
 };

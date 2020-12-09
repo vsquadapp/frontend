@@ -40,7 +40,8 @@ export default {
 
   methods: {
     async loadProducts() {
-      this.products = await ProductsService.index();
+      const response = await ProductsService.index(4);
+      this.products = response.data.data;
     }
   }
 };
