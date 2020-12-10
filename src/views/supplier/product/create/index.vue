@@ -515,7 +515,7 @@ export default {
       return {
         ...this.product,
         price: this.price,
-        comission_value: this.comissionValue
+        comission_value: this.comissionValue * 100
       };
     }
   },
