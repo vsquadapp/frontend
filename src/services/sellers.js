@@ -19,8 +19,13 @@ export function products(seller, page = 1, items = 15, category_id = "") {
   );
 }
 
+export function dashboard(seller) {
+  return axios.get(`${baseUrl}/api/sellers/${seller}/dashboard`);
+}
+
 export default {
   addProduct,
   categories,
-  products
+  products,
+  dashboard
 };
