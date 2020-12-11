@@ -7,13 +7,20 @@ export function addProduct(seller, productId) {
   );
 }
 
-export function products(seller, page = 1, items = 15) {
+export function categories(seller, page = 1, items = 15) {
   return axios.get(
-    `${baseUrl}/api/sellers/${seller}/products?page=${page}&items=${items}`
+    `${baseUrl}/api/sellers/${seller}/categories?page=${page}&items=${items}`
+  );
+}
+
+export function products(seller, page = 1, items = 15, category_id = "") {
+  return axios.get(
+    `${baseUrl}/api/sellers/${seller}/products?page=${page}&items=${items}&category_id=${category_id}`
   );
 }
 
 export default {
   addProduct,
+  categories,
   products
 };

@@ -2,13 +2,13 @@
   <page title="Meus produtos">
     <div v-if="products.length" class="row">
       <div class="col-12 col-lg-3">
-        <categories-list />
+        <categories-list @select-category="onSelectCategory" />
       </div>
       <div class="col-12 col-lg-9">
         <products-list :products="products" />
 
         <div v-if="showPagination" class="text-center mb-5">
-          <button class="btn btn-primary" @click="loadProducts">
+          <button class="btn btn-primary" @click="nextPage">
             ver mais
             <div
               v-if="pagination.loading"
@@ -38,7 +38,7 @@ import Page from "@/components/Page";
 import CategoriesList from "./CategoriesList";
 import ProductsList from "./ProductsList";
 
-import ProductsService from "@/services/suppliers";
+import SupplierService from "@/services/suppliers";
 
 export default {
   components: { Page, CategoriesList, ProductsList },
@@ -46,8 +46,9 @@ export default {
   data() {
     return {
       products: [],
+      currentCategoryId: "",
       pagination: {
-        next_page: 1,
+        current_page: 1,
         last_page: 1,
         loading: false
       }
@@ -62,20 +63,42 @@ export default {
     ...mapGetters({ supplier: "supplier" }),
 
     showPagination() {
-      return this.pagination.next_page <= this.pagination.last_page;
+      return this.pagination.current_page < this.pagination.last_page;
     }
   },
 
   methods: {
     async loadProducts() {
-      this.pagination.loading = true;
-      const response = await ProductsService.products(
+      const response = await SupplierService.products(
         this.supplier.id,
-        this.pagination.next_page++
+        this.pagination.current_page,
+        this.currentCategoryId
       );
-      this.products = [...this.products, ...response.data.data];
+
+      if (this.pagination.current_page === 1) {
+        this.products = [...response.data.data];
+      } else {
+        this.products = [...this.products, ...response.data.data];
+      }
+
       this.pagination.last_page = response.data.last_page;
+    },
+
+    async nextPage() {
+      this.pagination.loading = true;
+      this.pagination.current_page++;
+      this.loadProducts();
       this.pagination.loading = false;
+    },
+
+    async onSelectCategory(category) {
+      if (category) {
+        this.currentCategoryId = category.id;
+      } else {
+        this.currentCategoryId = "";
+      }
+      this.pagination.current_page = 1;
+      this.loadProducts();
     }
   }
 };

@@ -6,16 +6,30 @@
           <div class="row">
             <div class="col-12 block-image">
               <div class="row">
-                <div class="col-sm-2 product-images">
-                  <div class="thumb">
-                    <img :src="product.images[1].image" />
-                  </div>
-                  <div class="thumb">
-                    <img :src="product.images[2].image" />
+                <div
+                  v-if="product.images.length"
+                  class="col-sm-2 product-images"
+                >
+                  <div
+                    v-for="(image, index) of product.images"
+                    :key="index"
+                    class="thumb"
+                  >
+                    <img :src="image.image" />
                   </div>
                 </div>
                 <div class="col-sm-9 text-center block-main-image">
-                  <img class="main-image" :src="product.images[0].image" />
+                  <img
+                    v-if="product.images.length"
+                    class="main-image"
+                    :src="product.images[0].image"
+                  />
+                  <img
+                    v-else
+                    class="main-image"
+                    src="medias/alt-photo.png"
+                    alt=""
+                  />
                 </div>
               </div>
             </div>
@@ -52,12 +66,12 @@
           <h5 class="text-gray-900 mb-4">{{ product.name }}</h5>
 
           <div class="block-comission text-gray-900 mb-3">
-            <h3 class="comission-price mb-0">R$ 100,00</h3>
+            <h3 class="comission-price mb-0">{{ comissionPrice }}</h3>
             <small class="comission-label">em comissão por venda</small>
           </div>
 
           <div class="block-price my-3">
-            <h6 class="product-price mb-0">R$ 1000,00</h6>
+            <h6 class="product-price mb-0">{{ productPrice }}</h6>
             <small class="product-price-label">valor do produto</small>
           </div>
 
@@ -155,6 +169,8 @@ import { mapGetters } from "vuex";
 
 import Page from "@/components/Page";
 
+import formatMoney from "@/utils/formatMoney";
+
 import ProductsService from "@/services/products";
 import SellerService from "@/services/sellers";
 
@@ -175,7 +191,26 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["seller"])
+    ...mapGetters(["seller"]),
+
+    productPrice() {
+      if (this.product) {
+        return formatMoney(this.product.price / 100);
+      }
+      return null;
+    },
+
+    comissionValue() {
+      if (this.product.comission_type === "percentage") {
+        return (this.product.comission_value * this.product.price) / 100;
+      } else {
+        return this.product.comission_value;
+      }
+    },
+
+    comissionPrice() {
+      return formatMoney(this.comissionValue / 100);
+    }
   },
 
   methods: {

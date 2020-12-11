@@ -377,9 +377,9 @@
 
                   <div>
                     <span>Preço do seu produto</span>
-                    <span style="float: right"
-                      >R$ {{ product.price || 0 }}</span
-                    >
+                    <span style="float: right">
+                      R$ {{ product.price || 0 }}
+                    </span>
                   </div>
                   <hr />
 
@@ -497,7 +497,7 @@ export default {
       if (!this.price) return 0;
       if (!this.product.comission_value) return 0;
       if (this.product.comission_type === "percentage") {
-        return this.price * this.product.comission_value;
+        return (this.price * this.product.comission_value) / 100 / 100;
       }
       return unmask(this.product.comission_value) / 100;
     },

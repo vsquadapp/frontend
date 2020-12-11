@@ -35,12 +35,11 @@
 
 <script>
 import Page from "@/components/Page";
-import { mapGetters } from "vuex";
-
 import CategoriesList from "./CategoriesList";
 import ProductsList from "./ProductsList";
 
 import SellerService from "@/services/sellers";
+import { mapGetters } from "vuex";
 
 export default {
   components: { Page, CategoriesList, ProductsList },
@@ -48,8 +47,9 @@ export default {
   data() {
     return {
       products: [],
+      currentCategoryId: "",
       pagination: {
-        next_page: 1,
+        current_page: 1,
         last_page: 1,
         loading: false
       }
@@ -64,20 +64,43 @@ export default {
     ...mapGetters(["seller"]),
 
     showPagination() {
-      return this.pagination.next_page <= this.pagination.last_page;
+      return this.pagination.current_page < this.pagination.last_page;
     }
   },
 
   methods: {
     async loadProducts() {
-      this.pagination.loading = true;
       const response = await SellerService.products(
         this.seller.id,
-        this.pagination.next_page++
+        this.pagination.current_page,
+        15,
+        this.currentCategoryId
       );
-      this.products = response.data.data;
+
+      if (this.pagination.current_page === 1) {
+        this.products = [...response.data.data];
+      } else {
+        this.products = [...this.products, ...response.data.data];
+      }
+
       this.pagination.last_page = response.data.last_page;
+    },
+
+    async nextPage() {
+      this.pagination.loading = true;
+      this.pagination.current_page++;
+      this.loadProducts();
       this.pagination.loading = false;
+    },
+
+    async onSelectCategory(category) {
+      if (category) {
+        this.currentCategoryId = category.id;
+      } else {
+        this.currentCategoryId = "";
+      }
+      this.pagination.current_page = 1;
+      this.loadProducts();
     }
   }
 };
