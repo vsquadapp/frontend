@@ -48,15 +48,12 @@
 import Page from "@/components/Page";
 import Board from "@/components/Board";
 
-import {
-  loadProductsInfo,
-  loadSellersInfo,
-  loadSalesInfo,
-  loadOrdersInfo
-} from "@/services/dashboard";
+import SupplierService from "@/services/suppliers";
+import { mapGetters } from "vuex";
 
 export default {
   components: { Page, Board },
+
   data() {
     return {
       productsInfo: {
@@ -82,43 +79,37 @@ export default {
     this.loadInfo();
   },
 
+  computed: {
+    ...mapGetters(["supplier"])
+  },
+
   methods: {
-    loadInfo() {
-      this.loadProductsInfo();
-      this.loadSellersInfo();
-      this.loadSalesInfo();
-      this.loadOrdersInfo();
+    async loadInfo() {
+      const response = await SupplierService.dashboard(this.supplier.id);
+
+      this.setProductsInfo(response.data.products);
+      this.setSellersInfo(response.data.sellers);
+      this.setSalesInfo(response.data.orders_completed);
+      this.setOrdersInfo(response.data.orders_pending);
     },
-    async loadProductsInfo() {
-      try {
-        this.productsInfo.value = await loadProductsInfo();
-      } catch (err) {
-        this.productsInfo.value = "-";
-      }
+
+    async setProductsInfo(value) {
+      this.productsInfo.value = value;
       this.productsInfo.status = "done";
     },
-    async loadSellersInfo() {
-      try {
-        this.sellersInfo.value = await loadSellersInfo();
-      } catch (err) {
-        this.sellersInfo.value = "-";
-      }
+
+    async setSellersInfo(value) {
+      this.sellersInfo.value = value;
       this.sellersInfo.status = "done";
     },
-    async loadSalesInfo() {
-      try {
-        this.salesInfo.value = await loadSalesInfo();
-      } catch (err) {
-        this.salesInfo.value = "-";
-      }
+
+    async setSalesInfo(value) {
+      this.salesInfo.value = value;
       this.salesInfo.status = "done";
     },
-    async loadOrdersInfo() {
-      try {
-        this.ordersInfo.value = await loadOrdersInfo();
-      } catch (err) {
-        this.ordersInfo.value = "-";
-      }
+
+    async setOrdersInfo(value) {
+      this.ordersInfo.value = value;
       this.ordersInfo.status = "done";
     }
   }

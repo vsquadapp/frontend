@@ -17,8 +17,13 @@ export function getProductById(supplier, product) {
   return axios.get(`${baseUrl}/api/suppliers/${supplier}/products/${product}`);
 }
 
+export function dashboard(supplier) {
+  return axios.get(`${baseUrl}/api/suppliers/${supplier}/dashboard`);
+}
+
 export default {
   products,
   categories,
-  getProductById
+  getProductById,
+  dashboard
 };
