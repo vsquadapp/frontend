@@ -1,26 +1,31 @@
 <template>
   <page title="Meus produtos">
-    <div v-if="products.length" class="row">
-      <div class="col-12 col-lg-3">
-        <categories-list />
-      </div>
-      <div class="col-12 col-lg-9">
-        <products-list :products="products" />
-
-        <div v-if="showPagination" class="text-center mb-5">
-          <button class="btn btn-primary" @click="loadProducts">
-            <div
-              v-if="pagination.loading"
-              class="spinner-border spinner-border-sm text-light"
-              role="status"
-            >
-              <span class="sr-only">Loading...</span>
-            </div>
-            <span v-else>
-              ver mais
-            </span>
-          </button>
+    <div v-if="!loading">
+      <div v-if="products.length" class="row">
+        <div class="col-12 col-lg-3">
+          <categories-list />
         </div>
+        <div class="col-12 col-lg-9">
+          <products-list :products="products" />
+
+          <div v-if="showPagination" class="text-center mb-5">
+            <button class="btn btn-primary" @click="loadProducts">
+              <div
+                v-if="pagination.loading"
+                class="spinner-border spinner-border-sm text-light"
+                role="status"
+              >
+                <span class="sr-only">Loading...</span>
+              </div>
+              <span v-else>
+                ver mais
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div v-else>
+        Ainda não foi adicionado nenhum item ao catálogo.
       </div>
     </div>
     <div v-else class="row">
@@ -46,6 +51,7 @@ export default {
 
   data() {
     return {
+      loading: true,
       products: [],
       currentCategoryId: "",
       pagination: {
@@ -70,6 +76,7 @@ export default {
 
   methods: {
     async loadProducts() {
+      this.loading = true;
       const response = await SellerService.products(
         this.seller.id,
         this.pagination.current_page,
@@ -84,6 +91,8 @@ export default {
       }
 
       this.pagination.last_page = response.data.last_page;
+
+      this.loading = false;
     },
 
     async nextPage() {

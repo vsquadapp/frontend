@@ -22,9 +22,9 @@
           {{ product.name }}
         </p>
       </div>
-      <p class="product-price mb-0 mt-auto">
+      <h5 class="product-price mb-0 mt-auto">
         {{ productPrice }}
-      </p>
+      </h5>
     </div>
   </div>
 </template>
@@ -39,19 +39,11 @@ export default {
 
   computed: {
     productPrice() {
-      return formatMoney(this.product.price);
-    },
-
-    comissionValue() {
-      if (this.product.comission_type === "percentage") {
-        return this.product.comission_value * this.product.price;
-      } else {
-        return this.product.comission_value;
-      }
+      return formatMoney(this.product.price / 100);
     },
 
     comissionPrice() {
-      return formatMoney(this.comissionValue);
+      return formatMoney(this.product.comission_value / 100);
     },
 
     outStock() {

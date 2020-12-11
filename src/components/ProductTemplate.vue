@@ -89,7 +89,7 @@
       <div class="row col-12">
         <div class="block-description mb-3">
           <h4 class="text-gray-900">Descrição</h4>
-          <p>
+          <p class="product-description">
             {{ product.description }}
           </p>
         </div>
@@ -183,5 +183,9 @@ export default {
 .image-content {
   width: 100%;
   background: white;
+}
+
+.product-description {
+  white-space: break-spaces;
 }
 </style>

@@ -39,7 +39,7 @@
 
           <div class="block-description mb-3">
             <h4 class="text-gray-900">Descrição</h4>
-            <p>
+            <p class="product-description">
               {{ product.description }}
             </p>
           </div>
@@ -78,7 +78,7 @@
           <div class="block-delivery my-3">
             <h6>Opções de entrega</h6>
             <table class="table table-borderless table-striped">
-              <tbody v-if="product.deliveryType === '1'">
+              <tbody v-if="product.delivery_type === '1'">
                 <tr>
                   <td>Retirada pessoalmente</td>
                   <td class="text-right font-weight-bold">
@@ -92,7 +92,7 @@
                   </td>
                 </tr>
               </tbody>
-              <tbody v-if="product.deliveryType === '2'">
+              <tbody v-if="product.delivery_type === '2'">
                 <tr>
                   <td>Entrega</td>
                   <td class="text-right font-weight-bold">
@@ -106,7 +106,7 @@
                   </td>
                 </tr>
               </tbody>
-              <tbody v-if="product.deliveryType === '3'">
+              <tbody v-if="product.delivery_type === '3'">
                 <tr>
                   <td>Retirada pessoalmente</td>
                   <td class="text-right font-weight-bold">
@@ -200,16 +200,8 @@ export default {
       return null;
     },
 
-    comissionValue() {
-      if (this.product.comission_type === "percentage") {
-        return (this.product.comission_value * this.product.price) / 100;
-      } else {
-        return this.product.comission_value;
-      }
-    },
-
     comissionPrice() {
-      return formatMoney(this.comissionValue / 100);
+      return formatMoney(this.product.comission_value / 100);
     }
   },
 
@@ -311,5 +303,9 @@ export default {
       margin-right: 0.5rem;
     }
   }
+}
+
+.product-description {
+  white-space: break-spaces;
 }
 </style>
