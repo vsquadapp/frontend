@@ -172,7 +172,7 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label class="title ">
-                      Você quer oferecer retirada pessoalmente?
+                      Opções de entrega
                     </label>
 
                     <div class="row">
@@ -181,15 +181,38 @@
                           id="deliveryType"
                           class="form-control"
                           v-model="product.delivery_type"
+                          required
                         >
                           <option value="1">
-                            Sim, oferecer retirada pessoalmente.
+                            Apenas retirada pessoalmente
                           </option>
                           <option value="2">
-                            Não, só faço envios.
+                            Apenas entrega
+                          </option>
+                          <option value="3">
+                            Entrega e retirada pessoalmente
                           </option>
                         </select>
                       </div>
+                    </div>
+                  </div>
+
+                  <div v-if="product.delivery_type !== '1'" class="form-group">
+                    <label for="">Valor da entrega</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                          R$
+                        </span>
+                      </div>
+
+                      <input
+                        v-model="product.delivery_value"
+                        class="form-control"
+                        v-money="vmoney"
+                        type="text"
+                        required
+                      />
                     </div>
                   </div>
                 </div>
@@ -213,7 +236,10 @@
                     </small>
                   </div>
                   <div>
-                    <image-picker @change="onChangeImages" />
+                    <image-picker
+                      @change="onChangeImages"
+                      :initial-images="product.images"
+                    />
                   </div>
                 </div>
               </div>
@@ -368,6 +394,7 @@ import { VMoney } from "v-money";
 import unmask from "@/utils/unmask";
 import formatMoney from "@/utils/formatMoney";
 import SupplierService from "@/services/suppliers";
+import ProductService from "@/services/products";
 
 const vmoney = {
   decimal: ",",
@@ -420,7 +447,7 @@ export default {
     ...mapGetters({ supplier: "supplier" }),
 
     price() {
-      return unmask(this.product.textprice);
+      return unmask(this.product.price);
     },
 
     comissionValue() {
@@ -439,25 +466,47 @@ export default {
 
     receiveValue() {
       return this.price / 100 - this.taxValue - this.comissionValue;
+    },
+
+    productPayload() {
+      return {
+        ...this.product,
+        price: this.price,
+        comission_value: this.comissionValue * 100
+      };
     }
   },
 
   methods: {
     async loadProduct() {
       const response = await SupplierService.getProductById(
-        this.id,
-        this.supplier.id
+        this.supplier.id,
+        this.id
       );
-      this.product = response.data;
+      const product = response.data;
+
+      product.category = product.category.name;
+      product.images = product.images.map(image => image.image);
+
+      this.product = product;
     },
 
     async submit() {
+      // try {
+      await ProductService.update(this.product.id, this.productPayload);
       await this.$swal({
-        title: "Produto salvo!",
-        text: "O produto foi atualizado com sucesso!",
+        title: "Produto atualizado com sucesso!",
+        // text: "O produto foi atualizado !",
         icon: "success"
       });
       this.$router.push({ name: "Supplier.ListProduct" });
+      // } catch (err) {
+      //   await this.$swal({
+      //     title: "Ocorreu um erro ao atualizar o produto!",
+      //     text: err?.response?.data?.error || err,
+      //     icon: "error"
+      //   });
+      // }
     },
 
     addInfo() {

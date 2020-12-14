@@ -63,10 +63,16 @@
 
 <script>
 export default {
+  props: { "initial-images": Array },
+
   data() {
     return {
       images: []
     };
+  },
+
+  mounted() {
+    this.images = this.initialImages;
   },
 
   methods: {

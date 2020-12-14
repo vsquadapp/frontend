@@ -19,9 +19,14 @@ export function create(data) {
   return axios.post(`${baseUrl}/api/products`, data);
 }
 
+export function update(product_id, data) {
+  return axios.patch(`${baseUrl}/api/products/${product_id}`, data);
+}
+
 export default {
   index,
   getById,
   categories,
-  create
+  create,
+  update
 };
