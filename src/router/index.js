@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import SupplierTemplate from "./../template/supplier/Template";
 import SellerTemplate from "./../template/seller/Template";
+import StoreTemplate from "./../template/store/Template";
 
 import store from "@/store";
 
@@ -195,6 +196,28 @@ const routes = [
           import(
             /* webpackChunkName: "seller-list-sales" */ "../views/seller/sale/list"
           )
+      }
+    ]
+  },
+  {
+    path: "/store/:seller",
+    name: "Store",
+    component: StoreTemplate,
+    props: true,
+    redirect: { name: "Store.Home" },
+    children: [
+      {
+        path: "",
+        name: "Store.Home",
+        component: () =>
+          import(/* webpackChunkName: "seller-shop" */ "../views/store/home")
+      },
+      {
+        path: "product/:id",
+        name: "Store.Product.Details",
+        props: true,
+        component: () =>
+          import(/* webpackChunkName: "seller-shop" */ "../views/store/product")
       }
     ]
   }
