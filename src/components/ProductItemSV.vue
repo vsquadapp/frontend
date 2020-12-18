@@ -40,7 +40,9 @@
       <div class="options-block">
         <ul class="options list-group">
           <li class="list-group-item" @click="editProduct">Editar produto</li>
-          <li class="list-group-item">Remover</li>
+          <li class="list-group-item" @click="removeProduct(product.id)">
+            Remover
+          </li>
         </ul>
       </div>
     </div>
@@ -54,6 +56,7 @@
 </template>
 
 <script>
+import ProductService from "@/services/products";
 import formatMoney from "@/utils/formatMoney";
 
 export default {
@@ -82,6 +85,40 @@ export default {
         params: {
           id: this.product.id
         }
+      });
+    },
+
+    async removeProduct(product_id) {
+      this.$swal({
+        title: `Deseja realmente excluir?`,
+        text: `O produto será automaticamente removido do catálogo e deixará de ser vendido.`,
+        inputAttributes: { autocapitalize: "off" },
+        icon: "warning",
+        reverseButtons: true,
+        confirmButtonText: "Continuar",
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        showLoaderOnConfirm: true,
+        preConfirm: () => {
+          return ProductService.destroy(product_id)
+            .then(() => {
+              return true;
+            })
+            .catch(() => {
+              this.$swal.showValidationMessage(
+                `Não foi possível remover o produto`
+              );
+            });
+        },
+        allowOutsideClick: () => !this.$swal.isLoading()
+      }).then(async () => {
+        await this.$swal.fire({
+          icon: "success",
+          title: `Produto removido com sucesso!`
+        });
+        this.$router.push({
+          name: "Supplier.ListProduct"
+        });
       });
     }
   }

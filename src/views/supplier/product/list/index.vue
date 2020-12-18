@@ -1,6 +1,13 @@
 <template>
   <page title="Meus produtos">
-    <div v-if="products.length" class="row">
+    <div v-if="loading" class="row">
+      <div class="col-12 d-flex justify-content-center mt-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+    <div v-else-if="products.length" class="row">
       <div class="col-12 col-lg-3">
         <categories-list @select-category="onSelectCategory" />
       </div>
@@ -21,12 +28,8 @@
         </div>
       </div>
     </div>
-    <div v-else class="row">
-      <div class="col-12 d-flex justify-content-center mt-5">
-        <div class="spinner-border text-primary" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
-      </div>
+    <div v-else>
+      <h6>Nenhum produto cadastrado</h6>
     </div>
   </page>
 </template>
@@ -46,6 +49,7 @@ export default {
   data() {
     return {
       products: [],
+      loading: true,
       currentCategoryId: "",
       pagination: {
         current_page: 1,
@@ -69,6 +73,7 @@ export default {
 
   methods: {
     async loadProducts() {
+      this.loading = true;
       const response = await SupplierService.products(
         this.supplier.id,
         this.pagination.current_page,
@@ -80,7 +85,7 @@ export default {
       } else {
         this.products = [...this.products, ...response.data.data];
       }
-
+      this.loading = false;
       this.pagination.last_page = response.data.last_page;
     },
 

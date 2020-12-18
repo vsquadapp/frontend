@@ -23,10 +23,15 @@ export function update(product_id, data) {
   return axios.patch(`${baseUrl}/api/products/${product_id}`, data);
 }
 
+export function destroy(product_id) {
+  return axios.delete(`${baseUrl}/api/products/${product_id}`);
+}
+
 export default {
   index,
   getById,
   categories,
   create,
-  update
+  update,
+  destroy
 };

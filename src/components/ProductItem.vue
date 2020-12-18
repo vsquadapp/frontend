@@ -33,7 +33,9 @@
       <div class="options-block">
         <ul class="options list-group">
           <li class="list-group-item" @click="editProduct">Editar produto</li>
-          <li class="list-group-item">Remover</li>
+          <li class="list-group-item" @click="removeProduct(product.id)">
+            Remover
+          </li>
         </ul>
       </div>
     </div>
@@ -83,6 +85,14 @@ export default {
         params: {
           id: this.product.id
         }
+      });
+    },
+
+    async removeProduct() {
+      const response = await this.$swal.fire({
+        icon: "warning",
+        title: `Deseja realmente excluir o produto?`,
+        text: `O produto será automaticamente removido do catálogo e deixará de ser vendido.`
       });
     }
   }
