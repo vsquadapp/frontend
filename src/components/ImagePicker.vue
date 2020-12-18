@@ -72,7 +72,7 @@ export default {
   },
 
   mounted() {
-    this.images = this.initialImages;
+    this.images = this.initialImages || [];
   },
 
   methods: {
