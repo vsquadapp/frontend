@@ -108,6 +108,24 @@
             </div>
           </div>
 
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <input
+                  type="number"
+                  class="form-control"
+                  aria-describedby="quantityInvalid"
+                  required
+                  :class="{ 'is-invalid': checkout.error }"
+                  v-model="checkout.quantity"
+                />
+                <div id="quantityInvalid" class="invalid-feedback">
+                  {{ checkout.error }}
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div>
             <button
               id="place-order-button"
@@ -124,6 +142,13 @@
                 Comprar agora
               </span>
             </button>
+
+            <finish-order-modal
+              v-if="showFinishOrderModal"
+              :product="product"
+              :quantity="checkout.quantity"
+              @close="onCloseFinishOrderModal"
+            />
           </div>
         </div>
 
@@ -146,20 +171,22 @@
 <script>
 import Page from "@/components/Page";
 import SellerInfo from "./SellerInfo";
+import FinishOrderModal from "./finish-order-modal";
 import ProductImages from "./ProductImages";
 import ProductsService from "@/services/products";
-import SellerService from "@/services/sellers";
 import formatMoney from "@/utils/formatMoney";
 
 export default {
-  components: { Page, SellerInfo, ProductImages },
+  components: { Page, SellerInfo, ProductImages, FinishOrderModal },
 
   props: { id: String, seller: String },
 
   data() {
     return {
       product: null,
-      orderLoading: false
+      orderLoading: false,
+      showFinishOrderModal: false,
+      checkout: { quantity: 1 }
     };
   },
 
@@ -197,31 +224,27 @@ export default {
     },
 
     async placeOrder() {
-      this.orderLoading = true;
-
-      try {
-        await SellerService.addProduct(this.seller.id, this.id);
-        await this.$swal({
-          title: "Produto adicionado ao catalogo!",
-          text:
-            "O produto foi adicionado ao seu catálogo e já está disponível para venda!",
-          icon: "success"
-        });
-        this.$router.push({ name: "Seller.Dashboard" });
-      } catch (err) {
-        await this.$swal({
-          title: "Ocorreu um erro!",
-          text:
-            "Não foi possível adicionar o produto ao catálogo, tente novamente mais tarde!",
-          icon: "error"
-        });
+      if (this.checkout.quantity > this.product.quantity) {
+        this.checkout.error = "Sem estoque.";
+      } else {
+        this.showFinishOrderModal = true;
       }
-
-      this.orderLoading = false;
     },
 
     redirectToSeller() {
       this.$router.push({ name: "Store", params: { seller: this.seller } });
+    },
+
+    onCloseFinishOrderModal() {
+      this.showFinishOrderModal = false;
+    }
+  },
+
+  watch: {
+    "checkout.quantity"(value, oldValue) {
+      if (value > this.product.quantity) {
+        this.checkout.quantity = oldValue;
+      }
     }
   }
 };
