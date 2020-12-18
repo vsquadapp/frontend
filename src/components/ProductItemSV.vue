@@ -116,9 +116,7 @@ export default {
           icon: "success",
           title: `Produto removido com sucesso!`
         });
-        this.$router.push({
-          name: "Supplier.ListProduct"
-        });
+        this.$router.go();
       });
     }
   }
