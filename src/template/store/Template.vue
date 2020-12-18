@@ -41,3 +41,12 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+html,
+#app,
+#page-top,
+#wrapper {
+  height: 100%;
+}
+</style>

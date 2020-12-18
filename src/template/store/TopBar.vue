@@ -9,6 +9,7 @@
 
       <!-- Topbar Search -->
       <form
+        v-if="store"
         @submit.prevent="search"
         class="d-none d-sm-inline-block form-inline mr-3 ml-md-3 my-2 my-md-0 mw-100 navbar-search"
       >
@@ -77,5 +78,10 @@
 </template>
 
 <script>
-export default {};
+import { mapGetters } from "vuex";
+export default {
+  computed: {
+    ...mapGetters(["store"])
+  }
+};
 </script>

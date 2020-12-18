@@ -2,13 +2,10 @@
   <div class="mb-4 w-100 bg-gray-100">
     <div class="">
       <div class="mb-3">
-        <h1
-          class="current-category text-gray-900"
-          @click="selectCategory(null)"
-        >
+        <h1 class="current-category text-gray-900">
           Categorias
         </h1>
-        <p class="results-count">Exibir todas</p>
+        <p class="show-all" @click="selectCategory(null)">Exibir todas</p>
       </div>
       <div>
         <ul class="categories-list">
@@ -16,6 +13,7 @@
             v-for="category of categories"
             :key="category.id"
             class="category-item text-gray-900"
+            :class="{ active: category.id == selected }"
             @click="selectCategory(category)"
           >
             {{ category.name }}
@@ -27,25 +25,13 @@
 </template>
 
 <script>
-import ProductService from "@/services/products";
-
 export default {
-  data() {
-    return {
-      categories: []
-    };
-  },
-
-  mounted() {
-    this.loadCategories();
+  props: {
+    categories: Array,
+    selected: [String, Number]
   },
 
   methods: {
-    async loadCategories() {
-      const response = await ProductService.categories(1, 100);
-      this.categories = response.data.data;
-    },
-
     selectCategory(category) {
       this.$emit("select-category", category);
     }
@@ -88,5 +74,12 @@ h1.current-category {
 .category-item:hover {
   cursor: pointer;
   font-weight: 600;
+}
+
+.show-all {
+  cursor: pointer;
+  &:hover {
+    font-weight: 600;
+  }
 }
 </style>

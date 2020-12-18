@@ -200,7 +200,7 @@ const routes = [
     ]
   },
   {
-    path: "/store/:seller",
+    path: "/store/:slug",
     name: "Store",
     component: StoreTemplate,
     props: true,
@@ -209,6 +209,7 @@ const routes = [
       {
         path: "",
         name: "Store.Home",
+        props: true,
         component: () =>
           import(/* webpackChunkName: "seller-shop" */ "../views/store/home")
       },

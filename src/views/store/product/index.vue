@@ -4,35 +4,7 @@
       <div class="col-12 col-lg-8">
         <div class="card p-4 h-100">
           <div class="row">
-            <div class="col-12 block-image">
-              <div class="row">
-                <div
-                  v-if="product.images.length"
-                  class="col-sm-2 product-images"
-                >
-                  <div
-                    v-for="(image, index) of product.images"
-                    :key="index"
-                    class="thumb"
-                  >
-                    <img :src="image.image" />
-                  </div>
-                </div>
-                <div class="col-sm-9 text-center block-main-image">
-                  <img
-                    v-if="product.images.length"
-                    class="main-image"
-                    :src="product.images[0].image"
-                  />
-                  <img
-                    v-else
-                    class="main-image"
-                    src="medias/alt-photo.png"
-                    alt=""
-                  />
-                </div>
-              </div>
-            </div>
+            <product-images :product="product" />
           </div>
 
           <hr />
@@ -132,7 +104,7 @@
               <span class="text-gray-900">Estoque disponível</span>
             </div>
             <div>
-              <span>1 disponíveis</span>
+              <span>{{ productQuantity }}</span>
             </div>
           </div>
 
@@ -156,14 +128,7 @@
         </div>
 
         <div class="card p-4 mt-3 seller-block">
-          <div>
-            <h5 class="title text-gray-900 mb-3">Informações do vendedor</h5>
-          </div>
-
-          <div class="seller-info" @click="redirectToSeller">
-            <h6 class="seller-name text-gray-900 mb-0">O boticário</h6>
-            <p class="seller-official">Loja oficial do vsquad</p>
-          </div>
+          <seller-info />
         </div>
       </div>
     </div>
@@ -180,14 +145,14 @@
 
 <script>
 import Page from "@/components/Page";
-
-import formatMoney from "@/utils/formatMoney";
-
+import SellerInfo from "./SellerInfo";
+import ProductImages from "./ProductImages";
 import ProductsService from "@/services/products";
 import SellerService from "@/services/sellers";
+import formatMoney from "@/utils/formatMoney";
 
 export default {
-  components: { Page },
+  components: { Page, SellerInfo, ProductImages },
 
   props: { id: String, seller: String },
 
@@ -212,6 +177,16 @@ export default {
 
     comissionPrice() {
       return formatMoney(this.product.comission_value / 100);
+    },
+
+    productQuantity() {
+      if (this.product?.quantity) {
+        const quantity = this.product.quantity;
+        return quantity === 1
+          ? `${quantity} disponível`
+          : `${quantity} disponíveis`;
+      }
+      return "";
     }
   },
 
@@ -269,74 +244,7 @@ export default {
   font-weight: 600;
 }
 
-.thumb {
-  border: solid thin rgba(0, 0, 0, 0.25);
-  border-radius: 6px;
-  height: 60px;
-  width: 60px;
-  margin: 1rem 0rem;
-  padding: 0.1rem;
-  cursor: pointer;
-  img {
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
-  }
-  &:hover {
-    border-color: #3a3b45;
-  }
-}
-
-.block-main-image {
-  width: 100%;
-  height: 300px;
-}
-
-.main-image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-@media only screen and (max-width: 575px) {
-  .product-images {
-    display: flex;
-
-    .thumb {
-      margin-right: 0.5rem;
-    }
-  }
-}
-
 .product-description {
   white-space: break-spaces;
-}
-
-.seller-block .title {
-  font-size: 18px;
-  font-weight: 400;
-}
-
-.seller-name {
-  font-size: 20px;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-
-.seller-official {
-  font-size: 14px;
-  font-weight: 300;
-  transition: color 0.3s ease;
-}
-
-.seller-info {
-  cursor: pointer;
-
-  &:hover {
-    .seller-name,
-    .seller-official {
-      color: #858796 !important;
-    }
-  }
 }
 </style>

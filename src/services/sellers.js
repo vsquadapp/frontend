@@ -23,9 +23,20 @@ export function dashboard(seller) {
   return axios.get(`${baseUrl}/api/sellers/${seller}/dashboard`);
 }
 
+export function findSellerBySlug(slug) {
+  return axios.get(`${baseUrl}/api/sellers/slug/${slug}`).then(response => {
+    if (response.data) {
+      return response.data;
+    } else {
+      throw "vendedor não encontrado";
+    }
+  });
+}
+
 export default {
   addProduct,
   categories,
   products,
-  dashboard
+  dashboard,
+  findSellerBySlug
 };

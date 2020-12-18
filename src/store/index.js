@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import Auth from "../services/auth";
+import SellerService from "../services/sellers";
 import axios from "axios";
 
 const store = createStore({
@@ -9,7 +10,8 @@ const store = createStore({
   state() {
     return {
       access_token: null,
-      user: null
+      user: null,
+      store: null
     };
   },
 
@@ -24,6 +26,10 @@ const store = createStore({
 
     supplier(state) {
       return state.user?.supplier || null;
+    },
+
+    store(state) {
+      return state.store || null;
     }
   },
 
@@ -35,6 +41,10 @@ const store = createStore({
 
     setUser(state, value) {
       state.user = value;
+    },
+
+    setStore(state, value) {
+      state.store = value;
     }
   },
 
@@ -54,6 +64,12 @@ const store = createStore({
     logout(context) {
       context.commit("setAccessToken", null);
       context.commit("setUser", null);
+    },
+
+    async loadStore(context, slug) {
+      const store = await SellerService.findSellerBySlug(slug);
+      context.commit("setStore", store);
+      return store;
     }
   }
 });

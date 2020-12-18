@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { recovery } from "@/services/auth";
+import { recoveryPassword } from "@/services/auth";
 
 export default {
   data() {
@@ -89,7 +89,7 @@ export default {
     async submit() {
       this.recovery.status = "loading";
       try {
-        await recovery();
+        await recoveryPassword();
         this.recovery.status = "success";
       } catch (err) {
         this.recovery.status = "error";
