@@ -512,10 +512,15 @@ export default {
     },
 
     productPayload() {
+      const comission_price = unmask(this.product.comission_value);
+      const comission_value =
+        this.product.comission_type === "percentage"
+          ? comission_price * 100
+          : comission_price;
       return {
         ...this.product,
         price: this.price,
-        comission_value: unmask(this.product.comission_value) * 100
+        comission_value
       };
     }
   },
