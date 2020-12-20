@@ -8,7 +8,7 @@
         <products-list :products="products" />
 
         <div v-if="showPagination" class="text-center mb-5">
-          <button class="btn btn-primary" @click="loadProducts">
+          <button class="btn btn-primary" @click="nextPage">
             ver mais
             <div
               v-if="pagination.loading"
@@ -65,11 +65,20 @@ export default {
 
   methods: {
     async loadProducts() {
-      const response = await ProductService.index(
-        15,
-        this.pagination.current_page,
-        this.currentCategoryId
-      );
+      const data = {
+        page: this.pagination.current_page,
+        params: {
+          limit: 10,
+          and: [["quantity", ">", 0]],
+          order: [["created_at", "desc"]]
+        }
+      };
+
+      if (this.currentCategoryId) {
+        data.params.and.push(["category_id", "=", this.currentCategoryId]);
+      }
+
+      const response = await ProductService.query(data);
 
       if (this.pagination.current_page === 1) {
         this.products = [...response.data.data];
@@ -78,12 +87,14 @@ export default {
       }
 
       this.pagination.last_page = response.data.last_page;
+
+      return response;
     },
 
     async nextPage() {
       this.pagination.loading = true;
       this.pagination.current_page++;
-      this.loadProducts();
+      await this.loadProducts();
       this.pagination.loading = false;
     },
 

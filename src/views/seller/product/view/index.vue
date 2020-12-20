@@ -132,7 +132,7 @@
           </div>
 
           <div class="pt-3">
-            <p>1 disponíveis</p>
+            <p>{{ quantityText }}</p>
           </div>
 
           <div>
@@ -202,6 +202,12 @@ export default {
 
     comissionPrice() {
       return formatMoney(this.product.comission_value / 100);
+    },
+    quantityText() {
+      const quantity = this.product.quantity;
+      return quantity === 1
+        ? `${quantity} dispoível`
+        : `${quantity} disponíveis`;
     }
   },
 

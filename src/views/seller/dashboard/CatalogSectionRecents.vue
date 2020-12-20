@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import ProductsService from "@/services/products";
+import ProductService from "@/services/products";
 import CatalogSection from "./CatalogSection";
 
 export default {
@@ -23,7 +23,14 @@ export default {
 
   methods: {
     async loadProducts() {
-      const response = await ProductsService.index(4);
+      const data = {
+        params: {
+          limit: 4,
+          and: [["quantity", ">", 0]],
+          order: [["created_at", "desc"]]
+        }
+      };
+      const response = await ProductService.query(data);
       this.products = response.data.data;
     }
   }

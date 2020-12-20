@@ -23,7 +23,10 @@ export default {
 
   methods: {
     async loadProducts() {
-      const response = await ProductsService.index(4);
+      const data = {
+        params: { limit: 4, and: [["quantity", ">", 0]] }
+      };
+      const response = await ProductsService.query(data);
       this.products = response.data.data;
     }
   }

@@ -15,6 +15,10 @@ export function index(items = 15, page = 1, category_id = "") {
   );
 }
 
+export function query(params) {
+  return axios.get(`${baseUrl}/api/products`, { params });
+}
+
 export function create(data) {
   return axios.post(`${baseUrl}/api/products`, data);
 }
@@ -29,6 +33,7 @@ export function destroy(product_id) {
 
 export default {
   index,
+  query,
   getById,
   categories,
   create,

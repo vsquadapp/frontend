@@ -26,7 +26,7 @@
 import Page from "@/components/Page";
 import OrderItem from "./OrderItem";
 
-import OrdersService from "@/services/orders";
+import OrderService from "@/services/orders";
 
 export default {
   components: { Page, OrderItem },
@@ -43,7 +43,7 @@ export default {
 
   methods: {
     async loadProducts() {
-      this.orders = await OrdersService.index();
+      this.orders = await OrderService.index();
     }
   }
 };
