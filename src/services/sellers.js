@@ -33,10 +33,17 @@ export function findSellerBySlug(slug) {
   });
 }
 
+export function orders(seller, page, items, status) {
+  return axios.get(
+    `${baseUrl}/api/sellers/${seller}/orders?page=${page}&items=${items}&status=${status}`
+  );
+}
+
 export default {
   addProduct,
   categories,
   products,
   dashboard,
-  findSellerBySlug
+  findSellerBySlug,
+  orders
 };

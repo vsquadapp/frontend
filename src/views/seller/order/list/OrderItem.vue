@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td class="slim text-center">
-      <img :src="order.product.img" alt="" height="30" />
+      <img :src="order.product.images[0].image" alt="" height="30" />
     </td>
     <td>
       <span class="product-name" @click="openModal">
@@ -24,7 +24,9 @@
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Pedido #123841</h5>
+            <h5 class="modal-title" id="exampleModalLabel">
+              Pedido #{{ order.order_id }}
+            </h5>
             <button
               type="button"
               class="close"
@@ -40,9 +42,14 @@
                 <img :src="order.product.img" height="200" />
               </div>
               <div class="">
-                <h5 class="text-gray-900 mb-2">
+                <h5 class="text-gray-900 mb-0">
                   {{ order.product.name }}
                 </h5>
+                <div class="order-status mb-2">
+                  <span class="text-warning">
+                    pendente <i class="far fa-clock"></i>
+                  </span>
+                </div>
                 <p class="mb-4">
                   {{ order.quantity }}
                   {{
@@ -87,11 +94,11 @@ export default {
 
   computed: {
     orderPrice() {
-      return formatMoney(this.order.price);
+      return formatMoney(this.order.price / 100);
     },
 
     receivedPrice() {
-      return formatMoney(this.order.comission);
+      return formatMoney(this.order.comission / 100);
     },
 
     orderDate() {
@@ -143,6 +150,16 @@ export default {
 <style lang="scss" scoped>
 .product-name {
   cursor: pointer;
+
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: black;
+  }
+}
+
+.order-status {
+  font-size: 14px;
 }
 
 .slim {
