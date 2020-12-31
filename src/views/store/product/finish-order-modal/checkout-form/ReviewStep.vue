@@ -1,56 +1,51 @@
 <template>
-  <form @submit.prevent="onSubmit" class="review-step">
-    <div class="modal-body">
-      <h6 class="mb-3">Resumo</h6>
+  <div>
+    <h6 class="mb-3">Resumo</h6>
 
+    <div>
       <div>
-        <div>
-          <strong>Dados do cliente</strong>
-          <p>
-            {{ form.customer.name }} <br />
-            {{ form.customer.email }} <br />
-            {{ form.customer.phone }}
-          </p>
-        </div>
-        <hr />
+        <strong>Dados do cliente</strong>
+        <p>
+          {{ form.customer.name }} <br />
+          {{ form.customer.email }} <br />
+          {{ form.customer.phone }}
+        </p>
+      </div>
+      <hr />
+    </div>
+    <div>
+      <div>
+        <strong>Produto</strong>
       </div>
       <div>
-        <div>
-          <strong>Produto</strong>
-        </div>
-        <div>
-          <p>
-            {{ product.name }} <br />
-            Quantidade: {{ quantity }}<br />
-            Valor total: {{ totalPrice }}<br />
-          </p>
-        </div>
-        <hr />
+        <p>
+          {{ product.name }} <br />
+          Quantidade: {{ quantity }}<br />
+          Valor total: {{ totalPrice }}<br />
+        </p>
       </div>
+      <hr />
+    </div>
+    <div>
       <div>
-        <div>
-          <strong>Forma de recebimento</strong>
-          <div v-if="isPickup">
-            Retirada no local <br />
-            Lucidata <br />
-            Av. Getúlio Vargas, 441 - Centro, Feira de Santana - BA
+        <strong>Forma de recebimento</strong>
+        <div v-if="isPickup">
+          Retirada no local <br />
+          Lucidata <br />
+          Av. Getúlio Vargas, 441 - Centro, Feira de Santana - BA
+        </div>
+        <div v-else-if="isDelivery">
+          <div>
+            <span>Entrega no endereço</span>
           </div>
-          <div v-else-if="isDelivery">
-            <div>
-              <span>Entrega no endereço</span>
-            </div>
-            <div>
-              {{ form.address.street }}, {{ form.address.number }},
-              {{ form.address.district }}
-            </div>
+          <div>
+            {{ form.address.street }}, {{ form.address.number }},
+            {{ form.address.district }}
           </div>
         </div>
       </div>
     </div>
-    <div class="modal-footer">
-      <slot></slot>
-    </div>
-  </form>
+  </div>
 </template>
 
 <script>

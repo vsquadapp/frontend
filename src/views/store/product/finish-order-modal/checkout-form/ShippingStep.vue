@@ -1,182 +1,175 @@
 <template>
-  <form @submit.prevent="onSubmit" class="shipping-step">
-    <div class="modal-body">
-      <div>
-        <h6>Opções de recebimento</h6>
+  <div>
+    <h6>Opções de recebimento</h6>
 
-        <div class="delivery-options">
-          <div class="delivery-type-item custom-control custom-radio">
-            <input
-              type="radio"
-              id="deliveryType1"
-              name="deliveryType"
-              class="custom-control-input"
-              value="pickup"
-              v-model="address.delivery_type"
-              required
-            />
-            <label
-              class="delivery-type-label custom-control-label"
-              for="deliveryType1"
-            >
-              <div class="delivery-type-label-row">
-                <table class="delivery-type-label-row-table">
-                  <tr>
-                    <td class="delivery-type-title text-gray-800">
-                      Retirada no local
-                    </td>
-                    <td class="text-success delivery-type-price">
-                      Gratis
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div>
-                        Multicoisas
-                      </div>
-                      <div>
-                        Av. Getúlio Vargas, 441 - Centro, Feira de Santana - BA
-                      </div>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-            </label>
-          </div>
-          <div class="delivery-type-item custom-control custom-radio">
-            <input
-              type="radio"
-              id="deliveryType2"
-              name="deliveryType"
-              class="custom-control-input"
-              value="delivery"
-              v-model="address.delivery_type"
-            />
-            <label
-              class="delivery-type-label custom-control-label"
-              for="deliveryType2"
-            >
-              <div class="delivery-type-label-row">
-                <table class="delivery-type-label-row-table">
-                  <tr>
-                    <td class="delivery-type-title text-gray-800">
-                      Delivery
-                    </td>
-                    <td class="delivery-type-price text-gray-800">
-                      R$ 10,00
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Prazo de 24 horas para entrega
-                    </td>
-                  </tr>
-                </table>
-              </div>
-            </label>
-          </div>
-        </div>
-
-        <fieldset
-          :disabled="searchingCep"
-          v-if="address.delivery_type === 'delivery'"
-          class="delivery-address row"
+    <div class="delivery-options">
+      <div class="delivery-type-item custom-control custom-radio">
+        <input
+          type="radio"
+          id="deliveryType1"
+          name="deliveryType"
+          class="custom-control-input"
+          value="pickup"
+          v-model="address.delivery_type"
+          required
+        />
+        <label
+          class="delivery-type-label custom-control-label"
+          for="deliveryType1"
         >
-          <div class="col-12">
-            <h6>Endereço de entrega</h6>
+          <div class="delivery-type-label-row">
+            <table class="delivery-type-label-row-table">
+              <tr>
+                <td class="delivery-type-title text-gray-800">
+                  Retirada no local
+                </td>
+                <td class="text-success delivery-type-price">
+                  Gratis
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div>
+                    Multicoisas
+                  </div>
+                  <div>
+                    Av. Getúlio Vargas, 441 - Centro, Feira de Santana - BA
+                  </div>
+                </td>
+              </tr>
+            </table>
           </div>
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="cep" class="label-control">
-                Cep
-              </label>
-              <input
-                id="cep"
-                type="text"
-                class="form-control"
-                v-model="address.zipcode"
-                @blur="searchCep"
-              />
-            </div>
+        </label>
+      </div>
+      <div class="delivery-type-item custom-control custom-radio">
+        <input
+          type="radio"
+          id="deliveryType2"
+          name="deliveryType"
+          class="custom-control-input"
+          value="delivery"
+          v-model="address.delivery_type"
+        />
+        <label
+          class="delivery-type-label custom-control-label"
+          for="deliveryType2"
+        >
+          <div class="delivery-type-label-row">
+            <table class="delivery-type-label-row-table">
+              <tr>
+                <td class="delivery-type-title text-gray-800">
+                  Delivery
+                </td>
+                <td class="delivery-type-price text-gray-800">
+                  R$ 10,00
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Prazo de 24 horas para entrega
+                </td>
+              </tr>
+            </table>
           </div>
-
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="street" class="label-control">
-                Endereço
-              </label>
-              <input
-                id="street"
-                type="text"
-                class="form-control"
-                v-model="address.street"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="complement" class="label-control">
-                Complemento
-              </label>
-              <input
-                id="complement"
-                type="text"
-                class="form-control"
-                v-model="address.complement"
-              />
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="number" class="label-control">
-                Número
-              </label>
-              <input
-                id="number"
-                type="text"
-                class="form-control"
-                v-model="address.number"
-                required
-              />
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="district" class="label-control">
-                Bairro
-              </label>
-              <input
-                id="district"
-                type="text"
-                class="form-control"
-                v-model="address.district"
-                required
-              />
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="city" class="label-control">
-                Cidade
-              </label>
-              <input
-                id="city"
-                type="text"
-                class="form-control"
-                v-model="address.city"
-                required
-              />
-            </div>
-          </div>
-        </fieldset>
+        </label>
       </div>
     </div>
-    <div class="modal-footer">
-      <slot></slot>
-    </div>
-  </form>
+
+    <fieldset
+      :disabled="searchingCep"
+      v-if="address.delivery_type === 'delivery'"
+      class="delivery-address row"
+    >
+      <div class="col-12">
+        <h6>Endereço de entrega</h6>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="cep" class="label-control">
+            Cep
+          </label>
+          <input
+            id="cep"
+            type="text"
+            class="form-control"
+            v-model="address.zipcode"
+            @blur="searchCep"
+          />
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="street" class="label-control">
+            Endereço
+          </label>
+          <input
+            id="street"
+            type="text"
+            class="form-control"
+            v-model="address.street"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="complement" class="label-control">
+            Complemento
+          </label>
+          <input
+            id="complement"
+            type="text"
+            class="form-control"
+            v-model="address.complement"
+          />
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="number" class="label-control">
+            Número
+          </label>
+          <input
+            id="number"
+            type="text"
+            class="form-control"
+            v-model="address.number"
+            required
+          />
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="district" class="label-control">
+            Bairro
+          </label>
+          <input
+            id="district"
+            type="text"
+            class="form-control"
+            v-model="address.district"
+            required
+          />
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="city" class="label-control">
+            Cidade
+          </label>
+          <input
+            id="city"
+            type="text"
+            class="form-control"
+            v-model="address.city"
+            required
+          />
+        </div>
+      </div>
+    </fieldset>
+  </div>
 </template>
 
 <script>
