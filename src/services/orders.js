@@ -1,3 +1,6 @@
+const axios = require("axios");
+const baseUrl = process.env.VUE_APP_BASE_URL;
+3;
 const orders = [
   {
     id: 1,
@@ -77,6 +80,7 @@ export function index() {
     }, 2000);
   });
 }
+
 export function getById(id) {
   return new Promise(resolve => {
     setTimeout(() => {
@@ -86,7 +90,12 @@ export function getById(id) {
   });
 }
 
+export function create(data) {
+  return axios.post(`${baseUrl}/api/orders`, data);
+}
+
 export default {
   index,
-  getById
+  getById,
+  create
 };

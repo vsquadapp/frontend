@@ -6,7 +6,7 @@
         <!-- Main Content -->
         <div id="content">
           <top-bar />
-          <div class="container">
+          <div class="container px-0">
             <router-view></router-view>
           </div>
         </div>

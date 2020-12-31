@@ -13,6 +13,9 @@ module.exports = {
   },
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off"
+    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "vue/valid-v-bind": "off",
+    "vue/no-custom-modifiers-on-v-model": "off",
+    "vue/no-v-model-argument": "off"
   }
 };
