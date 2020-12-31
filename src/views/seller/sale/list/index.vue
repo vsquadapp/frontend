@@ -41,14 +41,29 @@
                 <th class="text-right" scope="col">Preço</th>
                 <th class="text-right" scope="col">Comissão</th>
                 <th class="text-right" scope="col">Quantidade</th>
-                <th class="text-right" scope="col">Data da venda</th>
+                <th class="text-right" scope="col">Data do pedido</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody v-if="loading">
+              <tr>
+                <td colspan="6" class="text-center">
+                  <div class="spinner-border spinner-border-sm" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+            <tbody v-else-if="sales.length === 0">
+              <td colspan="5" class="text-center">
+                Nenhuma venda registrada.
+              </td>
+            </tbody>
+            <tbody v-else>
               <sale-item
                 v-for="(sale, index) of sales"
                 :key="index"
                 :sale="sale"
+                @reload="loadProducts"
               />
             </tbody>
           </table>
@@ -59,11 +74,12 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import Page from "@/components/Page";
 import SaleItem from "./SaleItem";
 import Board from "@/components/Board";
 import formatMoney from "@/utils/formatMoney";
-import SalesService from "@/services/sales";
+import SellerService from "@/services/sellers";
 
 export default {
   components: { Page, SaleItem, Board },
@@ -71,7 +87,8 @@ export default {
   data() {
     return {
       sales: [],
-      loading: true
+      loading: true,
+      error: false
     };
   },
 
@@ -80,6 +97,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(["seller"]),
+
     totalUnits() {
       return this.sales.reduce((total, order) => {
         return total + order.quantity;
@@ -90,13 +109,25 @@ export default {
       const total = this.sales.reduce((total, order) => {
         return total + order.comission;
       }, 0);
-      return formatMoney(total);
+      return formatMoney(total / 100);
     }
   },
 
   methods: {
     async loadProducts() {
-      this.sales = await SalesService.index();
+      this.loading = true;
+      this.error = false;
+      try {
+        const sales = await SellerService.orders(
+          this.seller.id,
+          1,
+          15,
+          "pending"
+        );
+        this.sales = sales.data.data;
+      } catch (err) {
+        this.error = true;
+      }
       this.loading = false;
     }
   }
