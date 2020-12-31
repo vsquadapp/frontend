@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td class="slim text-center">
-      <img :src="order.product.img" alt="" height="30" />
+      <img :src="order.product.images[0].image" alt="" height="30" />
     </td>
     <td>
       <span class="product-name" @click="openModal">
@@ -103,11 +103,12 @@ export default {
 
   computed: {
     orderPrice() {
-      return formatMoney(this.order.price);
+      return formatMoney(this.order.price / 100);
     },
 
     receivedPrice() {
-      return formatMoney(this.order.received);
+      const received = this.order.price - this.order.tax - this.order.comission;
+      return formatMoney(received / 100);
     },
 
     orderDate() {
@@ -159,6 +160,12 @@ export default {
 <style lang="scss" scoped>
 .product-name {
   cursor: pointer;
+
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: black;
+  }
 }
 
 .slim {

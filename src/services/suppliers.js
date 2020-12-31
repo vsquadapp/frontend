@@ -21,9 +21,16 @@ export function dashboard(supplier) {
   return axios.get(`${baseUrl}/api/suppliers/${supplier}/dashboard`);
 }
 
+export function orders(supplier, page, items, status) {
+  return axios.get(
+    `${baseUrl}/api/suppliers/${supplier}/orders?page=${page}&items=${items}&status=${status}`
+  );
+}
+
 export default {
   products,
   categories,
   getProductById,
-  dashboard
+  dashboard,
+  orders
 };
