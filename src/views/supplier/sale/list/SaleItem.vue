@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td class="slim text-center">
-      <img :src="sale.product.img" alt="" height="30" />
+      <img :src="sale.product.images[0].image" alt="" height="30" />
     </td>
     <td>
       <span class="product-name" @click="openModal">
@@ -24,7 +24,9 @@
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Venda #123841</h5>
+            <h5 class="modal-title" id="exampleModalLabel">
+              Venda #{{ sale.order_id }}
+            </h5>
             <button
               type="button"
               class="close"
@@ -66,7 +68,7 @@
                     </p>
                   </div>
                   <div>
-                    <small>Comissão do vendedor</small>
+                    <small>Comissão para o vendedor</small>
                     <p class="text-gray-900">
                       {{ comissionPrice }}
                     </p>
@@ -108,15 +110,16 @@ export default {
 
   computed: {
     salePrice() {
-      return formatMoney(this.sale.price);
+      return formatMoney(this.sale.price / 100);
     },
 
     receivedPrice() {
-      return formatMoney(this.sale.received);
+      const received = this.sale.price - this.sale.comission - this.sale.tax;
+      return formatMoney(received / 100);
     },
 
     comissionPrice() {
-      return formatMoney(this.sale.price - this.sale.received);
+      return formatMoney(this.sale.comission / 100);
     },
 
     saleDate() {
