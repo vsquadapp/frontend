@@ -20,11 +20,15 @@
       role="dialog"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
+      data-backdrop="static"
+      data-keyboard="false"
     >
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Pedido #123841</h5>
+            <h5 class="modal-title" id="exampleModalLabel">
+              Pedido #{{ order.order_id }}
+            </h5>
             <button
               type="button"
               class="close"
@@ -94,6 +98,7 @@
 <script>
 import formatMoney from "@/utils/formatMoney";
 import formatDate from "@/utils/formatDate";
+import OrderService from "@/services/orders";
 import $ from "jquery";
 
 export default {
@@ -121,8 +126,8 @@ export default {
       $(`#order-modal-${this.order.id}`).modal("show");
     },
 
-    finishOrder() {
-      this.$swal({
+    async finishOrder() {
+      await this.$swal({
         title: "O produto foi entrege ao cliente?",
         inputAttributes: {
           autocapitalize: "off"
@@ -133,25 +138,30 @@ export default {
         cancelButtonText: "Ainda não.",
         showLoaderOnConfirm: true,
         preConfirm: () => {
-          return new Promise(resolve => {
-            setTimeout(() => {
-              resolve(true);
-            }, 500);
-          })
-            .then(() => {
-              return true;
+          return OrderService.complete(this.order.id)
+            .then(response => {
+              return response.data;
             })
             .catch(error => {
               this.$swal.showValidationMessage(`Request failed: ${error}`);
             });
         },
         allowOutsideClick: () => !this.$swal.isLoading()
-      }).then(() => {
-        this.$swal.fire({
-          icon: "success",
-          title: `Venda realizada com sucesso!`
+      })
+        .then(async response => {
+          if (response.isConfirmed) {
+            await this.$swal.fire({
+              icon: "success",
+              title: `Venda realizada com sucesso!`
+            });
+            this.$emit("reload");
+          } else {
+            this.openModal();
+          }
+        })
+        .catch(() => {
+          this.openModal();
         });
-      });
     }
   }
 };

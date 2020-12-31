@@ -29,6 +29,7 @@
             v-for="(order, index) of orders"
             :key="index"
             :order="order"
+            @reload="loadProducts"
           />
         </tbody>
       </table>

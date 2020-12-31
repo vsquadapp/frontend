@@ -94,8 +94,13 @@ export function create(data) {
   return axios.post(`${baseUrl}/api/orders`, data);
 }
 
+export function complete(id) {
+  return axios.post(`${baseUrl}/api/orders/${id}/complete`);
+}
+
 export default {
   index,
   getById,
-  create
+  create,
+  complete
 };
