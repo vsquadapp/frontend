@@ -20,12 +20,20 @@ const store = createStore({
       return !!state.access_token;
     },
 
+    user(state) {
+      return state.user || null;
+    },
+
     seller(state) {
       return state.user?.seller || null;
     },
 
     supplier(state) {
       return state.user?.supplier || null;
+    },
+
+    address(state) {
+      return state.user?.address || null;
     },
 
     store(state) {

@@ -104,6 +104,16 @@ const routes = [
           import(
             /* webpackChunkName: "supplier-list-sales" */ "../views/supplier/sale/list"
           )
+      },
+      {
+        path: "setup",
+        meta: { requiresAuth: true },
+        name: "Supplier.Setup",
+        props: true,
+        component: () =>
+          import(
+            /* webpackChunkName: "supplier-setup" */ "../views/supplier/setup"
+          )
       }
     ]
   },
@@ -196,6 +206,14 @@ const routes = [
           import(
             /* webpackChunkName: "seller-list-sales" */ "../views/seller/sale/list"
           )
+      },
+      {
+        path: "setup",
+        meta: { requiresAuth: true },
+        name: "Seller.Setup",
+        props: true,
+        component: () =>
+          import(/* webpackChunkName: "seller-setup" */ "../views/seller/setup")
       }
     ]
   },

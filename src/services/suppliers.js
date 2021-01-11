@@ -27,10 +27,15 @@ export function orders(supplier, page, items, status) {
   );
 }
 
+export function update(supplier, data) {
+  return axios.put(`${baseUrl}/api/suppliers/${supplier}`, data);
+}
+
 export default {
   products,
   categories,
   getProductById,
   dashboard,
-  orders
+  orders,
+  update
 };

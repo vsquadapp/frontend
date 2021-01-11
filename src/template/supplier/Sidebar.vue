@@ -37,10 +37,10 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link">
+      <router-link class="nav-link" :to="{ name: 'Supplier.Setup' }">
         <i class="fas fa-cogs"></i>
         <span class="pl-1">Configurações</span>
-      </a>
+      </router-link>
     </li>
 
     <hr class="sidebar-divider" />

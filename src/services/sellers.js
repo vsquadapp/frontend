@@ -39,11 +39,16 @@ export function orders(seller, page, items, status) {
   );
 }
 
+export function update(seller, data) {
+  return axios.put(`${baseUrl}/api/sellers/${seller}`, data);
+}
+
 export default {
   addProduct,
   categories,
   products,
   dashboard,
   findSellerBySlug,
-  orders
+  orders,
+  update
 };
