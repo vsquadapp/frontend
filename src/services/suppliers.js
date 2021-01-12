@@ -31,11 +31,16 @@ export function update(supplier, data) {
   return axios.put(`${baseUrl}/api/suppliers/${supplier}`, data);
 }
 
+export function officials() {
+  return axios.get(`${baseUrl}/api/suppliers/officials`);
+}
+
 export default {
   products,
   categories,
   getProductById,
   dashboard,
   orders,
-  update
+  update,
+  officials
 };

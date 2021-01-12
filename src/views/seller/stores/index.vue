@@ -1,94 +1,65 @@
 <template>
-  <page title="Lojas em destaque">
-    <div class="mb-5">
+  <page title="Lojas oficiais">
+    <div v-if="loading" class="d-flex justify-content-center">
+      <div :class="`spinner-border text-${color}`" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div v-else-if="stores.length" class="mb-5">
       <div class="grid">
         <div class="grid-row">
-          <div class="store-item" @click="openStore(1)">
+          <div
+            v-for="(store, index) of stores"
+            :key="index"
+            class="store-item d-none d-sm-flex"
+          >
             <img
               class="store-brand"
               src="https://http2.mlstatic.com/storage/official-stores-images/rocco/logo201901070749.jpg"
             />
             <div class="store-name text-gray-900">
-              Rocco
-            </div>
-          </div>
-          <div class="store-item" @click="openStore(1)">
-            <img
-              class="store-brand"
-              src="https://http2.mlstatic.com/storage/official-stores-images/rocco/logo201901070749.jpg"
-            />
-            <div class="store-name text-gray-900">
-              Rocco
-            </div>
-          </div>
-          <div class="store-item" @click="openStore(1)">
-            <img
-              class="store-brand"
-              src="https://http2.mlstatic.com/storage/official-stores-images/rocco/logo201901070749.jpg"
-            />
-            <div class="store-name text-gray-900">
-              Rocco
-            </div>
-          </div>
-          <div class="store-item d-none d-sm-flex">
-            <img
-              class="store-brand"
-              src="https://http2.mlstatic.com/storage/official-stores-images/rocco/logo201901070749.jpg"
-            />
-            <div class="store-name text-gray-900">
-              Rocco
-            </div>
-          </div>
-        </div>
-        <div class="grid-row">
-          <div class="store-item" @click="openStore(1)">
-            <img
-              class="store-brand"
-              src="https://http2.mlstatic.com/storage/official-stores-images/rocco/logo201901070749.jpg"
-            />
-            <div class="store-name text-gray-900">
-              Rocco
-            </div>
-          </div>
-          <div class="store-item" @click="openStore(1)">
-            <img
-              class="store-brand"
-              src="https://http2.mlstatic.com/storage/official-stores-images/rocco/logo201901070749.jpg"
-            />
-            <div class="store-name text-gray-900">
-              Rocco
-            </div>
-          </div>
-          <div class="store-item" @click="openStore(1)">
-            <img
-              class="store-brand"
-              src="https://http2.mlstatic.com/storage/official-stores-images/rocco/logo201901070749.jpg"
-            />
-            <div class="store-name text-gray-900">
-              Rocco
-            </div>
-          </div>
-          <div class="store-item d-none d-sm-flex">
-            <img
-              class="store-brand"
-              src="https://http2.mlstatic.com/storage/official-stores-images/rocco/logo201901070749.jpg"
-            />
-            <div class="store-name text-gray-900">
-              Rocco
+              {{ store.store_name }}
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div v-else>
+      <h4>Nenhuma loja encontrada.</h4>
     </div>
   </page>
 </template>
 
 <script>
 import Page from "@/components/Page";
+import SupplierService from "@/services/suppliers";
 
 export default {
   components: { Page },
+
+  data() {
+    return {
+      stores: [],
+      loading: true
+    };
+  },
+
+  mounted() {
+    this.loadStores();
+  },
+
   methods: {
+    async loadStores() {
+      this.loading = true;
+      try {
+        const stores = await SupplierService.officials();
+        this.stores = stores.data.data;
+      } catch (error) {
+        this.stores = [];
+      }
+      this.loading = false;
+    },
+
     openStore(id) {
       this.$router.push({
         name: "Seller.StoreProducts",
@@ -112,6 +83,7 @@ export default {
 
   .grid-row {
     display: flex;
+    flex-flow: wrap;
   }
 }
 
