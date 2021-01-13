@@ -1,7 +1,7 @@
 <template>
-  <div class="px-2">
-    <div class="card mb-4 w-100 pt-3 product-item" @click="openProduct">
-      <div class="text-center">
+  <div class="px-0">
+    <div class="card mb-4 w-100 pt-3 product-item-content" @click="openProduct">
+      <div class="img-container">
         <img
           v-if="product.images.length"
           class="product-image"
@@ -159,7 +159,7 @@ export default {
   }
 }
 
-.product-item {
+.product-item-content {
   cursor: pointer;
   transition: all 0.3s ease-in-out 0s;
 
@@ -167,5 +167,11 @@ export default {
     box-shadow: 0 7px 16px 0 rgba(0, 0, 0, 0.2), 0 1px 3px 0 rgba(0, 0, 0, 0.1);
     border-color: white;
   }
+}
+
+.img-container {
+  width: 100px;
+  height: 140px;
+  margin: auto;
 }
 </style>

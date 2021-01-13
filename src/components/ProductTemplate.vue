@@ -1,86 +1,34 @@
 <template>
   <div class="image-content">
-    <div class="p-4 h-100">
+    <div class="p-4">
       <div class="row">
-        <div class="col-sm-6 block-image">
+        <div class="col-12 block-image">
           <div class="row">
-            <div class="col-sm-2 product-images">
-              <div class="thumb">
-                <img :src="product.img" />
+            <div class="col-sm-3 product-images">
+              <div class="thumb" v-if="product.images.length >= 2">
+                <img :src="product.images[1].image" />
               </div>
-              <div class="thumb">
-                <img :src="product.img" />
+              <div class="thumb" v-if="product.images.length >= 3">
+                <img :src="product.images[2].image" />
               </div>
             </div>
-            <div class="col-sm-10 text-center block-main-image">
-              <img class="main-image" :src="product.img" />
+            <div class="col-sm-9 text-center" v-if="product.images.length >= 1">
+              <div class="block-main-image">
+                <img class="main-image" :src="product.images[0].image" />
+              </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="col-sm-6">
-          <div class="p-4">
-            <h5 class="text-gray-900 mb-4">{{ product.name }}</h5>
+      <div class="row col-12">
+        <div class="">
+          <h5 class="text-gray-900 mb-4">{{ product.name }}</h5>
 
-            <div class="block-price my-3">
-              <h2 class="text-gray-900 product-price mb-0">R$ 1000,00</h2>
-            </div>
-
-            <div class="block-delivery my-3">
-              <h6>Formas de envio</h6>
-              <table class="table table-borderless table-striped">
-                <tbody v-if="product.deliveryType === '1'">
-                  <tr>
-                    <td>Retirada pessoalmente</td>
-                    <td class="text-right font-weight-bold">
-                      <span
-                        v-if="product.deliveryValue === 0"
-                        class="text-success"
-                      >
-                        Grátis
-                      </span>
-                      <span v-else>{{ product.deliveryValue }}</span>
-                    </td>
-                  </tr>
-                </tbody>
-                <tbody v-if="product.deliveryType === '2'">
-                  <tr>
-                    <td>Entrega</td>
-                    <td class="text-right font-weight-bold">
-                      <span
-                        v-if="product.deliveryValue === 0"
-                        class="text-success"
-                      >
-                        Grátis
-                      </span>
-                      <span v-else>{{ product.deliveryValue }}</span>
-                    </td>
-                  </tr>
-                </tbody>
-                <tbody v-if="product.deliveryType === '3'">
-                  <tr>
-                    <td>Retirada pessoalmente</td>
-                    <td class="text-right font-weight-bold">
-                      <span class="text-success">
-                        Grátis
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Entrega</td>
-                    <td class="text-right font-weight-bold">
-                      <span
-                        v-if="product.deliveryValue === 0"
-                        class="text-success"
-                      >
-                        Grátis
-                      </span>
-                      <span v-else>{{ product.deliveryValue }}</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="block-price my-3">
+            <h2 class="text-gray-900 product-price mb-0">
+              {{ productPrice }}
+            </h2>
           </div>
         </div>
       </div>
@@ -93,30 +41,22 @@
             {{ product.description }}
           </p>
         </div>
-
-        <!-- <div v-if="product.infos.length" class="block-details mb-3">
-          <h4 class="text-gray-900">Características principais</h4>
-          <table class="table table-borderless table-striped">
-            <tbody>
-              <tr v-for="(info, index) of product.infos" :key="index">
-                <td class="font-weight-bold">
-                  {{ info.key }}
-                </td>
-                <td>
-                  {{ info.value }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import formatMoney from "@/utils/formatMoney";
+
 export default {
-  props: { product: Object }
+  props: { product: Object },
+
+  computed: {
+    productPrice() {
+      return formatMoney(this.product.price / 100);
+    }
+  }
 };
 </script>
 
@@ -145,8 +85,8 @@ export default {
 }
 
 .thumb {
-  height: 70px;
-  width: 70px;
+  height: 150px;
+  width: 150px;
   margin: 1rem 0rem;
   cursor: pointer;
   img {
@@ -160,8 +100,8 @@ export default {
 }
 
 .block-main-image {
-  width: 100%;
-  height: 300px;
+  width: 400px;
+  height: 400px;
 }
 
 .main-image {
@@ -186,6 +126,7 @@ export default {
 }
 
 .product-description {
+  text-align: justify;
   white-space: break-spaces;
 }
 </style>

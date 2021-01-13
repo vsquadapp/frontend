@@ -39,12 +39,25 @@
       </button>
       <div class="options-block">
         <ul class="options list-group">
-          <li
-            class="list-group-item"
-            data-toggle="modal"
-            :data-target="`#image-modal-${product.id}`"
-          >
+          <li class="list-group-item" @click="generateImage">
             Gerar Imagem
+          </li>
+          <li class="list-group-item" @click="copyLink">
+            Copiar link
+            <span
+              class="copied-badge ml-2 badge badge-success"
+              :class="{
+                show: showBadge
+              }"
+            >
+              Copiado!
+            </span>
+            <input
+              :id="`product-link-${product.id}`"
+              class="product-link"
+              type="text"
+              :value="productLink"
+            />
           </li>
           <li class="list-group-item" @click="remove">Remover do catálogo</li>
         </ul>
@@ -57,44 +70,31 @@
       </h2>
     </div>
 
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      :id="`image-modal-${product.id}`"
-      tabindex="-1"
-      role="dialog"
-      :aria-labelledby="`image-modal-${product.id}`"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <product-template
-            :id="`image-content-${product.id}`"
-            :product="product"
-          />
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-primary"
-              @click="generateImage"
-            >
-              Gerar
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <product-template
+      :id="`image-content-${product.id}`"
+      class="image-template"
+      :product="product"
+    />
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import ProductTemplate from "./ProductTemplate";
 import formatMoney from "@/utils/formatMoney";
-import * as htmlToImage from "html-to-image";
+import html2canvas from "html2canvas";
+import canvas2image from "canvas2image-2";
+import linkGenerator from "@/utils/linkGenerator";
 
 export default {
   props: {
     product: Object
+  },
+
+  data() {
+    return {
+      showBadge: false
+    };
   },
 
   components: {
@@ -102,6 +102,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(["seller"]),
+
     productPrice() {
       return formatMoney(this.product.price / 100);
     },
@@ -112,24 +114,37 @@ export default {
 
     outStock() {
       return this.product.quantity === 0;
+    },
+
+    productLink() {
+      return linkGenerator.getProductLink(this.product.id, this.seller.slug);
     }
   },
 
   methods: {
     async generateImage() {
-      const node = `#image-content-${this.product.id}`;
+      const element = document.getElementById(
+        `image-content-${this.product.id}`
+      );
 
-      htmlToImage
-        .toPng(document.querySelector(node), {
-          backgroundColor: "#FFF",
-          style: { position: "absolute", width: "100%", height: "100%" }
-        })
-        .then(function(dataUrl) {
-          var link = document.createElement("a");
-          link.download = "catalog.png";
-          link.href = dataUrl;
-          link.click();
-        });
+      html2canvas(element).then(function(canvas) {
+        canvas2image.saveAsPNG(canvas, canvas.width, canvas.height);
+      });
+    },
+
+    async copyLink() {
+      const copyText = document.getElementById(
+        `product-link-${this.product.id}`
+      );
+      copyText.select();
+      copyText.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+
+      this.showBadge = true;
+
+      setTimeout(() => {
+        this.showBadge = false;
+      }, 2000);
     },
 
     remove() {
@@ -158,11 +173,13 @@ export default {
             });
         },
         allowOutsideClick: () => !this.$swal.isLoading()
-      }).then(() => {
-        this.$swal.fire({
-          icon: "success",
-          title: `Produto removido com sucesso!`
-        });
+      }).then(response => {
+        if (response.isConfirmed) {
+          this.$swal.fire({
+            icon: "success",
+            title: `Produto removido com sucesso!`
+          });
+        }
       });
     }
   }
@@ -232,5 +249,28 @@ export default {
   text-align: center;
   top: 40%;
   width: 100%;
+}
+
+.image-template {
+  z-index: -1;
+  position: absolute;
+  width: 720px;
+  min-height: 720px;
+}
+
+.product-link {
+  z-index: -1;
+  position: absolute;
+}
+
+.copied-badge {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.3s linear, opacity 0.3s linear;
+
+  &.show {
+    visibility: visible;
+    opacity: 1;
+  }
 }
 </style>

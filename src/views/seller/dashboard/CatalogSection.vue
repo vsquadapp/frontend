@@ -16,7 +16,7 @@
 
     <div class="row">
       <product-item
-        class="d-flex w-100 col-sm-4 col-lg-3"
+        class="product-item d-flex w-100 col-sm-4 col-lg-3 px-2"
         v-for="(product, index) of products"
         :key="index"
         :product="product"
@@ -39,6 +39,6 @@ export default {
 
 <style lang="scss" scoped>
 .product-item {
-  max-width: 250px;
+  max-width: 280px;
 }
 </style>
