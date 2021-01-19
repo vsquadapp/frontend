@@ -98,9 +98,14 @@ export function complete(id) {
   return axios.post(`${baseUrl}/api/orders/${id}/complete`);
 }
 
+export function showByCode(code) {
+  return axios.get(`${baseUrl}/api/orders/code/${code}`);
+}
+
 export default {
   index,
   getById,
   create,
-  complete
+  complete,
+  showByCode
 };
