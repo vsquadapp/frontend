@@ -517,7 +517,7 @@ export default {
     },
 
     onChangeAttributes(attributes) {
-      this.product.attributes = JSON.stringify(attributes);
+      this.product.attributes = attributes;
     }
   }
 };

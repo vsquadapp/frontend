@@ -72,7 +72,6 @@ export default {
   mounted() {
     if (this.initialAttributes) {
       this.attributes = JSON.parse(this.initialAttributes);
-      console.log(this.attributes);
     }
   },
 

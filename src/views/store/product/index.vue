@@ -16,16 +16,19 @@
             </p>
           </div>
 
-          <div v-if="product?.infos?.length" class="block-details mb-3">
+          <div v-if="product?.attributes?.length" class="block-details mb-3">
             <h4 class="text-gray-900">Características principais</h4>
             <table class="table table-borderless table-striped">
               <tbody>
-                <tr v-for="(info, index) of product.infos" :key="index">
+                <tr
+                  v-for="(attribute, index) of product.attributes"
+                  :key="index"
+                >
                   <td class="font-weight-bold">
-                    {{ info.key }}
+                    {{ attribute.key }}
                   </td>
                   <td>
-                    {{ info.value }}
+                    {{ attribute.value }}
                   </td>
                 </tr>
               </tbody>
@@ -221,6 +224,9 @@ export default {
     async loadProduct() {
       const response = await ProductsService.getById(this.id);
       this.product = response.data;
+      if (this.product?.attributes) {
+        this.product.attributes = JSON.parse(this.product.attributes);
+      }
     },
 
     async placeOrder() {
