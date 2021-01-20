@@ -88,56 +88,7 @@
           <div class="col-12">
             <div class="card mb-4 w-100">
               <div class="card-body">
-                <div class="form-group">
-                  <div>
-                    <label class="title mb-0">
-                      Características Gerais
-                    </label>
-                  </div>
-                  <small class="mt-0">
-                    Informações mais específicas sobre o produto, como por
-                    exemplo, tamanho, voltagem, garantia, etc.
-                  </small>
-                </div>
-
-                <div class="row">
-                  <div
-                    class="col-sm-3"
-                    v-for="(info, index) of infos"
-                    :key="index"
-                  >
-                    <h5 class="mb-0 text-gray-900">{{ info.key }}</h5>
-                    <p class="">{{ info.value }}</p>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-12">
-                    <form class="form-inline" @submit.prevent="addInfo">
-                      <div class="form-group mb-2">
-                        <input
-                          type="text"
-                          required
-                          class="form-control"
-                          placeholder="Característica"
-                          v-model="info.key"
-                        />
-                      </div>
-                      <div class="form-group mx-sm-3 mb-2 mr-2">
-                        <input
-                          type="text"
-                          required
-                          class="form-control"
-                          placeholder="Descrição"
-                          v-model="info.value"
-                        />
-                      </div>
-                      <button type="submit" class="btn btn-primary mb-2">
-                        <i class="fas fa-plus"></i>
-                      </button>
-                    </form>
-                  </div>
-                </div>
+                <attributesManager @change="onChangeAttributes" />
               </div>
             </div>
           </div>
@@ -418,8 +369,13 @@
 
     <div class="row mb-5">
       <div class="col-12 col-sm-8 text-right">
-        <button class="btn btn-primary" @click="submit">
+        <button class="btn btn-primary" @click="submit" :disabled="loading">
           Cadastrar produto
+          <div
+            v-if="loading"
+            class="spinner-border spinner-border-sm mb-2"
+            role="status"
+          ></div>
         </button>
       </div>
     </div>
@@ -430,6 +386,7 @@
 import Page from "@/components/Page";
 import ImagePicker from "@/components/ImagePicker";
 import PlanTypeItem from "@/components/PlanTypeItem";
+import AttributesManager from "@/components/products/AttributesManager";
 import { mask } from "vue-the-mask";
 import { VMoney } from "v-money";
 import unmask from "@/utils/unmask";
@@ -461,10 +418,11 @@ const plans = [
 export default {
   directives: { mask, money: VMoney },
 
-  components: { Page, ImagePicker, PlanTypeItem },
+  components: { Page, ImagePicker, PlanTypeItem, AttributesManager },
 
   data() {
     return {
+      loading: false,
       product: {
         name: "",
         quantity: "",
@@ -476,12 +434,8 @@ export default {
         deliveryType: "1",
         deliveryValue: 0,
         images: [],
-        plan: plans[0]
-      },
-      infos: [],
-      info: {
-        key: "",
-        value: ""
+        plan: plans[0],
+        attributes: null
       },
       plans,
       vmoney
@@ -527,6 +481,7 @@ export default {
 
   methods: {
     async submit() {
+      this.loading = true;
       try {
         await ProductService.create(this.productPayload);
         await this.$swal({
@@ -542,12 +497,7 @@ export default {
           icon: "error"
         });
       }
-    },
-
-    addInfo() {
-      if (!this.info.key || !this.info.value) return false;
-      this.infos.push({ ...this.info });
-      this.info = { key: "", value: "" };
+      this.loading = false;
     },
 
     onSelectPlan(plan) {
@@ -564,6 +514,10 @@ export default {
 
     formatMoney(value) {
       return formatMoney(value);
+    },
+
+    onChangeAttributes(attributes) {
+      this.product.attributes = JSON.stringify(attributes);
     }
   }
 };

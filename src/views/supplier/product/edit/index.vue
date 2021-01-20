@@ -86,56 +86,10 @@
             <div class="col-12">
               <div class="card mb-4 w-100">
                 <div class="card-body">
-                  <div class="form-group">
-                    <div>
-                      <label class="title mb-0">
-                        Características Gerais
-                      </label>
-                    </div>
-                    <small class="mt-0">
-                      Informações mais específicas sobre o produto, como por
-                      exemplo, tamanho, voltagem, garantia, etc.
-                    </small>
-                  </div>
-
-                  <div class="row">
-                    <div
-                      class="col-sm-3"
-                      v-for="(info, index) of infos"
-                      :key="index"
-                    >
-                      <h5 class="mb-0 text-gray-900">{{ info.key }}</h5>
-                      <p class="">{{ info.value }}</p>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-12">
-                      <form class="form-inline" @submit.prevent="addInfo">
-                        <div class="form-group mb-2">
-                          <input
-                            type="text"
-                            required
-                            class="form-control"
-                            placeholder="Característica"
-                            v-model="info.key"
-                          />
-                        </div>
-                        <div class="form-group mx-sm-3 mb-2 mr-2">
-                          <input
-                            type="text"
-                            required
-                            class="form-control"
-                            placeholder="Descrição"
-                            v-model="info.value"
-                          />
-                        </div>
-                        <button type="submit" class="btn btn-primary mb-2">
-                          <i class="fas fa-plus"></i>
-                        </button>
-                      </form>
-                    </div>
-                  </div>
+                  <attributesManager
+                    :initial-attributes="product.attributes"
+                    @change="onChangeAttributes"
+                  />
                 </div>
               </div>
             </div>
@@ -368,8 +322,13 @@
 
       <div class="row mb-5">
         <div class="col-12  text-right">
-          <button class="btn btn-primary" @click="submit">
+          <button class="btn btn-primary" @click="submit" :disabled="loading">
             Salvar
+            <div
+              v-if="loading"
+              class="spinner-border text-primary mb-2"
+              role="status"
+            ></div>
           </button>
         </div>
       </div>
@@ -395,6 +354,7 @@ import unmask from "@/utils/unmask";
 import formatMoney from "@/utils/formatMoney";
 import SupplierService from "@/services/suppliers";
 import ProductService from "@/services/products";
+import AttributesManager from "@/components/products/AttributesManager";
 
 const vmoney = {
   decimal: ",",
@@ -424,16 +384,12 @@ export default {
   directives: { mask, money: VMoney },
 
   // eslint-disable-next-line vue/no-unused-components
-  components: { Page, ImagePicker, PlanTypeItem },
+  components: { Page, ImagePicker, PlanTypeItem, AttributesManager },
 
   data() {
     return {
       product: null,
-      infos: [],
-      info: {
-        key: "",
-        value: ""
-      },
+      loading: false,
       plans,
       vmoney
     };
@@ -492,21 +448,22 @@ export default {
     },
 
     async submit() {
-      // try {
-      await ProductService.update(this.product.id, this.productPayload);
-      await this.$swal({
-        title: "Produto atualizado com sucesso!",
-        // text: "O produto foi atualizado !",
-        icon: "success"
-      });
-      this.$router.push({ name: "Supplier.ListProduct" });
-      // } catch (err) {
-      //   await this.$swal({
-      //     title: "Ocorreu um erro ao atualizar o produto!",
-      //     text: err?.response?.data?.error || err,
-      //     icon: "error"
-      //   });
-      // }
+      this.loading = true;
+      try {
+        await ProductService.update(this.product.id, this.productPayload);
+        await this.$swal({
+          title: "Produto atualizado com sucesso!",
+          icon: "success"
+        });
+        this.$router.push({ name: "Supplier.ListProduct" });
+      } catch (err) {
+        await this.$swal({
+          title: "Ocorreu um erro ao atualizar o produto!",
+          text: err?.response?.data?.error || err,
+          icon: "error"
+        });
+      }
+      this.loading = false;
     },
 
     addInfo() {
@@ -529,6 +486,10 @@ export default {
 
     formatMoney(value) {
       return formatMoney(value);
+    },
+
+    onChangeAttributes(attributes) {
+      this.product.attributes = JSON.stringify(attributes);
     }
   }
 };
