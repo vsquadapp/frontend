@@ -49,35 +49,35 @@
           <div class="block-delivery my-3">
             <h6>Opções de entrega</h6>
             <table class="table table-borderless table-striped">
-              <tbody v-if="product.delivery_type === '1'">
+              <tbody v-if="product.delivery_type === 'pickup'">
                 <tr>
                   <td>Retirada pessoalmente</td>
                   <td class="text-right font-weight-bold">
                     <span
-                      v-if="product.deliveryValue === 0"
+                      v-if="product.delivery_price === 0"
                       class="text-success"
                     >
                       Grátis
                     </span>
-                    <span v-else>{{ product.deliveryValue }}</span>
+                    <span v-else>{{ product.delivery_price }}</span>
                   </td>
                 </tr>
               </tbody>
-              <tbody v-if="product.delivery_type === '2'">
+              <tbody v-if="product.delivery_type === 'delivery'">
                 <tr>
                   <td>Entrega</td>
                   <td class="text-right font-weight-bold">
                     <span
-                      v-if="product.deliveryValue === 0"
+                      v-if="product.delivery_price === 0"
                       class="text-success"
                     >
                       Grátis
                     </span>
-                    <span v-else>{{ product.deliveryValue }}</span>
+                    <span v-else>{{ deliveryPrice }}</span>
                   </td>
                 </tr>
               </tbody>
-              <tbody v-if="product.delivery_type === '3'">
+              <tbody v-if="product.delivery_type === 'all'">
                 <tr>
                   <td>Retirada pessoalmente</td>
                   <td class="text-right font-weight-bold">
@@ -90,12 +90,12 @@
                   <td>Entrega</td>
                   <td class="text-right font-weight-bold">
                     <span
-                      v-if="product.deliveryValue === 0"
+                      v-if="product.delivery_price === 0"
                       class="text-success"
                     >
                       Grátis
                     </span>
-                    <span v-else>{{ product.deliveryValue }}</span>
+                    <span v-else>{{ deliveryPrice }}</span>
                   </td>
                 </tr>
               </tbody>
@@ -207,6 +207,10 @@ export default {
 
     comissionPrice() {
       return formatMoney(this.product.comission_value / 100);
+    },
+
+    deliveryPrice() {
+      return formatMoney(this.product.delivery_price / 100);
     },
 
     productQuantity() {

@@ -20,7 +20,7 @@
         </p>
       </div>
       <div class="mt-auto mb-2">
-        <strong>{{ product.ordered }} vendidos</strong>
+        <strong>{{ product.sales }} vendidos</strong>
       </div>
       <div>
         <span class="font-weight-light">{{ product.stock }} disponíveis</span>
@@ -61,16 +61,8 @@ export default {
       return formatMoney(this.product.price);
     },
 
-    comissionValue() {
-      if (this.product.comission_type === "percentage") {
-        return this.product.comission_value * this.product.price;
-      } else {
-        return this.product.comission_value;
-      }
-    },
-
     comissionPrice() {
-      return formatMoney(this.comissionValue);
+      return formatMoney(this.product.comission_price);
     },
 
     outStock() {

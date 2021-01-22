@@ -134,16 +134,16 @@
                         <select
                           id="deliveryType"
                           class="form-control"
-                          v-model="product.delivery_type"
+                          v-model="product.delivery_value"
                           required
                         >
-                          <option value="1">
+                          <option value="pickup">
                             Apenas retirada pessoalmente
                           </option>
-                          <option value="2">
+                          <option value="delivery">
                             Apenas entrega
                           </option>
-                          <option value="3">
+                          <option value="all">
                             Entrega e retirada pessoalmente
                           </option>
                         </select>
@@ -151,7 +151,10 @@
                     </div>
                   </div>
 
-                  <div v-if="product.delivery_type !== '1'" class="form-group">
+                  <div
+                    v-if="product.delivery_value !== 'pickup'"
+                    class="form-group"
+                  >
                     <label for="">Valor da entrega</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
@@ -161,7 +164,7 @@
                       </div>
 
                       <input
-                        v-model="product.delivery_value"
+                        v-model="product.delivery_price"
                         class="form-control"
                         v-money="vmoney"
                         type="text"
@@ -406,6 +409,10 @@ export default {
       return unmask(this.product.price);
     },
 
+    delivery_price() {
+      return unmask(this.product.delivery_price);
+    },
+
     comissionValue() {
       if (!this.price) return 0;
       if (!this.product.comission_value) return 0;
@@ -425,10 +432,20 @@ export default {
     },
 
     productPayload() {
+      const comission_price = unmask(this.product.comission_value);
+
+      const comission_value =
+        this.product.comission_type === "percentage"
+          ? comission_price * 100
+          : comission_price;
+
+      console.log("here");
+
       return {
         ...this.product,
         price: this.price,
-        comission_value: this.comissionValue * 100
+        delivery_price: this.delivery_price,
+        comission_value: comission_value
       };
     }
   },
@@ -450,6 +467,7 @@ export default {
     async submit() {
       this.loading = true;
       try {
+        console.log(this.productPayload);
         await ProductService.update(this.product.id, this.productPayload);
         await this.$swal({
           title: "Produto atualizado com sucesso!",

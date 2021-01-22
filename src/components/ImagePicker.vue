@@ -1,5 +1,5 @@
 <template>
-  <div class="container py-5">
+  <div class="container py-5 m-0">
     <div class="row">
       <div class="col-sm-3">
         <!-- Upload image input-->

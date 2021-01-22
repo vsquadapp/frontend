@@ -37,16 +37,8 @@ export default {
       return formatMoney(this.product.price);
     },
 
-    comissionValue() {
-      if (this.product.comission_type === "percentage") {
-        return this.product.comission_value * this.product.price;
-      } else {
-        return this.product.comission_value;
-      }
-    },
-
     comissionPrice() {
-      return formatMoney(this.comissionValue);
+      return formatMoney(this.produce.comission_price);
     },
 
     outStock() {

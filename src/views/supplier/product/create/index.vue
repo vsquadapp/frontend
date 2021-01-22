@@ -132,18 +132,18 @@
                   <div class="row">
                     <div class="col-sm-12">
                       <select
-                        id="deliveryType"
+                        id="delivery_type"
                         class="form-control"
-                        v-model="product.deliveryType"
+                        v-model="product.delivery_type"
                         required
                       >
-                        <option value="1">
+                        <option value="pickup">
                           Apenas retirada pessoalmente
                         </option>
-                        <option value="2">
+                        <option value="delivery">
                           Apenas entrega
                         </option>
-                        <option value="3">
+                        <option value="all">
                           Entrega e retirada pessoalmente
                         </option>
                       </select>
@@ -151,17 +151,20 @@
                   </div>
                 </div>
 
-                <div v-if="product.deliveryType !== '1'" class="form-group">
+                <div
+                  v-if="product.delivery_type !== 'pickup'"
+                  class="form-group"
+                >
                   <label for="">Valor da entrega</label>
                   <div class="input-group">
                     <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1">
+                      <span class="input-group-text">
                         R$
                       </span>
                     </div>
 
                     <input
-                      v-model="product.deliveryValue"
+                      v-model="product.delivery_price"
                       class="form-control"
                       v-money="vmoney"
                       type="text"
@@ -212,7 +215,7 @@
 
                       <div class="input-group">
                         <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1">
+                          <span class="input-group-text">
                             R$
                           </span>
                         </div>
@@ -431,8 +434,8 @@ export default {
         comission_type: "percentage",
         comission_value: 0,
         category: "",
-        deliveryType: "1",
-        deliveryValue: 0,
+        delivery_type: "all",
+        delivery_price: 0,
         images: [],
         plan: plans[0],
         attributes: null
@@ -467,6 +470,7 @@ export default {
 
     productPayload() {
       const comission_price = unmask(this.product.comission_value);
+      const delivery_price = unmask(this.product.delivery_price);
       const comission_value =
         this.product.comission_type === "percentage"
           ? comission_price * 100
@@ -474,6 +478,7 @@ export default {
       return {
         ...this.product,
         price: this.price,
+        delivery_price: delivery_price,
         comission_value
       };
     }
@@ -517,7 +522,7 @@ export default {
     },
 
     onChangeAttributes(attributes) {
-      this.product.attributes = attributes;
+      this.product.attributes = JSON.stringify(attributes);
     }
   }
 };

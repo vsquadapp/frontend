@@ -25,7 +25,7 @@
         </p>
       </div>
       <div class="mt-auto mb-2">
-        <strong>{{ product.ordered }} vendidos</strong>
+        <strong>{{ product.sales }} vendidos</strong>
       </div>
       <div>
         <span class="font-weight-light">
@@ -109,7 +109,7 @@ export default {
     },
 
     comissionPrice() {
-      return formatMoney(this.product.comission_value / 100);
+      return formatMoney(this.product.comission_price / 100);
     },
 
     outStock() {
