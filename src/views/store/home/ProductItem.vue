@@ -35,10 +35,6 @@ export default {
   computed: {
     productPrice() {
       return formatMoney(this.product.price / 100);
-    },
-
-    comissionPrice() {
-      return formatMoney(this.product.comission_value / 100);
     }
   },
 

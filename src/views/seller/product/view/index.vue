@@ -201,7 +201,7 @@ export default {
     },
 
     comissionPrice() {
-      return formatMoney(this.product.comission_value / 100);
+      return formatMoney(this.product.comission_price / 100);
     },
 
     deliveryPrice() {
