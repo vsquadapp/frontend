@@ -35,6 +35,10 @@ export function officials() {
   return axios.get(`${baseUrl}/api/suppliers/officials`);
 }
 
+export function getById(supplier) {
+  return axios.get(`${baseUrl}/api/suppliers/${supplier}`);
+}
+
 export default {
   products,
   categories,
@@ -42,5 +46,6 @@ export default {
   dashboard,
   orders,
   update,
-  officials
+  officials,
+  getById
 };

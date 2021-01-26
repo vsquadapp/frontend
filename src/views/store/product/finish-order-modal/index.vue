@@ -21,6 +21,7 @@
                 :is="currentStepComponent"
                 v-model:form="form"
                 :product="product"
+                :supplier="supplier"
                 :quantity="quantity"
               />
             </div>
@@ -64,6 +65,7 @@ const steps = [CustomerStep, ShippingStep, ReviewStep];
 export default {
   props: {
     product: Object,
+    supplier: Object,
     quantity: [Number, String]
   },
 

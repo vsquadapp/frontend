@@ -149,6 +149,7 @@
             <finish-order-modal
               v-if="showFinishOrderModal"
               :product="product"
+              :supplier="supplier"
               :quantity="checkout.quantity"
               @close="onCloseFinishOrderModal"
             />
@@ -177,6 +178,7 @@ import SellerInfo from "./SellerInfo";
 import FinishOrderModal from "./finish-order-modal";
 import ProductImages from "./ProductImages";
 import ProductsService from "@/services/products";
+import SupplierService from "@/services/suppliers";
 import formatMoney from "@/utils/formatMoney";
 
 export default {
@@ -187,6 +189,7 @@ export default {
   data() {
     return {
       product: null,
+      supplier: null,
       orderLoading: false,
       showFinishOrderModal: false,
       checkout: { quantity: 1 }
@@ -224,6 +227,10 @@ export default {
     async loadProduct() {
       const response = await ProductsService.getById(this.id);
       this.product = response.data;
+      const supplierResponse = await SupplierService.getById(
+        this.product.supplier_id
+      );
+      this.supplier = supplierResponse.data;
       if (this.product?.attributes) {
         this.product.attributes = JSON.parse(this.product.attributes);
       }

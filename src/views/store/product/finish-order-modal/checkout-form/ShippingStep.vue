@@ -30,10 +30,14 @@
               <tr>
                 <td>
                   <div>
-                    Multicoisas
+                    {{ supplier.store_name }}
                   </div>
                   <div>
-                    Av. Getúlio Vargas, 441 - Centro, Feira de Santana - BA
+                    {{ supplier.address.street }},
+                    {{ supplier.address.number }} -
+                    {{ supplier.address.district }},
+                    {{ supplier.address.city }} -
+                    {{ supplier.address.state }}
                   </div>
                 </td>
               </tr>
@@ -177,7 +181,8 @@ import * as cep from "cep-promise";
 
 export default {
   props: {
-    form: Object
+    form: Object,
+    supplier: Object
   },
 
   data() {
