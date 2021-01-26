@@ -147,7 +147,7 @@
                 aria-hidden="true"
               />
               <span v-else>
-                Adicionar ao catálogo
+                Adicionar à minha loja
               </span>
             </button>
           </div>
@@ -231,7 +231,7 @@ export default {
       try {
         await SellerService.addProduct(this.seller.id, this.id);
         await this.$swal({
-          title: "Produto adicionado ao catalogo!",
+          title: "Produto adicionado à sua loja!",
           text:
             "O produto foi adicionado ao seu catálogo e já está disponível para venda!",
           icon: "success"
