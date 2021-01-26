@@ -122,7 +122,7 @@ export default {
           this.seller.id,
           1,
           15,
-          "pending"
+          "completed"
         );
         this.sales = sales.data.data;
       } catch (err) {
