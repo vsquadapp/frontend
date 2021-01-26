@@ -80,10 +80,14 @@
                         type="email"
                         required
                         class="form-control form-control-user"
+                        :class="{ 'is-invalid': errors.email }"
                         aria-describedby="emailHelp"
                         placeholder="Email"
                         v-model="user.email"
                       />
+                      <div class="invalid-feedback">
+                        {{ errors.email }}
+                      </div>
                     </div>
                     <div class="form-group">
                       <input
@@ -177,6 +181,9 @@ export default {
           birthdate: ""
         },
         user_type: "seller"
+      },
+      errors: {
+        email: false
       }
     };
   },
@@ -185,24 +192,38 @@ export default {
     ...mapActions(["register"]),
 
     async submit() {
+      this.resetErrors();
       try {
         this.form.status = "loading";
         await this.register(this.user);
-        this.$router.push({ name: "Supplier.Dashboard" });
+        this.$router.push({ name: "Seller.Dashboard" });
         this.form.status = "success";
       } catch (err) {
+        const data = JSON.parse(err.response.data);
+        if (data?.email) {
+          const errors = data.email;
+          if (errors.includes("The email has already been taken.")) {
+            this.errors.email = "Email já cadastrado no sistema";
+          } else {
+            this.errors.email = "Corrija o seu email";
+          }
+        }
         this.form.status = "error";
       }
-    }
-  },
+    },
 
-  validatePassword() {
-    const confirmElement = this.$refs.passwordConfirm;
+    validatePassword() {
+      const confirmElement = this.$refs.passwordConfirm;
 
-    if (this.user.password != this.user.password_confirmation) {
-      confirmElement.setCustomValidity("As senhas não coicidem");
-    } else {
-      confirmElement.setCustomValidity("");
+      if (this.user.password != this.user.password_confirmation) {
+        confirmElement.setCustomValidity("As senhas não coicidem");
+      } else {
+        confirmElement.setCustomValidity("");
+      }
+    },
+
+    resetErrors() {
+      this.errors.email = false;
     }
   }
 };

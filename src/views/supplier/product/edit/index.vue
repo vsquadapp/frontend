@@ -439,8 +439,6 @@ export default {
           ? comission_price * 100
           : comission_price;
 
-      console.log("here");
-
       return {
         ...this.product,
         price: this.price,
@@ -467,7 +465,6 @@ export default {
     async submit() {
       this.loading = true;
       try {
-        console.log(this.productPayload);
         await ProductService.update(this.product.id, this.productPayload);
         await this.$swal({
           title: "Produto atualizado com sucesso!",
