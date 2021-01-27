@@ -56,7 +56,7 @@
           </div>
           <fieldset :disabled="searchingCep">
             <div class="row col-12 mt-3">
-              <h6>Endereço de retirada</h6>
+              <h6>Seu endereço</h6>
             </div>
             <div class="row">
               <div class="form-group col-sm-6">

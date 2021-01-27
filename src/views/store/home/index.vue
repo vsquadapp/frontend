@@ -1,16 +1,9 @@
 <template>
   <page title="">
-    <div v-if="seller.loading">
-      <div class="col-12 d-flex justify-content-center my-5">
-        <div class="spinner-border text-primary" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
-      </div>
-    </div>
-    <div v-else-if="seller.data">
+    <div>
       <div class="row">
         <div class="col-12 col-lg-3">
-          <seller-info :seller="seller.data" />
+          <seller-info :seller="store" />
           <categories-list
             :categories="categories"
             :selected="currentCategoryId"
@@ -53,23 +46,11 @@
         </div>
       </div>
     </div>
-    <div v-else>
-      <div
-        class="d-flex flex-column align-items-center text-center my-5 justify-content-center"
-      >
-        <div class="mb-3">
-          <i class="far fa-frown fa-3x"></i>
-        </div>
-        <h2>Vendedor não encontrado</h2>
-      </div>
-    </div>
   </page>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-import { mapActions } from "vuex";
-
+import { mapGetters } from "vuex";
 import Page from "@/components/Page";
 import CategoriesList from "./CategoriesList";
 import SellerInfo from "./SellerInfo";
@@ -78,8 +59,6 @@ import ProductsList from "./ProductsList";
 import SellerService from "@/services/sellers";
 
 export default {
-  props: { slug: String },
-
   components: { Page, CategoriesList, ProductsList, SellerInfo },
 
   data() {
@@ -94,24 +73,13 @@ export default {
         }
       },
       categories: [],
-      currentCategoryId: "",
-      seller: {
-        loading: true,
-        data: null
-      }
+      currentCategoryId: ""
     };
   },
 
-  mounted() {
-    this.setSeller(null);
-
-    this.loadSeller().then(() => {
-      this.loadCategories();
-      this.loadProducts();
-    });
-  },
-
   computed: {
+    ...mapGetters(["store"]),
+
     showPagination() {
       return (
         this.products.pagination.current_page <
@@ -120,40 +88,15 @@ export default {
     }
   },
 
+  mounted() {
+    this.loadProducts();
+  },
+
   methods: {
-    ...mapMutations({ setSeller: "setStore" }),
-
-    ...mapActions(["loadStore"]),
-
-    async loadSeller() {
-      try {
-        this.seller.error = null;
-        this.seller.loading = true;
-        const seller = await this.loadStore(this.slug);
-        this.seller.data = seller;
-      } catch (err) {
-        this.seller.error = "Vendedor não encontrado";
-      }
-      this.seller.loading = false;
-    },
-
-    async loadCategories() {
-      try {
-        const response = await SellerService.categories(
-          this.seller.data.id,
-          1,
-          100
-        );
-        this.categories = response.data.data;
-      } catch (err) {
-        this.categories = [];
-      }
-    },
-
     async loadProducts() {
       this.products.loading = true;
       const response = await SellerService.products(
-        this.seller.data.id,
+        this.store.id,
         this.products.pagination.current_page,
         15,
         this.currentCategoryId

@@ -180,11 +180,12 @@ import ProductImages from "./ProductImages";
 import ProductsService from "@/services/products";
 import SupplierService from "@/services/suppliers";
 import formatMoney from "@/utils/formatMoney";
+import { mapGetters } from "vuex";
 
 export default {
   components: { Page, SellerInfo, ProductImages, FinishOrderModal },
 
-  props: { id: String, seller: String },
+  props: { id: String },
 
   data() {
     return {
@@ -201,6 +202,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(["store"]),
+
     productPrice() {
       if (this.product) {
         return formatMoney(this.product.price / 100);
@@ -245,7 +248,7 @@ export default {
     },
 
     redirectToSeller() {
-      this.$router.push({ name: "Store", params: { seller: this.seller } });
+      this.$router.push({ name: "Store", params: { seller: this.store } });
     },
 
     onCloseFinishOrderModal() {
