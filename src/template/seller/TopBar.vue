@@ -5,7 +5,7 @@
     <!-- Sidebar Toggle (Topbar) -->
     <button
       id="sidebarToggleTop"
-      class="btn btn-link d-md-none rounded-circle mr-3"
+      class="btn btn-link text-secondary d-md-none rounded-circle mr-3"
     >
       <i class="fa fa-bars"></i>
     </button>
@@ -24,7 +24,7 @@
           aria-describedby="basic-addon2"
         />
         <div class="input-group-append">
-          <button class="btn btn-primary" type="submit">
+          <button class="btn btn-secondary" type="submit">
             <i class="fas fa-search fa-sm"></i>
           </button>
         </div>
@@ -109,7 +109,7 @@
                 aria-describedby="basic-addon2"
               />
               <div class="input-group-append">
-                <button class="btn btn-primary" type="submit">
+                <button class="btn btn-secondary" type="submit">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
@@ -143,7 +143,7 @@
           </h6>
           <a class="dropdown-item d-flex align-items-center" href="#">
             <div class="mr-3">
-              <div class="icon-circle bg-primary">
+              <div class="icon-circle bg-secondary">
                 <i class="fas fa-file-alt text-white"></i>
               </div>
             </div>
