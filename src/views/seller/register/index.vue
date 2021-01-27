@@ -75,6 +75,27 @@
 
                     <div class="form-group">
                       <input
+                        id="slug"
+                        name="slug"
+                        type="slug"
+                        required
+                        class="form-control form-control-user"
+                        :class="{ 'is-invalid': errors.slug }"
+                        placeholder="Nome da sua loja"
+                        v-model="user.seller.slug"
+                      />
+                      <div class="text-secondary">
+                        <small>
+                          Escolha um nome para usa loja dentro do VSquad.
+                        </small>
+                      </div>
+                      <div class="invalid-feedback">
+                        {{ errors.slug }}
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <input
                         id="email"
                         name="email"
                         type="email"
@@ -178,7 +199,8 @@ export default {
           gender: "",
           document: "",
           phone: "",
-          birthdate: ""
+          birthdate: "",
+          slug: ""
         },
         user_type: "seller"
       },

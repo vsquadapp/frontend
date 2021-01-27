@@ -117,7 +117,9 @@ export default {
     },
 
     productLink() {
-      return linkGenerator.getProductLink(this.product.id, this.seller.slug);
+      return encodeURI(
+        linkGenerator.getProductLink(this.product.id, this.seller.slug)
+      );
     }
   },
 
