@@ -4,6 +4,7 @@
       <div class="col-xl-3 col-md-6 mb-4">
         <board
           title="Produtos à venda"
+          :redirect-to="{ name: 'Seller.ListProduct' }"
           :value="productsInfo.value"
           :loading="productsInfo.status === 'loading'"
           color="primary"
@@ -18,6 +19,7 @@
           :loading="salesInfo.status === 'loading'"
           color="success"
           icon="fas fa-hand-holding-usd"
+          :redirect-to="{ name: 'Seller.ListSales' }"
         />
       </div>
 
@@ -28,6 +30,7 @@
           :loading="ordersInfo.status === 'loading'"
           color="warning"
           icon="fas fa-clock"
+          :redirect-to="{ name: 'Seller.ListOrders' }"
         />
       </div>
     </div>

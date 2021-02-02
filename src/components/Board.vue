@@ -1,5 +1,9 @@
 <template>
-  <div :class="`card border-left-${color} shadow h-100 py-2`">
+  <div
+    class="board-card card shadow h-100 py-2"
+    :class="[{ clickable: redirectTo }, `border-left-${color}`]"
+    @click="redirect"
+  >
     <div class="card-body">
       <div class="row no-gutters align-items-center">
         <div class="col mr-2">
@@ -53,7 +57,33 @@ export default {
     loading: {
       type: Boolean,
       required: false
+    },
+    redirectTo: {
+      type: String,
+      required: false
+    }
+  },
+
+  methods: {
+    redirect() {
+      if (!this.redirectTo) return false;
+      this.$router.push(this.redirectTo);
     }
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.board-card {
+  &.clickable {
+    transition: box-shadow 0.2s ease-in-out;
+
+    &:hover,
+    &:focus,
+    &:active {
+      cursor: pointer;
+      box-shadow: 0 0.15rem 1rem 0 rgba(58, 59, 69, 0.4) !important;
+    }
+  }
+}
+</style>

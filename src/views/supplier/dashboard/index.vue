@@ -8,6 +8,7 @@
           :loading="productsInfo.status === 'loading'"
           color="primary"
           icon="fas fa-box-open"
+          :redirect-to="{ name: 'Supplier.ListProduct' }"
         />
       </div>
 
@@ -28,6 +29,7 @@
           :loading="salesInfo.status === 'loading'"
           color="success"
           icon="fas fa-hand-holding-usd"
+          :redirect-to="{ name: 'Supplier.ListSales' }"
         />
       </div>
 
@@ -38,6 +40,7 @@
           :loading="ordersInfo.status === 'loading'"
           color="warning"
           icon="fas fa-clock"
+          :redirect-to="{ name: 'Supplier.ListOrders' }"
         />
       </div>
     </div>
