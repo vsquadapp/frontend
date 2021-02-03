@@ -5,7 +5,8 @@
     </div>
 
     <div class="seller-info" @click="redirectToSeller">
-      <h6 class="seller-name text-gray-900 mb-0">{{ store.name }}</h6>
+      <h6 class="seller-name text-gray-900 mb-0">{{ store.slug }}</h6>
+      <small>{{ store.name }}</small>
       <p class="seller-official">Loja oficial do vsquad</p>
     </div>
   </div>

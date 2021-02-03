@@ -15,7 +15,7 @@
               </div>
             </div>
             <div v-else-if="seller.data">
-              <router-view></router-view>
+              <router-view :categories="categories"></router-view>
             </div>
             <div v-else>
               <div
@@ -65,7 +65,8 @@ export default {
       seller: {
         loading: true,
         data: null
-      }
+      },
+      categories: []
     };
   },
 

@@ -61,6 +61,8 @@ import SellerService from "@/services/sellers";
 export default {
   components: { Page, CategoriesList, ProductsList, SellerInfo },
 
+  props: ["categories"],
+
   data() {
     return {
       products: {
@@ -72,7 +74,6 @@ export default {
           loading: false
         }
       },
-      categories: [],
       currentCategoryId: ""
     };
   },

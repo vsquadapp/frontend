@@ -2,8 +2,9 @@
   <div class="mb-4">
     <div class="mb-3">
       <h1 class="seller-name text-gray-900">
-        {{ seller.name }}
+        {{ storeName }}
       </h1>
+      <small>{{ sellerName }}</small>
       <p class="results-count">{{ productsCount }}</p>
     </div>
   </div>
@@ -22,6 +23,14 @@ export default {
         return count === 1 ? `${count} produto` : `${count} produtos`;
       }
       return "";
+    },
+
+    storeName() {
+      return this.seller.slug;
+    },
+
+    sellerName() {
+      return this.seller.name;
     }
   }
 };

@@ -74,6 +74,7 @@ h1.current-category {
 .category-item:hover {
   cursor: pointer;
   font-weight: 600;
+  color: black !important;
 }
 
 .show-all {
