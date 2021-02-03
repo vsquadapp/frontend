@@ -146,6 +146,13 @@
               </span>
             </button>
 
+            <div class="mt-3">
+              <small>
+                * O pagamento será realizado no momento da entrega ou retirada
+                do produto.
+              </small>
+            </div>
+
             <finish-order-modal
               v-if="showFinishOrderModal"
               :product="product"

@@ -26,7 +26,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
-              Venda #{{ sale.order_id }}
+              Venda {{ sale.order_id }}
             </h5>
             <button
               type="button"

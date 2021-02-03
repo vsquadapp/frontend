@@ -165,7 +165,8 @@ export default {
           this.$swal.fire({
             icon: "success",
             title: `Pedido realizado com sucesso!`,
-            text: `O número do seu pedido é #${order}`
+            html: `<p>O número do seu pedido é <b>${order}</b>.</p>
+            <p>Tenha o número de seu pedido em mãos para consultar o status a qualquer momento.<p>`
           });
           this.closeModal();
         })
