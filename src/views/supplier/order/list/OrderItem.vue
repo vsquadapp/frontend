@@ -56,11 +56,20 @@
                   }}
                 </p>
 
-                <div>
-                  <small>Cliente</small>
-                  <p>
-                    {{ order.client.name }}
-                  </p>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <small>Nome do cliente</small>
+                    <p>
+                      {{ order.client.name }}
+                    </p>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <small>Nome do vendedor</small>
+                    <p>
+                      {{ order.seller.name }}
+                    </p>
+                  </div>
                 </div>
 
                 <div class="d-flex justify-content-around">

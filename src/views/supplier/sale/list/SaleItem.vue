@@ -54,11 +54,20 @@
                   }}
                 </p>
 
-                <div>
-                  <small>Cliente</small>
-                  <p>
-                    {{ sale.client.name }}
-                  </p>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <small>Nome do cliente</small>
+                    <p>
+                      {{ sale.client.name }}
+                    </p>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <small>Nome do vendedor</small>
+                    <p>
+                      {{ sale.seller.name }}
+                    </p>
+                  </div>
                 </div>
 
                 <div class="d-flex justify-content-center text-center row">
