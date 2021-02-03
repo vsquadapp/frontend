@@ -113,7 +113,7 @@ export default {
     },
 
     saleDate() {
-      return formatDate(this.sale.created_at);
+      return formatDate(this.sale.created_at, true);
     }
   },
 

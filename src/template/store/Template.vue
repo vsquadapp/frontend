@@ -92,10 +92,8 @@ export default {
         this.seller.error = null;
         this.seller.loading = true;
         const seller = await this.loadStore(this.slug);
-        console.log("seller", seller);
         this.seller.data = seller;
       } catch (err) {
-        console.log(err);
         this.seller.error = "Vendedor não encontrado";
       }
       this.seller.loading = false;

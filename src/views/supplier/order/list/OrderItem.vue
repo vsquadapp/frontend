@@ -27,7 +27,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
-              Pedido #{{ order.order_id }}
+              Pedido {{ order.order_id }}
             </h5>
             <button
               type="button"
@@ -55,6 +55,13 @@
                       : "unidades vendidas"
                   }}
                 </p>
+
+                <div>
+                  <small>Cliente</small>
+                  <p>
+                    {{ order.client.name }}
+                  </p>
+                </div>
 
                 <div class="d-flex justify-content-around">
                   <div>
@@ -117,7 +124,7 @@ export default {
     },
 
     orderDate() {
-      return formatDate(this.order.created_at);
+      return formatDate(this.order.created_at, true);
     }
   },
 

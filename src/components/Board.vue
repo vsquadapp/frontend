@@ -44,7 +44,7 @@ export default {
     },
     value: {
       type: [String, Number],
-      required: true
+      required: false
     },
     icon: {
       type: String,
@@ -59,7 +59,7 @@ export default {
       required: false
     },
     redirectTo: {
-      type: String,
+      type: [String, Object],
       required: false
     }
   },

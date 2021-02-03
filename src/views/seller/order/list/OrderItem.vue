@@ -25,7 +25,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
-              Pedido #{{ order.order_id }}
+              Pedido {{ order.order_id }}
             </h5>
             <button
               type="button"
@@ -45,11 +45,6 @@
                 <h5 class="text-gray-900 mb-0">
                   {{ order.product.name }}
                 </h5>
-                <div class="order-status mb-2">
-                  <span class="text-warning">
-                    pendente <i class="far fa-clock"></i>
-                  </span>
-                </div>
                 <p class="mb-4">
                   {{ order.quantity }}
                   {{
@@ -58,6 +53,19 @@
                       : "unidades vendidas"
                   }}
                 </p>
+
+                <div class="order-status mb-2">
+                  <span class="text-warning">
+                    Aguardando pagamento <i class="far fa-clock"></i>
+                  </span>
+                </div>
+
+                <div>
+                  <small>Cliente</small>
+                  <p>
+                    {{ order.client.name }}
+                  </p>
+                </div>
 
                 <div class="d-flex justify-content-center">
                   <div class="px-3">
@@ -102,7 +110,7 @@ export default {
     },
 
     orderDate() {
-      return formatDate(this.order.created_at);
+      return formatDate(this.order.created_at, true);
     }
   },
 

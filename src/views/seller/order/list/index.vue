@@ -1,7 +1,7 @@
 <template>
   <page title="Pedidos pendentes">
     <div class="card p-2">
-      <table class="table table-borderless table-responsive-sm mb-0">
+      <table class="table table-borderless table-responsive mb-0">
         <thead>
           <tr>
             <th scope="col" colspan="2">Produto</th>

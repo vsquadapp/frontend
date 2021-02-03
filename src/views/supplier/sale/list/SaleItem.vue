@@ -25,7 +25,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
-              Venda #{{ sale.order_id }}
+              Venda {{ sale.order_id }}
             </h5>
             <button
               type="button"
@@ -54,26 +54,33 @@
                   }}
                 </p>
 
-                <div class="d-flex justify-content-around">
-                  <div>
+                <div>
+                  <small>Cliente</small>
+                  <p>
+                    {{ sale.client.name }}
+                  </p>
+                </div>
+
+                <div class="d-flex justify-content-center text-center row">
+                  <div class="col-sm-4">
                     <small>Valor da venda</small>
                     <p class="mb-2 text-gray-800">
                       {{ salePrice }}
                     </p>
                   </div>
-                  <div>
+                  <div class="col-sm-4">
                     <small>Valor recebido</small>
                     <p class="text-gray-900">
                       {{ receivedPrice }}
                     </p>
                   </div>
-                  <div>
+                  <div class="col-sm-4">
                     <small>Comissão para o vendedor</small>
                     <p class="text-gray-900">
                       {{ comissionPrice }}
                     </p>
                   </div>
-                  <div>
+                  <div class="col-sm-4">
                     <small>Data da venda</small>
                     <p class="text-gray-800">
                       {{ saleDate }}
@@ -123,7 +130,7 @@ export default {
     },
 
     saleDate() {
-      return formatDate(this.sale.created_at);
+      return formatDate(this.sale.created_at, true);
     }
   },
 
