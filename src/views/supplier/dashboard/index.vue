@@ -1,18 +1,27 @@
 <template>
   <page title="Dashboard">
     <div class="row">
-      <div class="col-xl-3 col-md-6 mb-4">
+      <div class="col-xl-4 col-md-6 mb-4">
         <board
-          title="Produtos cadastrados"
+          title="Cadastrar produto"
+          color="primary"
+          icon="fas fa-plus-circle"
+          :redirect-to="{ name: 'Supplier.CreateProduct' }"
+        />
+      </div>
+
+      <div class="col-xl-4 col-md-6 mb-4">
+        <board
+          title="Meus produtos"
           :value="productsInfo.value"
           :loading="productsInfo.status === 'loading'"
-          color="primary"
+          color="secondary"
           icon="fas fa-box-open"
           :redirect-to="{ name: 'Supplier.ListProduct' }"
         />
       </div>
 
-      <div class="col-xl-3 col-md-6 mb-4">
+      <div class="col-xl-4 col-md-6 mb-4">
         <board
           title="Vendedores ativos"
           :value="sellersInfo.value"
@@ -22,7 +31,7 @@
         />
       </div>
 
-      <div class="col-xl-3 col-md-6 mb-4">
+      <div class="col-xl-4 col-md-6 mb-4">
         <board
           title="Vendas realizadas"
           :value="salesInfo.value"
@@ -33,7 +42,7 @@
         />
       </div>
 
-      <div class="col-xl-3 col-md-6 mb-4">
+      <div class="col-xl-4 col-md-6 mb-4">
         <board
           title="Pedidos pendentes"
           :value="ordersInfo.value"
