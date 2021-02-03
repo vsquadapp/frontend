@@ -36,13 +36,6 @@
       </router-link>
     </li>
 
-    <li class="nav-item">
-      <router-link class="nav-link" :to="{ name: 'Supplier.Setup' }">
-        <i class="fas fa-cogs"></i>
-        <span class="pl-1">Configurações</span>
-      </router-link>
-    </li>
-
     <hr class="sidebar-divider" />
 
     <div class="sidebar-heading">

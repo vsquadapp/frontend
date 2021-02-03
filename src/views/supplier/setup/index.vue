@@ -1,5 +1,5 @@
 <template>
-  <page title="Configurações">
+  <page title="Configurações de perfil">
     <form @submit.prevent="submit">
       <div class="card mb-4 w-100">
         <div class="card-body">
@@ -61,7 +61,7 @@
             <div class="row">
               <div class="form-group col-sm-6">
                 <label for="cep" class="label-control">
-                  Cep
+                  CEP
                 </label>
                 <input
                   id="cep"

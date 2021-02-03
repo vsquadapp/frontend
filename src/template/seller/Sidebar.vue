@@ -23,13 +23,6 @@
     </div>
 
     <li class="nav-item">
-      <router-link class="nav-link" :to="{ name: 'Seller.Setup' }">
-        <i class="fas fa-cogs"></i>
-        <span class="pl-1">Configurações</span>
-      </router-link>
-    </li>
-
-    <li class="nav-item">
       <router-link class="nav-link" :to="{ name: 'Seller.Catalog' }">
         <i class="fas fa-book-open"></i>
         <span class="pl-1">Meu catálogo</span>

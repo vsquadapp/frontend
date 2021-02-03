@@ -1,5 +1,5 @@
 <template>
-  <page title="Configurações">
+  <page title="Configurações de perfil">
     <form @submit.prevent="submit">
       <div class="card mb-4 w-100">
         <div class="card-body">
