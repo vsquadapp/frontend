@@ -117,39 +117,6 @@ export default {
   methods: {
     openModal() {
       $(`#order-modal-${this.order.id}`).modal("show");
-    },
-
-    finishOrder() {
-      this.$swal({
-        title: "O produto foi entrege ao cliente?",
-        inputAttributes: {
-          autocapitalize: "off"
-        },
-        reverseButtons: true,
-        confirmButtonText: "Sim!",
-        showCancelButton: true,
-        cancelButtonText: "Ainda não.",
-        showLoaderOnConfirm: true,
-        preConfirm: () => {
-          return new Promise(resolve => {
-            setTimeout(() => {
-              resolve(true);
-            }, 500);
-          })
-            .then(() => {
-              return true;
-            })
-            .catch(error => {
-              this.$swal.showValidationMessage(`Request failed: ${error}`);
-            });
-        },
-        allowOutsideClick: () => !this.$swal.isLoading()
-      }).then(() => {
-        this.$swal.fire({
-          icon: "success",
-          title: `Venda realizada com sucesso!`
-        });
-      });
     }
   }
 };

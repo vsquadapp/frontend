@@ -159,7 +159,11 @@ export default {
               return response.data;
             })
             .catch(error => {
-              this.$swal.showValidationMessage(`Request failed: ${error}`);
+              this.$swal.fire({
+                icon: "error",
+                title: `Não foi possível concluir o pedido.`,
+                text: error.response.data.error
+              });
             });
         },
         allowOutsideClick: () => !this.$swal.isLoading()
