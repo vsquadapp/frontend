@@ -1,6 +1,7 @@
 <template>
   <div class="card mb-4 w-100 bg-gray-100">
     <div class="card-body">
+      <slot></slot>
       <div class="mb-3">
         <h1
           class="current-category text-gray-900"
@@ -14,6 +15,17 @@
         <h2 class="categories-title text-gray-900 font-weight-bold">
           Categorias
         </h2>
+
+        <div v-if="currentCategory">
+          <button
+            type="button"
+            class="btn btn-link text-secondary px-0"
+            @click="clearSearch"
+          >
+            <span>Limpar filtro <i class="fas fa-times fa-xs"></i></span>
+          </button>
+        </div>
+
         <ul class="categories-list">
           <li
             v-for="category of categories"
@@ -33,6 +45,8 @@
 import ProductService from "@/services/products";
 
 export default {
+  props: { currentCategory: String },
+
   data() {
     return {
       categories: []
@@ -47,6 +61,10 @@ export default {
     async loadCategories() {
       const response = await ProductService.categories(1, 100);
       this.categories = response.data.data;
+    },
+
+    clearSearch() {
+      this.$emit("select-category", null);
     },
 
     selectCategory(category) {

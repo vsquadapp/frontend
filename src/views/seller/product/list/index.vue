@@ -1,10 +1,30 @@
 <template>
   <page title="">
-    <div v-if="products.length" class="row">
-      <div class="col-12 col-lg-3">
-        <categories-list @select-category="onSelectCategory" />
+    <div v-if="loading" class="row">
+      <div class="col-12 d-flex justify-content-center mt-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
       </div>
-      <div class="col-12 col-lg-9">
+    </div>
+    <div v-else class="row">
+      <div class="col-12 col-lg-3">
+        <categories-list
+          :current-category="currentCategoryId"
+          @select-category="onSelectCategory"
+        >
+          <div v-if="search">
+            <button
+              type="button"
+              class="btn btn-link text-secondary px-0"
+              @click="clearSearch"
+            >
+              <span>Limpar busca <i class="fas fa-times fa-xs"></i></span>
+            </button>
+          </div>
+        </categories-list>
+      </div>
+      <div v-if="products.length" class="col-12 col-lg-9">
         <products-list :products="products" />
 
         <div v-if="showPagination" class="text-center mb-5">
@@ -20,13 +40,7 @@
           </button>
         </div>
       </div>
-    </div>
-    <div v-else class="row">
-      <div class="col-12 d-flex justify-content-center mt-5">
-        <div class="spinner-border text-primary" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
-      </div>
+      <div v-else>Nenhum produto encontrado.</div>
     </div>
   </page>
 </template>
@@ -49,11 +63,14 @@ export default {
         current_page: 1,
         last_page: 1,
         loading: false
-      }
+      },
+      search: "",
+      loading: true
     };
   },
 
   mounted() {
+    this.search = this.$route.query.search;
     this.loadProducts();
   },
 
@@ -64,12 +81,21 @@ export default {
   },
 
   methods: {
+    clearSearch() {
+      this.$router.push({ name: "Seller.ListProduct", query: { search: "" } });
+    },
+
     async loadProducts() {
+      this.loading = true;
+
       const data = {
         page: this.pagination.current_page,
         params: {
           limit: 10,
-          and: [["quantity", ">", 0]],
+          and: [
+            ["quantity", ">", 0],
+            ["name", "like", this.search]
+          ],
           order: [["created_at", "desc"]]
         }
       };
@@ -87,6 +113,8 @@ export default {
       }
 
       this.pagination.last_page = response.data.last_page;
+
+      this.loading = false;
 
       return response;
     },
@@ -106,6 +134,18 @@ export default {
       }
       this.pagination.current_page = 1;
       this.loadProducts();
+    },
+
+    async searchProducts() {
+      this.pagination.current_page = 1;
+      await this.loadProducts();
+    }
+  },
+
+  watch: {
+    "$route.query.search"(value) {
+      this.search = value;
+      this.searchProducts();
     }
   }
 };

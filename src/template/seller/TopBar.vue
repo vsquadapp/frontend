@@ -22,6 +22,7 @@
           placeholder="Buscar produtos, marcas e muito mais..."
           aria-label="Search"
           aria-describedby="basic-addon2"
+          v-model="searchInput"
         />
         <div class="input-group-append">
           <button class="btn btn-secondary" type="submit">
@@ -107,6 +108,7 @@
                 placeholder="Buscar produtos, marcas e muito mais..."
                 aria-label="Search"
                 aria-describedby="basic-addon2"
+                v-model="searchInput"
               />
               <div class="input-group-append">
                 <button class="btn btn-secondary" type="submit">
@@ -241,9 +243,18 @@ export default {
     LogoutModal
   },
 
+  data() {
+    return {
+      searchInput: ""
+    };
+  },
+
   methods: {
     search() {
-      this.$router.push({ name: "Seller.ListProduct" });
+      this.$router.push({
+        name: "Seller.ListProduct",
+        query: { search: this.searchInput }
+      });
     }
   },
 
@@ -257,6 +268,12 @@ export default {
         return name[0];
       }
       return username;
+    }
+  },
+
+  watch: {
+    "$route.query.search"(value) {
+      this.searchInput = value;
     }
   }
 };
