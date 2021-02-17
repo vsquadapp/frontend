@@ -128,10 +128,20 @@ export default {
 
     orderPrice() {
       if (this.order) {
-        return formatMoney(this.order.price / 100);
+        let price = this.order.price * this.order.quantity;
+
+        if (this.isDelivery) {
+          price += this.order.delivery_price;
+        }
+
+        return formatMoney(price / 100);
       } else {
         return "";
       }
+    },
+
+    isDelivery() {
+      return this.order.delivery_type === "delivery";
     },
 
     orderStatus() {

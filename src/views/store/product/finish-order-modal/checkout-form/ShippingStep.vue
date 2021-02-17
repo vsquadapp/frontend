@@ -65,7 +65,7 @@
                   Delivery
                 </td>
                 <td class="delivery-type-price text-gray-800">
-                  R$ 10,00
+                  {{ deliveryPrice }}
                 </td>
               </tr>
               <tr>
@@ -178,11 +178,13 @@
 
 <script>
 import * as cep from "cep-promise";
+import formatMoney from "@/utils/formatMoney";
 
 export default {
   props: {
     form: Object,
-    supplier: Object
+    supplier: Object,
+    product: Object
   },
 
   data() {
@@ -204,6 +206,15 @@ export default {
 
   mounted() {
     this.fillForm(this.form.address);
+  },
+
+  computed: {
+    deliveryPrice() {
+      if (this.product.delivery_price) {
+        return formatMoney(this.product.delivery_price / 100);
+      }
+      return "";
+    }
   },
 
   methods: {

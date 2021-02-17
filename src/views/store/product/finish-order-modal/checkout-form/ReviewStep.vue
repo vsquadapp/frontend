@@ -21,6 +21,7 @@
         <p>
           {{ product.name }} <br />
           Quantidade: {{ quantity }}<br />
+          <span v-if="isDelivery">Valor frete: {{ deliveryPrice }}<br /></span>
           Valor total: {{ totalPrice }}<br />
         </p>
       </div>
@@ -60,7 +61,18 @@ export default {
 
   computed: {
     totalPrice() {
-      return formatMoney((this.product.price * this.quantity) / 100);
+      let total = this.product.price * this.quantity;
+      if (this.isDelivery) {
+        total += this.product.delivery_price;
+      }
+      return formatMoney(total / 100);
+    },
+
+    deliveryPrice() {
+      if (this.product.delivery_price) {
+        return formatMoney(this.product.delivery_price / 100);
+      }
+      return "";
     },
 
     isPickup() {
