@@ -56,19 +56,40 @@
                   }}
                 </p>
 
-                <div class="row">
+                <div class="row mb-3">
                   <div class="col-sm-6">
                     <small>Nome do cliente</small>
-                    <p>
+                    <div>
                       {{ order.client.name }}
-                    </p>
+                    </div>
                   </div>
 
                   <div class="col-sm-6">
                     <small>Nome do vendedor</small>
-                    <p>
+                    <div>
                       {{ order.seller.name }}
-                    </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div v-if="isDelivery" class="row mb-3">
+                  <div class="col-sm-12">
+                    <small>Endereço de entrega</small>
+                    <div>
+                      <span>{{ order.client.street }}</span>
+                      <span v-if="order.client.number">
+                        , {{ order.client.number }}
+                      </span>
+                    </div>
+                    <div>
+                      {{ order.client.district }}
+                    </div>
+                    <div>
+                      {{ order.client.complement }}
+                    </div>
+                    <div>
+                      {{ order.client.city }}
+                    </div>
                   </div>
                 </div>
 
@@ -123,13 +144,26 @@ export default {
   },
 
   computed: {
+    orderSubtotal() {
+      return this.order.price * this.order.quantity;
+    },
+
     orderPrice() {
-      return formatMoney(this.order.price / 100);
+      let total = this.orderSubtotal;
+      if (this.isDelivery) {
+        total += this.order.delivery_price;
+      }
+      return formatMoney(total / 100);
     },
 
     receivedPrice() {
-      const received = this.order.price - this.order.tax - this.order.comission;
+      const received =
+        this.orderSubtotal - this.order.tax - this.order.comission;
       return formatMoney(received / 100);
+    },
+
+    isDelivery() {
+      return this.order.delivery_type === "delivery";
     },
 
     orderDate() {

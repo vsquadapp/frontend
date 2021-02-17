@@ -125,17 +125,29 @@ export default {
   },
 
   computed: {
+    saleSubtotal() {
+      return this.sale.price * this.sale.quantity;
+    },
+
     salePrice() {
-      return formatMoney(this.sale.price / 100);
+      let total = this.saleSubtotal;
+      if (this.isDelivery) {
+        total += this.sale.delivery_price;
+      }
+      return formatMoney(total / 100);
     },
 
     receivedPrice() {
-      const received = this.sale.price - this.sale.comission - this.sale.tax;
+      const received = this.saleSubtotal - this.sale.tax - this.sale.comission;
       return formatMoney(received / 100);
     },
 
+    isDelivery() {
+      return this.sale.delivery_type === "delivery";
+    },
+
     comissionPrice() {
-      return formatMoney(this.sale.comission / 100);
+      return formatMoney((this.sale.comission * this.sale.quantity) / 100);
     },
 
     saleDate() {
