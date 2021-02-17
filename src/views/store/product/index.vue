@@ -104,7 +104,7 @@
 
           <div class="pt-3 mb-3">
             <div>
-              <span class="text-gray-900">Estoque disponível</span>
+              <span class="text-gray-900">{{ productAvailability }}</span>
             </div>
             <div>
               <span>{{ productQuantity }}</span>
@@ -133,6 +133,7 @@
             <button
               id="place-order-button"
               class="btn btn-lg btn-block btn-primary"
+              :disabled="!productCanBeSold"
               @click="placeOrder"
             >
               <span
@@ -147,7 +148,7 @@
             </button>
 
             <div class="mt-3">
-              <small>
+              <small class="text-dark">
                 * O pagamento será realizado no momento da entrega ou retirada
                 do produto.
               </small>
@@ -222,14 +223,24 @@ export default {
       return formatMoney(this.product.delivery_price / 100);
     },
 
+    productCanBeSold() {
+      return this.product?.quantity;
+    },
+
+    productAvailability() {
+      return this.productCanBeSold
+        ? "Estoque disponível"
+        : "Produto indisponível";
+    },
+
     productQuantity() {
-      if (this.product?.quantity) {
+      if (this.productCanBeSold) {
         const quantity = this.product.quantity;
         return quantity === 1
           ? `${quantity} disponível`
           : `${quantity} disponíveis`;
       }
-      return "";
+      return "Sem estoque";
     }
   },
 
