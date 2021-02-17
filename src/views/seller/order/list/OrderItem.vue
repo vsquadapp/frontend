@@ -106,7 +106,7 @@ export default {
     },
 
     receivedPrice() {
-      return formatMoney(this.order.comission / 100);
+      return formatMoney((this.order.comission * this.order.quantity) / 100);
     },
 
     orderDate() {

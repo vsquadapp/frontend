@@ -105,11 +105,11 @@ export default {
 
   computed: {
     salePrice() {
-      return formatMoney(this.sale.price / 100);
+      return formatMoney((this.sale.price * this.sale.quantity) / 100);
     },
 
     comissionPrice() {
-      return formatMoney(this.sale.comission / 100);
+      return formatMoney((this.sale.comission * this.sale.quantity) / 100);
     },
 
     saleDate() {
