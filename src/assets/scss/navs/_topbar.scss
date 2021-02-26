@@ -2,6 +2,7 @@
 .topbar {
   height: $topbar-base-height;
   #sidebarToggleTop {
+    z-index: 10;
     height: 2.5rem;
     width: 2.5rem;
     &:hover {
@@ -80,7 +81,7 @@
           position: absolute;
           bottom: 0;
           right: 0;
-          border: .125rem solid $white;
+          border: 0.125rem solid $white;
         }
       }
       .text-truncate {
@@ -140,5 +141,38 @@
         }
       }
     }
+  }
+}
+
+#page-top {
+  #main-logo {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    img {
+      height: 20px;
+    }
+  }
+}
+
+#page-top.supplier-view {
+  .navbar {
+    background-image: url("./assets/images/supplier/top.png");
+  }
+
+  .navbar-nav.sidebar {
+    padding-top: 70px;
+    background-color: #253921;
+    background-image: unset;
+  }
+}
+
+#page-top.seller-view {
+  .navbar-nav.sidebar {
+    padding-top: 120px;
+    background-color: #fff;
+    background-image: url("./assets/images/seller/sidebar.png");
   }
 }

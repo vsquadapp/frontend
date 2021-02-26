@@ -1,5 +1,5 @@
 <template>
-  <div id="page-top">
+  <div id="page-top" class="supplier-view">
     <!-- Page Wrapper -->
     <div id="wrapper">
       <sidebar />

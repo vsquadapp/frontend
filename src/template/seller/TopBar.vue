@@ -2,6 +2,11 @@
   <nav
     class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
   >
+    <!-- MAIN LOGO -->
+    <div id="main-logo">
+      <img src="@/assets/images/seller/logo-main.png" />
+    </div>
+
     <!-- Sidebar Toggle (Topbar) -->
     <button
       id="sidebarToggleTop"
@@ -25,7 +30,7 @@
           v-model="searchInput"
         />
         <div class="input-group-append">
-          <button class="btn btn-secondary" type="submit">
+          <button class="btn btn-primary" type="submit">
             <i class="fas fa-search fa-sm"></i>
           </button>
         </div>
@@ -67,14 +72,14 @@
         </div>
       </li> 
       -->
-      <li class="nav-item mx-1">
+      <!-- <li class="nav-item mx-1">
         <router-link
           class="nav-link text-gray-700 pl-0"
           :to="{ name: 'Seller.Stores' }"
         >
           <span>Lojas oficiais</span>
         </router-link>
-      </li>
+      </li> -->
     </ul>
 
     <!-- Topbar Navbar -->
@@ -111,7 +116,7 @@
                 v-model="searchInput"
               />
               <div class="input-group-append">
-                <button class="btn btn-secondary" type="submit">
+                <button class="btn btn-primary" type="submit">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>

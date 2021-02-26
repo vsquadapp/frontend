@@ -1,5 +1,14 @@
 // Import Custom SB Admin 2 Variables (Overrides Default Bootstrap Variables)
+
 @import "variables.scss";
+
+.supplier-view {
+  @import "variables-supplier.scss";
+}
+
+// .seller-view {
+//   @import "variables-seller.scss";
+// }
 
 // Import Bootstrap
 @import "../../../node_modules/bootstrap/scss/bootstrap.scss";
