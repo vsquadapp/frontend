@@ -114,6 +114,16 @@ const routes = [
           import(
             /* webpackChunkName: "supplier-setup" */ "../views/supplier/setup"
           )
+      },
+      {
+        path: "sellers/list",
+        meta: { requiresAuth: true },
+        name: "Supplier.ListSellers",
+        props: true,
+        component: () =>
+          import(
+            /* webpackChunkName: "supplier-sellers-list" */ "../views/supplier/sellers/list"
+          )
       }
     ]
   },

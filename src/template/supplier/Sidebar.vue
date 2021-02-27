@@ -34,6 +34,15 @@
 
     <hr class="sidebar-divider" />
 
+    <li class="nav-item">
+      <router-link class="nav-link" :to="{ name: 'Supplier.ListSellers' }">
+        <i class="fas fa-users"></i>
+        <span class="pl-1">Meus Vendedores</span>
+      </router-link>
+    </li>
+
+    <hr class="sidebar-divider" />
+
     <div class="sidebar-heading">
       Vendas
     </div>

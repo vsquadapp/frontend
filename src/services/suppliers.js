@@ -39,6 +39,10 @@ export function getById(supplier) {
   return axios.get(`${baseUrl}/api/suppliers/${supplier}`);
 }
 
+export function sellers(supplier) {
+  return axios.get(`${baseUrl}/api/suppliers/${supplier}/sellers`);
+}
+
 export default {
   products,
   categories,
@@ -47,5 +51,6 @@ export default {
   orders,
   update,
   officials,
-  getById
+  getById,
+  sellers
 };
