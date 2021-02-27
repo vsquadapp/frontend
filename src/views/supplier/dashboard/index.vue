@@ -28,6 +28,7 @@
           :loading="sellersInfo.status === 'loading'"
           color="info"
           icon="fas fa-user-tie"
+          :redirect-to="{ name: 'Supplier.ListSellers' }"
         />
       </div>
 
