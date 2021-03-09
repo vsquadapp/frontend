@@ -34,7 +34,7 @@
                 <th>Valor do pedido</th>
                 <th>Valor em taxas</th>
                 <th>Pago</th>
-                <th>Pagar</th>
+                <th></th>
               </tr>
               <tr v-for="order of supplier.orders" :key="order.id">
                 <td>{{ order.order_id }}</td>
@@ -149,3 +149,11 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.table {
+  tr {
+    cursor: pointer;
+  }
+}
+</style>
