@@ -157,6 +157,17 @@
   }
 }
 
+#page-top.admin-view {
+  .navbar-nav.sidebar {
+    padding-top: 70px;
+    background-color: black;
+    background-image: unset;
+  }
+  #sidebarToggleTop .fa-bars {
+    color: black;
+  }
+}
+
 #page-top.supplier-view {
   .navbar {
     background-image: url("./assets/images/supplier/top.png");

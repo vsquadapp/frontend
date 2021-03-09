@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import SupplierTemplate from "./../template/supplier/Template";
+import AdminTemplate from "./../template/admin/Template";
 import SellerTemplate from "./../template/seller/Template";
 import StoreTemplate from "./../template/store/Template";
 
@@ -25,6 +26,13 @@ const routes = [
     name: "Login",
     component: () =>
       import(/* webpackChunkName: "auth-login" */ "../views/login")
+  },
+  {
+    path: "/admin/login",
+    props: true,
+    name: "Admin.Login",
+    component: () =>
+      import(/* webpackChunkName: "auth-login" */ "../views/admin/login")
   },
   {
     path: "/recovery-password/:userType",
@@ -224,6 +232,49 @@ const routes = [
         props: true,
         component: () =>
           import(/* webpackChunkName: "seller-setup" */ "../views/seller/setup")
+      }
+    ]
+  },
+  {
+    path: "/admin",
+    component: AdminTemplate,
+    redirect: { name: "AdminLogin" },
+    children: [
+      {
+        path: "dashboard",
+        meta: { requiresAuth: true },
+        name: "Admin.Dashboard",
+        component: () =>
+          import(
+            /* webpackChunkName: "admin-dashboard" */ "../views/admin/dashboard"
+          )
+      },
+      {
+        path: "suppliers",
+        meta: { requiresAuth: true },
+        name: "Admin.SuppliersList",
+        component: () =>
+          import(
+            /* webpackChunkName: "admin-suppliers-list" */ "../views/admin/suppliers/list"
+          )
+      },
+      {
+        path: "sellers",
+        meta: { requiresAuth: true },
+        name: "Admin.SellersList",
+        component: () =>
+          import(
+            /* webpackChunkName: "admin-sellers-list" */ "../views/admin/sellers/list"
+          )
+      },
+      {
+        path: "orders",
+        meta: { requiresAuth: true },
+        name: "Admin.OrdersList",
+        component: () =>
+          import(
+            /* webpackChunkName: "admin-orders-list" */ "../views/admin/orders/list"
+          )
       }
     ]
   },
