@@ -281,7 +281,7 @@ const routes = [
         path: "sellers/:seller_id/details",
         meta: { requiresAuth: true },
         props: true,
-        name: "Admin.sellersDetails",
+        name: "Admin.SellersDetails",
         component: () =>
           import(
             /* webpackChunkName: "admin-sellers-details" */ "../views/admin/sellers/details"
