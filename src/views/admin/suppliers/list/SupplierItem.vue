@@ -1,9 +1,9 @@
 <template>
-  <tr>
-    <td @click="openModal">{{ supplier.name }}</td>
-    <td @click="openModal">{{ supplier.phone }}</td>
-    <td @click="openModal">{{ supplier.email }}</td>
-    <td @click="openModal">{{ supplier.store_name }}</td>
+  <tr @click="openSupplier">
+    <td>{{ supplier.name }}</td>
+    <td>{{ supplier.phone }}</td>
+    <td>{{ supplier.email }}</td>
+    <td>{{ supplier.store_name }}</td>
     <supplier-modal :supplier="supplier" v-model:show="show" />
   </tr>
 </template>
@@ -27,6 +27,13 @@ export default {
   methods: {
     openModal() {
       this.show = true;
+    },
+
+    openSupplier() {
+      this.$router.push({
+        name: "Admin.SuppliersDetails",
+        params: { supplier_id: this.supplier.id }
+      });
     }
   }
 };
