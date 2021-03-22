@@ -4,19 +4,14 @@
     <td>{{ supplier.phone }}</td>
     <td>{{ supplier.email }}</td>
     <td>{{ supplier.store_name }}</td>
-    <supplier-modal :supplier="supplier" v-model:show="show" />
   </tr>
 </template>
 
 <script>
-import SupplierModal from "./SupplierModal";
-
 export default {
   props: {
     supplier: Object
   },
-
-  components: { SupplierModal },
 
   data() {
     return {
