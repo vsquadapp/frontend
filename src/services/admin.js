@@ -21,10 +21,30 @@ export function markOrderAsPaid(order_id) {
   return axios.post(`${baseUrl}/api/admin/orders/${order_id}/paid`);
 }
 
+export function sellerById(seller_id) {
+  return axios.get(`${baseUrl}/api/admin/sellers/${seller_id}`);
+}
+
+export function supplerById(supplier_id) {
+  return axios.get(`${baseUrl}/api/admin/suppliers/${supplier_id}`);
+}
+
+export function verifySupplier(supplier_id) {
+  return axios.post(`${baseUrl}/api/suppliers/${supplier_id}/verify`);
+}
+
+export function verifySeller(seller_id) {
+  return axios.post(`${baseUrl}/api/sellers/${seller_id}/verify`);
+}
+
 export default {
   dashboard,
   suppliers,
   sellers,
   orders,
-  markOrderAsPaid
+  markOrderAsPaid,
+  sellerById,
+  supplerById,
+  verifySupplier,
+  verifySeller
 };

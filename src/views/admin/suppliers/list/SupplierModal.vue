@@ -26,33 +26,38 @@
           </button>
         </div>
         <div class="modal-body">
-          <div class="table-responsive">
-            <table class="table table-striped table-borderless">
-              <tr>
-                <th>Pedido</th>
-                <th>Status</th>
-                <th>Valor do pedido</th>
-                <th>Valor em taxas</th>
-                <th>Pago</th>
-                <th></th>
-              </tr>
-              <tr v-for="order of supplier.orders" :key="order.id">
-                <td>{{ order.order_id }}</td>
-                <td>{{ orderStatus(order) }}</td>
-                <td>{{ orderTotalPrice(order) }}</td>
-                <td>{{ orderTotalTax(order) }}</td>
-                <td>{{ orderPaidBySupplier(order) }}</td>
-                <td>
-                  <button
-                    v-if="!order.paid_by_supplier"
-                    class="bnt btn-sm btn-primary"
-                    @click="paid(order)"
-                  >
-                    Pagar
-                  </button>
-                </td>
-              </tr>
-            </table>
+          <div v-if="!supplier.orders.length">
+            Esse fornecedor não possui vendas.
+          </div>
+          <div v-else>
+            <div class="table-responsive">
+              <table class="table table-striped table-borderless">
+                <tr>
+                  <th>Pedido</th>
+                  <th>Status</th>
+                  <th>Valor do pedido</th>
+                  <th>Valor em taxas</th>
+                  <th>Pago</th>
+                  <th></th>
+                </tr>
+                <tr v-for="order of supplier.orders" :key="order.id">
+                  <td>{{ order.order_id }}</td>
+                  <td>{{ orderStatus(order) }}</td>
+                  <td>{{ orderTotalPrice(order) }}</td>
+                  <td>{{ orderTotalTax(order) }}</td>
+                  <td>{{ orderPaidBySupplier(order) }}</td>
+                  <td>
+                    <button
+                      v-if="!order.paid_by_supplier"
+                      class="bnt btn-sm btn-primary"
+                      @click="paid(order)"
+                    >
+                      Pagar
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
       </div>
