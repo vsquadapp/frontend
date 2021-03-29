@@ -438,7 +438,7 @@ export default {
         delivery_price: 0,
         images: [],
         plan: plans[0],
-        attributes: null
+        attribute: null
       },
       plans,
       vmoney
@@ -521,8 +521,8 @@ export default {
       return formatMoney(value);
     },
 
-    onChangeAttributes(attributes) {
-      this.product.attributes = JSON.stringify(attributes);
+    onChangeAttributes(attribute) {
+      this.product.attribute = JSON.stringify(attribute);
     }
   }
 };

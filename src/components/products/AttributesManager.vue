@@ -13,13 +13,9 @@
     </div>
 
     <div class="row">
-      <div
-        class="col-sm-3"
-        v-for="(attribute, index) of attributes"
-        :key="index"
-      >
-        <h5 class="mb-0 text-gray-900">{{ attribute.key }}</h5>
-        <p class="">{{ attribute.value }}</p>
+      <div class="col-sm-3" v-for="(attr, index) of attribute" :key="index">
+        <h5 class="mb-0 text-gray-900">{{ attr.key }}</h5>
+        <p class="">{{ attr.value }}</p>
       </div>
     </div>
 
@@ -65,13 +61,13 @@ export default {
         key: "",
         value: ""
       },
-      attributes: []
+      attribute: []
     };
   },
 
   mounted() {
     if (this.initialAttributes) {
-      this.attributes = JSON.parse(this.initialAttributes);
+      this.attribute = JSON.parse(this.initialAttributes);
     }
   },
 
@@ -80,9 +76,9 @@ export default {
       if (!this.currentAttribute.key || !this.currentAttribute.value) {
         return false;
       }
-      this.attributes.push({ ...this.currentAttribute });
+      this.attribute.push({ ...this.currentAttribute });
       this.currentAttribute = { key: "", value: "" };
-      this.$emit("change", this.attributes);
+      this.$emit("change", this.attribute);
     }
   }
 };

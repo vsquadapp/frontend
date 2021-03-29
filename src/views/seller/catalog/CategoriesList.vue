@@ -8,7 +8,7 @@
         >
           Todos
         </h1>
-        <p class="results-count">2 produtos</p>
+        <p class="results-count">{{ totals }}</p>
       </div>
       <div>
         <h2 class="categories-title text-gray-900 font-weight-bold">
@@ -35,6 +35,8 @@ import { mapGetters } from "vuex";
 import SellerService from "@/services/sellers";
 
 export default {
+  props: ["total"],
+
   data() {
     return {
       categories: []
@@ -46,7 +48,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["seller"])
+    ...mapGetters(["seller"]),
+
+    totals() {
+      if (!this.total) return "";
+      if (this.total === 1) return `1 produto`;
+      return `${this.total} produtos`;
+    }
   },
 
   methods: {

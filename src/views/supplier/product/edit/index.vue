@@ -87,7 +87,7 @@
               <div class="card mb-4 w-100">
                 <div class="card-body">
                   <attributesManager
-                    :initial-attributes="product.attributes"
+                    :initial-attributes="product.attribute"
                     @change="onChangeAttributes"
                   />
                 </div>
@@ -503,8 +503,8 @@ export default {
       return formatMoney(value);
     },
 
-    onChangeAttributes(attributes) {
-      this.product.attributes = JSON.stringify(attributes);
+    onChangeAttributes(attribute) {
+      this.product.attribute = JSON.stringify(attribute);
     }
   }
 };

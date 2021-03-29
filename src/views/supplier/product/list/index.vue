@@ -9,7 +9,10 @@
     </div>
     <div v-else-if="products.length" class="row">
       <div class="col-12 col-lg-3">
-        <categories-list @select-category="onSelectCategory" />
+        <categories-list
+          @select-category="onSelectCategory"
+          :total="totalProducts"
+        />
       </div>
       <div class="col-12 col-lg-9">
         <products-list :products="products" />
@@ -55,12 +58,15 @@ export default {
         current_page: 1,
         last_page: 1,
         loading: false
-      }
+      },
+      totalProducts: null
     };
   },
 
   mounted() {
+    this.loading = true;
     this.loadProducts();
+    this.loading = false;
   },
 
   computed: {
@@ -73,7 +79,6 @@ export default {
 
   methods: {
     async loadProducts() {
-      this.loading = true;
       const response = await SupplierService.products(
         this.supplier.id,
         this.pagination.current_page,
@@ -85,8 +90,8 @@ export default {
       } else {
         this.products = [...this.products, ...response.data.data];
       }
-      this.loading = false;
       this.pagination.last_page = response.data.last_page;
+      this.totalProducts = response.data.total;
     },
 
     async nextPage() {
@@ -103,7 +108,9 @@ export default {
         this.currentCategoryId = "";
       }
       this.pagination.current_page = 1;
+      this.loading = true;
       this.loadProducts();
+      this.loading = false;
     }
   }
 };

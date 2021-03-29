@@ -3,7 +3,7 @@
     <div v-if="!loading">
       <div v-if="products.length" class="row">
         <div class="col-12 col-lg-3">
-          <categories-list />
+          <categories-list :total="total_products" />
         </div>
         <div class="col-12 col-lg-9">
           <products-list :products="products" />
@@ -58,7 +58,8 @@ export default {
         current_page: 1,
         last_page: 1,
         loading: false
-      }
+      },
+      total_products: null
     };
   },
 
@@ -89,6 +90,8 @@ export default {
       } else {
         this.products = [...this.products, ...response.data.data];
       }
+
+      this.total_products = response.data.total;
 
       this.pagination.last_page = response.data.last_page;
 
