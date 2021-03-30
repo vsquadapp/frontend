@@ -372,11 +372,15 @@
 
     <div class="row mb-5">
       <div class="col-12 col-sm-8 text-right">
-        <button class="btn btn-primary" @click="submit" :disabled="loading">
+        <button
+          class="btn btn-primary d-inline-flex align-items-center save-action"
+          @click="submit"
+          :disabled="loading"
+        >
           Cadastrar produto
           <div
             v-if="loading"
-            class="spinner-border text-primary mb-2"
+            class="spinner-border spinner-border-sm text-light ml-3"
             role="status"
           ></div>
         </button>
@@ -541,5 +545,12 @@ input::placeholder {
 
 .plan-item {
   cursor: pointer;
+}
+
+@media only screen and (max-width: 575px) {
+  .save-action {
+    width: 100%;
+    justify-content: center;
+  }
 }
 </style>

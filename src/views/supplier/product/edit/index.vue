@@ -325,11 +325,15 @@
 
       <div class="row mb-5">
         <div class="col-12 text-right">
-          <button class="btn btn-primary" @click="submit" :disabled="loading">
+          <button
+            class="btn btn-primary d-inline-flex align-items-center edit-action"
+            @click="submit"
+            :disabled="loading"
+          >
             Salvar
             <div
               v-if="loading"
-              class="spinner-border spinner-border-sm mb-2"
+              class="spinner-border spinner-border-sm ml-3"
               role="status"
             ></div>
           </button>
@@ -523,5 +527,12 @@ input::placeholder {
 
 .plan-item {
   cursor: pointer;
+}
+
+@media only screen and (max-width: 575px) {
+  .edit-action {
+    width: 100%;
+    justify-content: center;
+  }
 }
 </style>
