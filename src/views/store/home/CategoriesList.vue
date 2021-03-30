@@ -68,6 +68,7 @@ h1.current-category {
 .categories-title,
 .category-item {
   font-size: 16px;
+  text-transform: capitalize;
 }
 
 .category-item.active,
