@@ -7,6 +7,7 @@
         type="file"
         @change="readURL"
         multiple=""
+        accept="image/jpg, image/jpeg, image/png"
         class="form-control border-0"
       />
 
@@ -43,7 +44,7 @@
           v-for="(image, index) of images"
           :key="index"
         >
-          <span class="text-light remove-image">
+          <span class="text-secondary remove-image" @click="removeImage(index)">
             <i class="fas fa-times"></i>
           </span>
           <img class="image" :src="image" alt="" />
@@ -92,6 +93,11 @@ export default {
           reader.readAsDataURL(file);
         }
       }
+    },
+
+    removeImage(index) {
+      this.images.splice(index, 1);
+      this.$emit("change", this.images);
     }
   }
 };
@@ -134,5 +140,12 @@ export default {
 
 .select-image-container {
   max-width: 200px;
+}
+
+.remove-image {
+  transition: color ease 0.2s;
+  &:hover {
+    color: red !important;
+  }
 }
 </style>
