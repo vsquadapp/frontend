@@ -376,7 +376,7 @@
           Cadastrar produto
           <div
             v-if="loading"
-            class="spinner-border spinner-border-sm mb-2"
+            class="spinner-border text-primary mb-2"
             role="status"
           ></div>
         </button>

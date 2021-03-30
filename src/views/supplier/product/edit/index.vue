@@ -324,12 +324,12 @@
       </div>
 
       <div class="row mb-5">
-        <div class="col-12  text-right">
+        <div class="col-12 text-right">
           <button class="btn btn-primary" @click="submit" :disabled="loading">
             Salvar
             <div
               v-if="loading"
-              class="spinner-border text-primary mb-2"
+              class="spinner-border spinner-border-sm mb-2"
               role="status"
             ></div>
           </button>
