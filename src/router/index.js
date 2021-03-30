@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import SupplierTemplate from "./../template/supplier/Template";
 import AdminTemplate from "./../template/admin/Template";
 import SellerTemplate from "./../template/seller/Template";
@@ -324,7 +324,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes
 });
 
@@ -341,6 +341,11 @@ router.beforeEach((to, from, next) => {
     return ifAuthenticated(to, from, next);
   }
   next();
+});
+
+const DEFAULT_TITLE = "VSQUAD";
+router.afterEach(to => {
+  document.title = to.meta.title || DEFAULT_TITLE;
 });
 
 export default router;
