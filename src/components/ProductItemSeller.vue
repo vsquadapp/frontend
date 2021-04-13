@@ -85,6 +85,7 @@ import formatMoney from "@/utils/formatMoney";
 import html2canvas from "html2canvas";
 import canvas2image from "canvas2image-2";
 import linkGenerator from "@/utils/linkGenerator";
+import SellerService from "@/services/sellers";
 
 export default {
   props: {
@@ -162,11 +163,7 @@ export default {
         cancelButtonText: "Cancelar",
         showLoaderOnConfirm: true,
         preConfirm: () => {
-          return new Promise(resolve => {
-            setTimeout(() => {
-              resolve(true);
-            }, 500);
-          })
+          return SellerService.removeProduct(this.seller.id, this.product.id)
             .then(() => {
               return true;
             })
@@ -177,10 +174,12 @@ export default {
         allowOutsideClick: () => !this.$swal.isLoading()
       }).then(response => {
         if (response.isConfirmed) {
-          this.$swal.fire({
-            icon: "success",
-            title: `Produto removido com sucesso!`
-          });
+          this.$swal
+            .fire({
+              icon: "success",
+              title: `Produto removido com sucesso!`
+            })
+            .then(() => this.$parent.$emit("update-list"));
         }
       });
     }

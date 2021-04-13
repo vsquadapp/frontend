@@ -6,7 +6,7 @@
           <categories-list :total="total_products" />
         </div>
         <div class="col-12 col-lg-9">
-          <products-list :products="products" />
+          <products-list :products="products" @update-list="reloadList" />
 
           <div v-if="showPagination" class="text-center mb-5">
             <button class="btn btn-primary" @click="loadProducts">
@@ -96,6 +96,13 @@ export default {
       this.pagination.last_page = response.data.last_page;
 
       this.loading = false;
+    },
+
+    async reloadList() {
+      this.pagination.loading = true;
+      this.pagination.current_page = 1;
+      this.loadProducts();
+      this.pagination.loading = false;
     },
 
     async nextPage() {

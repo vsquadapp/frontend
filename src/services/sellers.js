@@ -7,6 +7,12 @@ export function addProduct(seller, productId) {
   );
 }
 
+export function removeProduct(seller, productId) {
+  return axios.post(
+    `${baseUrl}/api/sellers/${seller}/products/${productId}/remove`
+  );
+}
+
 export function categories(seller, page = 1, items = 15) {
   return axios.get(
     `${baseUrl}/api/sellers/${seller}/categories?page=${page}&items=${items}`
@@ -45,6 +51,7 @@ export function update(seller, data) {
 
 export default {
   addProduct,
+  removeProduct,
   categories,
   products,
   dashboard,
