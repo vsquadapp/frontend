@@ -130,7 +130,17 @@ export default {
         `image-content-${this.product.id}`
       );
 
-      html2canvas(element).then(function(canvas) {
+      document
+        .querySelectorAll(`#image-content-${this.product.id} img`)
+        .forEach(imageElement => {
+          imageElement.crossOrigin = "anonymous";
+          imageElement.setAttribute("crossOrigin", "anonymous");
+          imageElement.src = imageElement.src + "?v=" + new Date().getTime();
+        });
+
+      html2canvas(element, {
+        useCORS: true
+      }).then(canvas => {
         canvas2image.saveAsPNG(canvas, canvas.width, canvas.height);
       });
     },
