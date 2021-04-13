@@ -374,15 +374,15 @@ const plans = [
   {
     id: 0,
     title: "Clássico",
-    items: [{ icon: "fas fa-low-vision", text: "Exposição baixa" }],
-    tax: 0.02
-  },
-  {
-    id: 1,
-    title: "Premium",
-    items: [{ icon: "far fa-eye text-success", text: "Exposição máxima" }],
+    items: [{ icon: "fas fa-low-vision", text: "Exposição máxima" }],
     tax: 0.05
   }
+  // {
+  //   id: 1,
+  //   title: "Premium",
+  //   items: [{ icon: "far fa-eye text-success", text: "Exposição máxima" }],
+  //   tax: 0.05
+  // }
 ];
 
 export default {
