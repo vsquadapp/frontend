@@ -1,5 +1,5 @@
 <template>
-  <page title="Pedidos">
+  <page title="Produtos">
     <div v-if="loading" class="row">
       <div class="col-12 d-flex justify-content-center mt-5">
         <div class="spinner-border text-primary" role="status">
@@ -8,8 +8,8 @@
       </div>
     </div>
     <div v-else class="row">
-      <div v-if="orders.length" class="col-12 col-lg-9">
-        <orders-list :orders="orders" />
+      <div v-if="products.length" class="col-12 col-lg-9">
+        <products-list :products="products" @update-list="reloadProducts" />
 
         <div v-if="showPagination" class="text-center my-3">
           <button class="btn btn-primary" @click="nextPage">
@@ -26,7 +26,7 @@
       </div>
       <div v-else>
         <div class="col-12">
-          Nenhum pedido encontrado.
+          Nenhum produto encontrado.
         </div>
       </div>
     </div>
@@ -36,16 +36,16 @@
 <script>
 import { mapGetters } from "vuex";
 import Page from "@/components/Page";
-import OrdersList from "./OrdersList";
+import ProductsList from "./ProductsList";
 
 import AdminService from "@/services/admin";
 
 export default {
-  components: { Page, OrdersList },
+  components: { Page, ProductsList },
 
   data() {
     return {
-      orders: [],
+      products: [],
       pagination: {
         current_page: 1,
         last_page: 1,
@@ -58,7 +58,7 @@ export default {
 
   mounted() {
     this.search = this.$route.query.search;
-    this.loadOrders();
+    this.loadProducts();
   },
 
   computed: {
@@ -71,10 +71,10 @@ export default {
 
   methods: {
     clearSearch() {
-      this.$router.push({ name: "Admin.OrdersList", query: { search: "" } });
+      this.$router.push({ name: "Admin.ProductsList", query: { search: "" } });
     },
 
-    async loadOrders() {
+    async loadProducts() {
       this.loading = true;
 
       const data = {
@@ -86,12 +86,12 @@ export default {
         }
       };
 
-      const response = await AdminService.orders(this.user.id, data);
+      const response = await AdminService.products(this.user.id, data);
 
       if (this.pagination.current_page === 1) {
-        this.orders = [...response.data.data];
+        this.products = [...response.data.data];
       } else {
-        this.orders = [...this.orders, ...response.data.data];
+        this.products = [...this.products, ...response.data.data];
       }
 
       this.pagination.last_page = response.data.last_page;
@@ -101,23 +101,30 @@ export default {
       return response;
     },
 
-    async nextPage() {
+    async reloadProducts() {
       this.pagination.loading = true;
-      this.pagination.current_page++;
-      await this.loadOrders();
+      this.pagination.current_page = 1;
+      await this.loadProducts();
       this.pagination.loading = false;
     },
 
-    async searchOrders() {
+    async nextPage() {
+      this.pagination.loading = true;
+      this.pagination.current_page++;
+      await this.loadProducts();
+      this.pagination.loading = false;
+    },
+
+    async searchProducts() {
       this.pagination.current_page = 1;
-      await this.loadOrders();
+      await this.loadProducts();
     }
   },
 
   watch: {
     "$route.query.search"(value) {
       this.search = value;
-      this.searchOrders();
+      this.searchProducts();
     }
   }
 };

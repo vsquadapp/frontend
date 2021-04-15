@@ -13,6 +13,10 @@ export function sellers(user_id, params) {
   return axios.get(`${baseUrl}/api/admin/${user_id}/sellers`, { params });
 }
 
+export function products(user_id, params) {
+  return axios.get(`${baseUrl}/api/admin/${user_id}/products`, { params });
+}
+
 export function orders(user_id, params) {
   return axios.get(`${baseUrl}/api/admin/${user_id}/orders`, { params });
 }
@@ -37,14 +41,20 @@ export function verifySeller(seller_id) {
   return axios.post(`${baseUrl}/api/sellers/${seller_id}/verify`);
 }
 
+export function removeProduct(product_id) {
+  return axios.delete(`${baseUrl}/api/admin/products/${product_id}`);
+}
+
 export default {
   dashboard,
   suppliers,
   sellers,
   orders,
+  products,
   markOrderAsPaid,
   sellerById,
   supplerById,
   verifySupplier,
-  verifySeller
+  verifySeller,
+  removeProduct
 };

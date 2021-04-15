@@ -22,6 +22,13 @@
     </li>
 
     <li class="nav-item active">
+      <router-link class="nav-link" :to="{ name: 'Admin.ProductsList' }">
+        <i class="fas fa-box"></i>
+        <span class="pl-1">Produtos</span>
+      </router-link>
+    </li>
+
+    <li class="nav-item active">
       <router-link class="nav-link" :to="{ name: 'Admin.SellersList' }">
         <i class="fas fa-user-tie"></i>
         <span class="pl-1">Vendedores</span>

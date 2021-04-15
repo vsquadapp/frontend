@@ -30,6 +30,7 @@
           :loading="productsInfo.status === 'loading'"
           color="primary"
           icon="fas fa-box-open"
+          :redirect-to="{ name: 'Admin.ProductsList' }"
         />
       </div>
 

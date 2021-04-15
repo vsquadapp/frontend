@@ -295,6 +295,15 @@ const routes = [
           import(
             /* webpackChunkName: "admin-orders-list" */ "../views/admin/orders/list"
           )
+      },
+      {
+        path: "products",
+        meta: { requiresAuth: true },
+        name: "Admin.ProductsList",
+        component: () =>
+          import(
+            /* webpackChunkName: "admin-products-list" */ "../views/admin/products/list"
+          )
       }
     ]
   },
