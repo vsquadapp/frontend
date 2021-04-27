@@ -37,9 +37,13 @@
                         type="text"
                         required
                         class="form-control form-control-user"
+                        :class="{ 'is-invalid': form.errors.document }"
                         placeholder="CPF / CNPJ"
                         v-model="user.supplier.document"
                       />
+                      <div class="invalid-feedback">
+                        CPF/CNPJ é obrigatório
+                      </div>
                     </div>
                     <div class="form-group">
                       <input
@@ -49,10 +53,14 @@
                         required
                         autocomplete
                         class="form-control form-control-user"
+                        :class="{ 'is-invalid': form.errors.email }"
                         aria-describedby="emailHelp"
                         placeholder="Email"
                         v-model="user.email"
                       />
+                      <div class="invalid-feedback">
+                        {{ form.errors.email }}
+                      </div>
                     </div>
                     <div class="form-group">
                       <input
@@ -199,7 +207,8 @@ export default {
   data() {
     return {
       form: {
-        status: ""
+        status: "",
+        errors: {}
       },
       cepRequest: {
         status: ""
@@ -231,14 +240,23 @@ export default {
     ...mapActions(["register"]),
 
     async submit() {
+      this.resetErrors();
       try {
         this.form.status = "loading";
         await this.register(this.user);
         this.$router.push({ name: "Supplier.Dashboard" });
         this.form.status = "success";
       } catch (err) {
+        const data = JSON.parse(err.response.data);
+        this.handleErrors(data);
         this.form.status = "error";
       }
+    },
+
+    handleErrors(errors) {
+      Object.keys(errors).forEach(key => {
+        this.form.errors[key] = errors[key][0];
+      });
     },
 
     validatePassword() {
@@ -249,6 +267,10 @@ export default {
       } else {
         confirmElement.setCustomValidity("");
       }
+    },
+
+    resetErrors() {
+      this.form.errors = {};
     },
 
     async getCEP() {
