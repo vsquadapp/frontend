@@ -57,6 +57,7 @@
                         class="form-control form-control-user"
                         placeholder="CPF / CNPJ"
                         v-model="user.seller.document"
+                        v-maska="['###.###.###-##', '##.###.###/####-##']"
                       />
                     </div>
 
@@ -120,6 +121,7 @@
                         class="form-control form-control-user"
                         placeholder="Telefone / Whatsapp"
                         v-model="user.seller.phone"
+                        v-maska="'(##) #####-####'"
                         required
                       />
                     </div>

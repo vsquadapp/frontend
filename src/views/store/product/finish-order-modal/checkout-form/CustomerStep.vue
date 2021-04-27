@@ -37,6 +37,7 @@
         type="text"
         class="form-control"
         v-model="customer.phone"
+        v-maska="'(##) #####-####'"
       />
     </div>
   </div>

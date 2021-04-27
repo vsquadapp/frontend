@@ -67,8 +67,9 @@
                   id="cep"
                   type="text"
                   class="form-control"
-                  v-model="form.address.zipcode"
                   @blur="searchCep"
+                  v-model="form.address.zipcode"
+                  v-maska="'#####-###'"
                 />
               </div>
             </div>

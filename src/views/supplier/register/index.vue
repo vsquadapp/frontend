@@ -40,6 +40,7 @@
                         :class="{ 'is-invalid': form.errors.document }"
                         placeholder="CPF / CNPJ"
                         v-model="user.supplier.document"
+                        v-maska="['###.###.###-##', '##.###.###/####-##']"
                       />
                       <div class="invalid-feedback">
                         CPF/CNPJ é obrigatório
@@ -71,6 +72,7 @@
                         class="form-control form-control-user"
                         placeholder="Telefone / Whatsapp"
                         v-model="user.supplier.phone"
+                        v-maska="'(##) #####-####'"
                       />
                     </div>
                     <div class="form-group">
@@ -116,6 +118,7 @@
                         class="form-control form-control-user"
                         placeholder="CEP"
                         v-model="user.address.zipcode"
+                        v-maska="'#####-###'"
                       />
                     </div>
 

@@ -98,6 +98,7 @@
             class="form-control"
             v-model="address.zipcode"
             @blur="searchCep"
+            v-maska="'#####-###'"
           />
         </div>
       </div>
