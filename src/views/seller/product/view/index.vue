@@ -14,6 +14,7 @@
                     v-for="(image, index) of product.images"
                     :key="index"
                     class="thumb"
+                    @click="selectImage(image.image)"
                   >
                     <img :src="image.image" />
                   </div>
@@ -22,12 +23,12 @@
                   <img
                     v-if="product.images.length"
                     class="main-image"
-                    :src="product.images[0].image"
+                    :src="currentImage"
                   />
                   <img
                     v-else
                     class="main-image"
-                    src="medias/alt-photo.png"
+                    src="/medias/alt-photo.png"
                     alt=""
                   />
                 </div>
@@ -182,7 +183,8 @@ export default {
   data() {
     return {
       product: null,
-      addToCatalogLoading: false
+      addToCatalogLoading: false,
+      currentImage: ""
     };
   },
 
@@ -223,6 +225,7 @@ export default {
       if (this.product?.attribute) {
         this.product.attribute = JSON.parse(this.product.attribute);
       }
+      this.selectImage(this.product?.images[0]?.image);
     },
 
     async addToCatalog() {
@@ -247,6 +250,10 @@ export default {
       }
 
       this.addToCatalogLoading = false;
+    },
+
+    selectImage(image) {
+      if (image) this.currentImage = image;
     }
   }
 };
