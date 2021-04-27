@@ -37,6 +37,7 @@
                         name="gender"
                         id="gender"
                         v-model="user.seller.gender"
+                        required
                       >
                         <option value="" disabled selected>
                           Selecione o sexo
@@ -70,6 +71,7 @@
                         type="date"
                         class="form-control form-control-user"
                         v-model="user.seller.birthdate"
+                        required
                       />
                     </div>
 
@@ -84,13 +86,13 @@
                         placeholder="Nome da sua loja"
                         v-model="user.seller.slug"
                       />
+                      <div class="invalid-feedback">
+                        {{ errors.slug }}
+                      </div>
                       <div class="text-secondary">
                         <small>
                           Escolha um nome para usa loja dentro do VSquad.
                         </small>
-                      </div>
-                      <div class="invalid-feedback">
-                        {{ errors.slug }}
                       </div>
                     </div>
 
@@ -118,6 +120,7 @@
                         class="form-control form-control-user"
                         placeholder="Telefone / Whatsapp"
                         v-model="user.seller.phone"
+                        required
                       />
                     </div>
                     <div class="form-group">
@@ -205,7 +208,8 @@ export default {
         user_type: "seller"
       },
       errors: {
-        email: false
+        email: false,
+        slug: false
       }
     };
   },
@@ -222,15 +226,26 @@ export default {
         this.form.status = "success";
       } catch (err) {
         const data = JSON.parse(err.response.data);
-        if (data?.email) {
-          const errors = data.email;
-          if (errors.includes("The email has already been taken.")) {
-            this.errors.email = "Email já cadastrado no sistema";
-          } else {
-            this.errors.email = "Corrija o seu email";
-          }
-        }
+        this.handleErrors(data);
         this.form.status = "error";
+      }
+    },
+
+    handleErrors(data) {
+      if (data?.email) {
+        const errors = data.email;
+        if (errors.includes("The email has already been taken.")) {
+          this.errors.email = "Email já cadastrado no sistema";
+        } else {
+          this.errors.email = "Corrija o seu email";
+        }
+      }
+
+      if (data?.["seller.slug"]) {
+        const errors = data["seller.slug"];
+        if (errors.includes("The seller.slug has already been taken.")) {
+          this.errors.slug = "Nome da loja já cadastrado no sistema!";
+        }
       }
     },
 
@@ -246,6 +261,7 @@ export default {
 
     resetErrors() {
       this.errors.email = false;
+      this.errors.slug = false;
     }
   }
 };
