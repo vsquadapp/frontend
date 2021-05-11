@@ -1,5 +1,5 @@
 <template>
-  <page title="Fornecedores">
+  <page title="Lojistas">
     <div v-if="loading" class="row">
       <div class="col-12 d-flex justify-content-center mt-5">
         <div class="spinner-border text-primary" role="status">

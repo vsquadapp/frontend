@@ -17,7 +17,7 @@
     <li class="nav-item active">
       <router-link class="nav-link" :to="{ name: 'Admin.SuppliersList' }">
         <i class="fas fa-store"></i>
-        <span class="pl-1">Fornecedores</span>
+        <span class="pl-1">Lojistas</span>
       </router-link>
     </li>
 

@@ -42,7 +42,7 @@
                 <td colspan="2">{{ orderStatus }}</td>
               </tr>
               <tr>
-                <th>Fornecedor</th>
+                <th>Lojista</th>
                 <td>{{ order.product.supplier.name }}</td>
                 <td>{{ order.product.supplier.phone }}</td>
               </tr>

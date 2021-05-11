@@ -6,7 +6,7 @@
           <thead>
             <tr>
               <th>ID</th>
-              <th>Fornecedor</th>
+              <th>Lojista</th>
               <th>Vendedor</th>
               <th>Status</th>
               <th>Tipo de entrega</th>

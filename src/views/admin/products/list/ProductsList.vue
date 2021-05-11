@@ -7,7 +7,7 @@
             <tr>
               <th>ID</th>
               <th>Nome</th>
-              <th>Fornecedor</th>
+              <th>Lojista</th>
               <th>Data de criação</th>
             </tr>
           </thead>

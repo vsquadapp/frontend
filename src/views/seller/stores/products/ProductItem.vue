@@ -38,7 +38,7 @@ export default {
     },
 
     comissionPrice() {
-      return formatMoney(this.produce.comission_price);
+      return formatMoney(this.product.comission_price);
     },
 
     outStock() {

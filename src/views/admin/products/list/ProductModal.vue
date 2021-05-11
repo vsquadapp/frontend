@@ -52,7 +52,7 @@
                 <td colspan="2">{{ comissionPrice }}</td>
               </tr>
               <tr>
-                <th>Fornecedor</th>
+                <th>Lojista</th>
                 <td>{{ product.supplier.name }}</td>
                 <td>{{ product.supplier.phone }}</td>
               </tr>

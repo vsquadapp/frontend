@@ -9,7 +9,7 @@
                 <div class="px-4 px-lg-0 py-5">
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">
-                      Cadastro de fornecedor
+                      Cadastro de Lojista
                     </h1>
                   </div>
                   <form class="user" @submit.prevent="submit">

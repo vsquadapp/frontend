@@ -34,7 +34,7 @@
         </span>
       </div>
     </div>
-    <div v-if="seller.user.verified" class="row">
+    <!-- <div v-if="seller.user.verified" class="row">
       <div class="form-group col-12">
         Vendedor verificado.
       </div>
@@ -50,7 +50,7 @@
           </button>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!seller.orders.length">
-      Esse fornecedor não possui vendas.
+      Esse lojista não possui vendas.
     </div>
     <div v-else>
       <div class="table-responsive">

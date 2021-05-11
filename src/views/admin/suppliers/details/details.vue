@@ -34,15 +34,15 @@
         </span>
       </div>
     </div>
-    <div v-if="supplier.user.verified" class="row">
+    <!-- <div v-if="supplier.user.verified" class="row">
       <div class="form-group col-12">
-        Fornecedor verificado.
+        Lojista verificado.
       </div>
     </div>
     <div class="row" v-else>
       <div class="form-group col-12">
         <div>
-          Fornecedor não verificado.
+          Lojista não verificado.
         </div>
         <div>
           <button @click="verify" class="btn btn-primary">
@@ -50,7 +50,7 @@
           </button>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -64,8 +64,8 @@ export default {
     verify() {
       const supplier = this.supplier;
       this.$swal({
-        title: "Deseja verificar o Fornecedor?",
-        text: "O fornecedor só terá acesso a plataforma depois de verificado.",
+        title: "Deseja verificar o Lojista?",
+        text: "O Lojista só terá acesso a plataforma depois de verificado.",
         inputAttributes: {
           autocapitalize: "off"
         },
@@ -90,8 +90,8 @@ export default {
         if (response.isConfirmed) {
           this.$swal.fire({
             icon: "success",
-            title: `Fornecedor Verificado!`,
-            text: "Agora o Fornecedor poderá ter acesso ao nosso painel."
+            title: `Lojista Verificado!`,
+            text: "Agora o Lojista poderá ter acesso ao nosso painel."
           });
         }
       });

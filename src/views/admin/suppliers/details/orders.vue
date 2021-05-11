@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!supplier.orders.length">
-      Esse fornecedor não possui vendas.
+      Esse Lojista não possui vendas.
     </div>
     <div v-else>
       <div class="table-responsive">
@@ -73,7 +73,7 @@ export default {
 
     paid(order) {
       this.$swal({
-        title: "O fornecedor pagou a comissão do produto?",
+        title: "O Lojista pagou a comissão do produto?",
         inputAttributes: {
           autocapitalize: "off"
         },

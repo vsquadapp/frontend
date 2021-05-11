@@ -3,9 +3,13 @@
     class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
   >
     <div class="container px-0 px-sm-5">
-      <a class="sidebar-brand d-flex align-items-center justify-content-center">
-        <div class="sidebar-brand-text mx-3">VSquad</div>
-      </a>
+      <span
+        @click="redirectToSeller"
+        class="btn btn-link sidebar-brand d-flex align-items-center justify-content-center"
+      >
+        <!-- <div class="sidebar-brand-text mx-3">VSquad</div> -->
+        <div class="sidebar-brand-text mx-3">{{ store.slug }}</div>
+      </span>
 
       <!-- Topbar Search -->
       <!-- <form
@@ -101,6 +105,15 @@ export default {
 
   computed: {
     ...mapGetters(["store"])
+  },
+
+  methods: {
+    redirectToSeller() {
+      this.$router.push({
+        name: "Store.Home",
+        params: { slug: this.store.slug }
+      });
+    }
   }
 };
 </script>

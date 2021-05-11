@@ -36,7 +36,7 @@
 
       <div class="col-xl-3 col-md-6 mb-4">
         <board
-          title="Fornecedores"
+          title="Lojistas"
           :value="suppliers.value"
           :loading="suppliers.status === 'loading'"
           color="primary"

@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="click-here" @click="redirectToSeller">
     <div>
-      <h5 class="title text-gray-900 mb-3">Informações do vendedor</h5>
+      <h3 class="title mb-3">VISITE MINHA LOJA!</h3>
     </div>
 
-    <div class="seller-info" @click="redirectToSeller">
+    <div class="seller-info">
       <h6 class="seller-name text-gray-900 mb-0">{{ store.slug }}</h6>
       <small>{{ store.name }}</small>
       <p class="seller-official">Loja oficial do vsquad</p>
@@ -32,9 +32,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.seller-block .title {
-  font-size: 18px;
-  font-weight: 400;
+.click-here {
+  cursor: pointer;
+
+  &:hover {
+    .title,
+    .seller-name,
+    .seller-official {
+      color: #858796 !important;
+    }
+  }
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #000;
+  transition: color 0.3s ease;
 }
 
 .seller-name {
@@ -47,16 +61,5 @@ export default {
   font-size: 14px;
   font-weight: 300;
   transition: color 0.3s ease;
-}
-
-.seller-info {
-  cursor: pointer;
-
-  &:hover {
-    .seller-name,
-    .seller-official {
-      color: #858796 !important;
-    }
-  }
 }
 </style>
