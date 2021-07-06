@@ -134,7 +134,7 @@
                         <select
                           id="deliveryType"
                           class="form-control"
-                          v-model="product.delivery_value"
+                          v-model="product.delivery_type"
                           required
                         >
                           <option value="pickup">
@@ -152,7 +152,7 @@
                   </div>
 
                   <div
-                    v-if="product.delivery_value !== 'pickup'"
+                    v-if="product.delivery_type !== 'pickup'"
                     class="form-group"
                   >
                     <label for="">Valor da entrega</label>
