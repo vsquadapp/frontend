@@ -8,7 +8,7 @@
         class="btn btn-link sidebar-brand d-flex align-items-center justify-content-center"
       >
         <!-- <div class="sidebar-brand-text mx-3">VSquad</div> -->
-        <div class="sidebar-brand-text mx-3">{{ store.slug }}</div>
+        <div class="sidebar-brand-text mx-3">{{ store ? store.slug : "" }}</div>
       </span>
 
       <!-- Topbar Search -->
