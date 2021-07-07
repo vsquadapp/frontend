@@ -70,26 +70,34 @@
                   </div>
                 </div>
 
-                <div class="d-flex justify-content-center text-center row">
-                  <div class="col-sm-4">
+                <div class="d-flex justify-content-around row">
+                  <div>
                     <small>Valor da venda</small>
                     <p class="mb-2 text-gray-800">
                       {{ salePrice }}
                     </p>
                   </div>
-                  <div class="col-sm-4">
+                  <div v-if="isDelivery">
+                    <small>Valor do frete</small>
+                    <p class="mb-2 text-gray-800">
+                      {{ deliveryPrice }}
+                    </p>
+                  </div>
+                  <div>
                     <small>Valor recebido</small>
                     <p class="text-gray-900">
                       {{ receivedPrice }}
                     </p>
                   </div>
-                  <div class="col-sm-4">
+                  <div>
                     <small>Comissão para o vendedor</small>
                     <p class="text-gray-900">
                       {{ comissionPrice }}
                     </p>
                   </div>
-                  <div class="col-sm-4">
+                </div>
+                <div>
+                  <div>
                     <small>Data da venda</small>
                     <p class="text-gray-800">
                       {{ saleDate }}
@@ -131,10 +139,17 @@ export default {
 
     salePrice() {
       let total = this.saleSubtotal;
-      if (this.isDelivery) {
-        total += this.sale.delivery_price;
-      }
+      // if (this.isDelivery) {
+      //   total += this.sale.delivery_price;
+      // }
       return formatMoney(total / 100);
+    },
+
+    deliveryPrice() {
+      if (this.isDelivery) {
+        return formatMoney(this.sale.delivery_price / 100);
+      }
+      return formatMoney(0);
     },
 
     receivedPrice() {
@@ -147,7 +162,7 @@ export default {
     },
 
     comissionPrice() {
-      return formatMoney((this.sale.comission * this.sale.quantity) / 100);
+      return formatMoney(this.sale.comission / 100);
     },
 
     saleDate() {

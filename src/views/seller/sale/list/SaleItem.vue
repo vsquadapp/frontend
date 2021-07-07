@@ -109,7 +109,7 @@ export default {
     },
 
     comissionPrice() {
-      return formatMoney((this.sale.comission * this.sale.quantity) / 100);
+      return formatMoney(this.sale.comission / 100);
     },
 
     saleDate() {

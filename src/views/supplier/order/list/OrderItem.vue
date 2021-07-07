@@ -57,15 +57,15 @@
                 </p>
 
                 <div class="row mb-3">
-                  <div class="col-sm-6">
-                    <small>Nome do cliente</small>
+                  <div class="col-sm-12">
+                    <small><strong>Nome do cliente</strong></small>
                     <div>
                       {{ order.client.name }}
                     </div>
                   </div>
 
-                  <div class="col-sm-6">
-                    <small>Nome do vendedor</small>
+                  <div class="col-sm-12">
+                    <small><strong>Nome do vendedor</strong></small>
                     <div>
                       {{ order.seller.name }}
                     </div>
@@ -74,7 +74,7 @@
 
                 <div v-if="isDelivery" class="row mb-3">
                   <div class="col-sm-12">
-                    <small>Endereço de entrega</small>
+                    <small><strong>Endereço de entrega</strong></small>
                     <div>
                       <span>{{ order.client.street }}</span>
                       <span v-if="order.client.number">
@@ -98,6 +98,12 @@
                     <small>Valor da venda</small>
                     <p class="mb-2 text-gray-800">
                       {{ orderPrice }}
+                    </p>
+                  </div>
+                  <div v-if="isDelivery">
+                    <small>Valor do frete</small>
+                    <p class="mb-2 text-gray-800">
+                      {{ deliveryPrice }}
                     </p>
                   </div>
                   <div>
@@ -150,15 +156,23 @@ export default {
 
     orderPrice() {
       let total = this.orderSubtotal;
-      if (this.isDelivery) {
-        total += this.order.delivery_price;
-      }
+      // if (this.isDelivery) {
+      //   total += this.order.delivery_price;
+      // }
       return formatMoney(total / 100);
+    },
+
+    deliveryPrice() {
+      if (this.isDelivery) {
+        return formatMoney(this.order.delivery_price / 100);
+      }
+      return formatMoney(0);
     },
 
     receivedPrice() {
       const received =
         this.orderSubtotal - this.order.tax - this.order.comission;
+
       return formatMoney(received / 100);
     },
 

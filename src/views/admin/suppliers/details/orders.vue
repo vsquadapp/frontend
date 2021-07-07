@@ -68,7 +68,7 @@ export default {
     },
 
     orderTotalTax(order) {
-      return formatMoney((order.comission * order.quantity + order.tax) / 100);
+      return formatMoney((order.comission + order.tax) / 100);
     },
 
     paid(order) {
